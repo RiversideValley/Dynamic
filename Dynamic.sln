@@ -26,9 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		DLR.ruleset = DLR.ruleset
 		global.json = global.json
-		LICENSE = LICENSE
+		LICENSE.md = LICENSE.md
 		make.ps1 = make.ps1
-		.github\README.md = .github\README.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Dynamic.Test", "Tests\Riverside.Dynamic.Test\Riverside.Dynamic.Test.csproj", "{CBDDAD40-D44E-458A-AA53-9A6DB62EC4A1}"

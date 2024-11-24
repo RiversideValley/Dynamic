@@ -70,7 +70,7 @@
   <Target Name="Stage" DependsOnTargets="StageBuild">
     <ItemGroup>
       <InfoFiles Include="$(RootDir)\LICENSE.md" />
-      <InfoFiles Include="$(RootDir)\.github\README.md" />
+      <InfoFiles Include="$(RootDir)\README.md" />
     </ItemGroup>
     <Copy DestinationFolder="$(StageDir)" SourceFiles="@(InfoFiles)" />
     <ItemGroup>
@@ -106,7 +106,7 @@
   <Target Name="ZipPackage" DependsOnTargets="Stage;MakePackageDir"
           Outputs="$(PackageDir)\DynamicLanguageRuntime.$(PackageVersion).zip">
     <ItemGroup>
-      <ZipFiles Include="$(StageDir)\**\*.dll;$(StageDir)\**\*.xml;$(StageDir)\.github\README.md;$(StageDir)\LICENSE.md"
+      <ZipFiles Include="$(StageDir)\**\*.dll;$(StageDir)\**\*.xml;$(StageDir)\README.md;$(StageDir)\LICENSE.md"
                 Exclude="$(StageDir)\netcoreapp3.1\*;$(StageDir)\net9.0*\*" />
     </ItemGroup>
     <Message Text="$(ZipFiles)" />

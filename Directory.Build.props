@@ -54,7 +54,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </Content>
-    <None Include="$(DlrRootDir)\.github\README.md">
+    <None Include="$(DlrRootDir)\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
