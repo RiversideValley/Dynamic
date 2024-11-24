@@ -79,28 +79,23 @@
     <Copy DestinationFolder="$(StageDir)\%(RecursiveDir)" SourceFiles="@(AssemblyFiles)" />
   </Target>
 
-  <Target Name="Package" DependsOnTargets="ZipPackage;NuGetPackage;DebPackage" />
+  <Target Name="Package" DependsOnTargets="ZipPackage;DebPackage" />
 
   <Target Name="MakePackageDir">
     <MakeDir Directories="$(PackageDir)" Condition="!Exists('$(PackageDir)')" />
   </Target>
 
   <ItemGroup>
-    <Package Include="DynamicLanguageRuntime">
-      <NuSpecDir>$(RootDir)/Packaging/NuGet</NuSpecDir>
-    </Package>
-  </ItemGroup>
-
-  <ItemGroup>
-    <NuGetPackageInputs Include="@(Package->'%(NuSpecDir)/*.nuspec')" />
     <NuGetPackageOutputs Include="@(Package->'$(PackageDir)/$(Filename).$(PackageVersion).nupkg')" />
   </ItemGroup>
 
-  <Target Name="NuGetPackage" DependsOnTargets="Stage;MakePackageDir"
-          Inputs="@(NuGetPackageInputs);@(StageOutputs)"
-          Outputs="@(NuGetPackageOutputs)">
-    <MSBuild Projects="%(Package.NuSpecDir)\Riverside.Dynamic.Packaging.csproj" Targets="Restore" />
-    <MSBuild Projects="%(Package.NuSpecDir)\Riverside.Dynamic.Packaging.csproj" Targets="Pack" Properties="$(BuildProperties);NuspecFile=%(Package.Identity).nuspec" />
+  <Target Name="NuGetPackage" DependsOnTargets="Stage;MakePackageDir" Outputs="@(NuGetPackageOutputs)">
+    <MSBuild Projects="$(DlrRootDir)\Scripting\Riverside.Scripting.csproj" Targets="Restore" />
+    <MSBuild Projects="$(DlrRootDir)\Metadata\Riverside.Scripting.Metadata.csproj" Targets="Restore" />
+    <MSBuild Projects="$(DlrRootDir)\Dynamic\Riverside.Dynamic.csproj" Targets="Restore" />
+    <MSBuild Projects="$(DlrRootDir)\Scripting\Riverside.Scripting.csproj" Targets="Pack" Properties="$(BuildProperties)" />
+    <MSBuild Projects="$(DlrRootDir)\Metadata\Riverside.Scripting.Metadata.csproj" Targets="Pack" Properties="$(BuildProperties)" />
+    <MSBuild Projects="$(DlrRootDir)\Dynamic\Riverside.Dynamic.csproj" Targets="Pack" Properties="$(BuildProperties)" />
   </Target>
 
   <Target Name="ZipPackage" DependsOnTargets="Stage;MakePackageDir"
