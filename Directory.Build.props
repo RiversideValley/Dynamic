@@ -28,6 +28,39 @@
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
 
+  <!-- Package information -->
+  <PropertyGroup>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Dynamic Language Runtime</Title>
+    <Authors>Riverside, slozier, DLR Contributors, Lamparter</Authors>
+    <Company>Riverside Valley Corporation</Company>
+    <Copyright>© .NET Foundation. All rights reserved.</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/RiversideValley/Dynamic</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>dynamic; dlr; ironpython; python; clr; language; dotnet; merlin; riverside</PackageTags>
+    <Description>An efficient, CLR-friendly language platform that allows developers to create languages that integrate tightly with .NET.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Version>1.4.0</Version>
+    <PackageIcon>PackageLogo.png</PackageIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="$(DlrRootDir)\.github\PackageLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+    <None Include="$(DlrRootDir)\.github\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+
   <!-- Deterministic build -->
   <PropertyGroup Condition="'$(TF_BUILD)' == 'true' or '$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>

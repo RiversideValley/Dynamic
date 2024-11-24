@@ -31,24 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\README.md = .github\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{60056F49-17D6-4C5C-80EC-F203BA2F7E3B}"
-	ProjectSection(SolutionItems) = preProject
-		Build\After.targets = Build\After.targets
-		Build\net462.props = Build\net462.props
-		Build\net6.0.props = Build\net6.0.props
-		Build\net8.0.props = Build\net8.0.props
-		Build\net9.0.props = Build\net9.0.props
-		Build\netstandard2.0.props = Build\netstandard2.0.props
-		Build\steps.yml = Build\steps.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{006DB050-2A71-4F36-BBE1-4AF6AF310C13}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{88E65B67-BFB5-4BB3-A22C-5B7EDD082B2E}"
-	ProjectSection(SolutionItems) = preProject
-		Package\nuget\DynamicLanguageRuntime.nuspec = Package\nuget\DynamicLanguageRuntime.nuspec
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Dynamic.Test", "Tests\Riverside.Dynamic.Test\Riverside.Dynamic.Test.csproj", "{CBDDAD40-D44E-458A-AA53-9A6DB62EC4A1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Scripting.Test", "Tests\Riverside.Scripting.Test\Riverside.Scripting.Test.csproj", "{56B4AA3A-42BC-4CA6-A022-703A777332AF}"
@@ -94,9 +76,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{BEE737B9-18D5-48D9-8672-9A896213C98B} = {9C454D45-326F-4EA1-8177-64341267A17F}
 		{848BBEB0-63E6-4736-B60C-23A9D733593D} = {9C454D45-326F-4EA1-8177-64341267A17F}
-		{60056F49-17D6-4C5C-80EC-F203BA2F7E3B} = {BFEE2666-74E5-49B0-BEB7-1F01CECD7F98}
-		{006DB050-2A71-4F36-BBE1-4AF6AF310C13} = {BFEE2666-74E5-49B0-BEB7-1F01CECD7F98}
-		{88E65B67-BFB5-4BB3-A22C-5B7EDD082B2E} = {006DB050-2A71-4F36-BBE1-4AF6AF310C13}
 		{CBDDAD40-D44E-458A-AA53-9A6DB62EC4A1} = {9C454D45-326F-4EA1-8177-64341267A17F}
 		{56B4AA3A-42BC-4CA6-A022-703A777332AF} = {9C454D45-326F-4EA1-8177-64341267A17F}
 	EndGlobalSection
