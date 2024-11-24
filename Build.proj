@@ -9,7 +9,7 @@
 
     <UtilDir>$(RootDir)\Util</UtilDir>
     <BinDir>$(RootDir)\bin</BinDir>
-    <BuildSysDir>$(RootDir)\Build</BuildSysDir>
+    <BuildSysDir>$(RootDir)\Packaging\Targets</BuildSysDir>
   </PropertyGroup>
 
   <Import Project="$(BuildSysDir)\Tasks.Targets" />
@@ -19,8 +19,8 @@
     <PackageVersion Condition="'$(ReleaseLevel)' == 'final'">$(MajorVersion).$(MinorVersion).$(MicroVersion)</PackageVersion>
     <PackageVersion Condition="'$(ReleaseLevel)' != 'final' or '$(ReleaseSerial)' != '0'">$(MajorVersion).$(MinorVersion).$(MicroVersion)-$(ReleaseLevel)$(ReleaseSerial)</PackageVersion>
 
-    <StageDir>$(RootDir)\Package\$(Configuration)\Stage\DynamicLanguageRuntime.$(PackageVersion)</StageDir>
-    <PackageDir>$(RootDir)\Package\$(Configuration)\Packages\DynamicLanguageRuntime.$(PackageVersion)</PackageDir>
+    <StageDir>$(RootDir)\Packaging\$(Configuration)\Stage\DynamicLanguageRuntime.$(PackageVersion)</StageDir>
+    <PackageDir>$(RootDir)\Packaging\$(Configuration)\Packages\DynamicLanguageRuntime.$(PackageVersion)</PackageDir>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -70,8 +70,8 @@
 
   <Target Name="Stage" DependsOnTargets="StageBuild">
     <ItemGroup>
-      <InfoFiles Include="$(RootDir)\LICENSE" />
-      <InfoFiles Include="$(RootDir)\README.md" />
+      <InfoFiles Include="$(RootDir)\LICENSE.md" />
+      <InfoFiles Include="$(RootDir)\.github\README.md" />
     </ItemGroup>
     <Copy DestinationFolder="$(StageDir)" SourceFiles="@(InfoFiles)" />
     <ItemGroup>
@@ -88,7 +88,7 @@
 
   <ItemGroup>
     <Package Include="DynamicLanguageRuntime">
-      <NuSpecDir>$(RootDir)/Package/nuget</NuSpecDir>
+      <NuSpecDir>$(RootDir)/Packaging/NuGet</NuSpecDir>
     </Package>
   </ItemGroup>
 
@@ -100,14 +100,14 @@
   <Target Name="NuGetPackage" DependsOnTargets="Stage;MakePackageDir"
           Inputs="@(NuGetPackageInputs);@(StageOutputs)"
           Outputs="@(NuGetPackageOutputs)">
-    <MSBuild Projects="%(Package.NuSpecDir)\NuGet.Packaging.csproj" Targets="Restore" />
-    <MSBuild Projects="%(Package.NuSpecDir)\NuGet.Packaging.csproj" Targets="Pack" Properties="$(BuildProperties);NuspecFile=%(Package.Identity).nuspec" />
+    <MSBuild Projects="%(Package.NuSpecDir)\Riverside.Dynamic.Packaging.csproj" Targets="Restore" />
+    <MSBuild Projects="%(Package.NuSpecDir)\Riverside.Dynamic.Packaging.csproj" Targets="Pack" Properties="$(BuildProperties);NuspecFile=%(Package.Identity).nuspec" />
   </Target>
 
   <Target Name="ZipPackage" DependsOnTargets="Stage;MakePackageDir"
           Outputs="$(PackageDir)\DynamicLanguageRuntime.$(PackageVersion).zip">
     <ItemGroup>
-      <ZipFiles Include="$(StageDir)\**\*.dll;$(StageDir)\**\*.xml;$(StageDir)\README.md;$(StageDir)\LICENSE"
+      <ZipFiles Include="$(StageDir)\**\*.dll;$(StageDir)\**\*.xml;$(StageDir)\.github\README.md;$(StageDir)\LICENSE.md"
                 Exclude="$(StageDir)\netcoreapp3.1\*;$(StageDir)\net9.0*\*" />
     </ItemGroup>
     <Message Text="$(ZipFiles)" />

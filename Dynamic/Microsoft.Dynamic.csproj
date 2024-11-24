@@ -39,4 +39,9 @@
 
   <Target Name="AfterBuildEnds" AfterTargets="AfterBuild" DependsOnTargets="$(AfterTargets)" />
 
+  <Import Project="$(DlrBuildDir)\$(TargetFramework).props" Condition="'$(TargetFramework)' != ''" />
+
+  <PropertyGroup>
+    <DefineConstants>$(Features);$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
 </Project>

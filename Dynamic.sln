@@ -10,11 +10,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClrAssembly", "Tests\ClrAss
 		{EB66B766-6354-4208-A3D4-AACBDCB5C3B3} = {EB66B766-6354-4208-A3D4-AACBDCB5C3B3}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Dynamic", "Src\Microsoft.Dynamic\Microsoft.Dynamic.csproj", "{EB66B766-6354-4208-A3D4-AACBDCB5C3B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Dynamic", "Dynamic\Microsoft.Dynamic.csproj", "{EB66B766-6354-4208-A3D4-AACBDCB5C3B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Scripting", "Src\Microsoft.Scripting\Microsoft.Scripting.csproj", "{02FF0909-F5AD-48CF-A86A-345E721B7E40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Scripting", "Scripting\Microsoft.Scripting.csproj", "{02FF0909-F5AD-48CF-A86A-345E721B7E40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Scripting.Metadata", "Src\Microsoft.Scripting.Metadata\Microsoft.Scripting.Metadata.csproj", "{ACDD9B9E-8FE6-439C-9521-1CCBA47F6143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Scripting.Metadata", "Metadata\Microsoft.Scripting.Metadata.csproj", "{ACDD9B9E-8FE6-439C-9521-1CCBA47F6143}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metadata", "Tests\Metadata\Metadata.csproj", "{848BBEB0-63E6-4736-B60C-23A9D733593D}"
 EndProject
@@ -28,8 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 		LICENSE = LICENSE
 		make.ps1 = make.ps1
-		NuGet.config = NuGet.config
-		README.md = README.md
+		.github\README.md = .github\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{60056F49-17D6-4C5C-80EC-F203BA2F7E3B}"
