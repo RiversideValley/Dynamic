@@ -9,13 +9,13 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     public partial class DefaultBinder : ActionBinder {
         // TODO: Rename Call to Invoke, obsolete Call
@@ -33,7 +33,7 @@ namespace Microsoft.Scripting.Actions {
         public DynamicMetaObject Call(CallSignature signature, DynamicMetaObject target, params DynamicMetaObject[] args) {
             return Call(signature, new DefaultOverloadResolverFactory(this), target, args);
         }
-        
+
         /// <summary>
         /// Provides default binding for performing a call on the specified meta objects.
         /// </summary>
@@ -108,8 +108,8 @@ namespace Microsoft.Scripting.Actions {
         #region Target acquisition
 
         /// <summary>
-        /// Gets a TargetInfo object for performing a call on this object.  
-        /// 
+        /// Gets a TargetInfo object for performing a call on this object.
+        ///
         /// If this object is a delegate we bind to the Invoke method.
         /// If this object is a MemberGroup or MethodGroup we bind to the methods in the member group.
         /// If this object is a BoundMemberTracker we bind to the methods with the bound instance.
@@ -143,8 +143,8 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Binds to the methods in a member group.  
-        /// 
+        /// Binds to the methods in a member group.
+        ///
         /// TODO: We should really only have either MemberGroup or MethodGroup, not both.
         /// </summary>
         private static TargetInfo TryGetMemberGroupTargets(DynamicMetaObject target, DynamicMetaObject[] args, MemberGroup mg) {

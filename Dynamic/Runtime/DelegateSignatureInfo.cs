@@ -6,9 +6,9 @@ using System;
 using System.Reflection;
 using System.Text;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Used as the key for the LanguageContext.GetDelegate method caching system
     /// </summary>

@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     /// <summary>
     /// Defines a kind of the source code. The parser sets its initial state accordingly.
@@ -45,7 +45,7 @@ namespace Microsoft.Scripting {
     }
 }
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static partial class EnumBounds {
         public static bool IsValid(this SourceCodeKind value) {
             return value > SourceCodeKind.Unspecified && value <= SourceCodeKind.AutoDetect;

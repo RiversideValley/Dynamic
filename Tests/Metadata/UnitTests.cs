@@ -8,7 +8,7 @@ using System.Text;
 
 using NUnit.Framework;
 
-using Microsoft.Scripting.Metadata;
+using Riverside.Scripting.Metadata;
 
 namespace Metadata {
     [TestFixture]
@@ -20,7 +20,7 @@ namespace Metadata {
                 MetadataName e = new MetadataName(fempty, null);
                 Assert.That(e, Is.EqualTo(MetadataName.Empty));
                 Assert.That(e, Is.EqualTo(MetadataNamePart.Empty));
-                
+
                 Assert.That(MetadataName.Empty.IsEmpty, Is.True);
                 Assert.That(MetadataName.Empty.GetHashCode(), Is.EqualTo(e.GetHashCode()));
                 Assert.That(MetadataName.Empty, Is.EqualTo(e));
@@ -91,7 +91,7 @@ namespace Metadata {
             byte[] b2 = Encoding.UTF8.GetBytes("__hello__\0");
             byte[] b3 = Encoding.UTF8.GetBytes("__hell\0");
             byte[] b4 = Encoding.UTF8.GetBytes("\0");
-            
+
             fixed (byte* fb1 = &b1[0]) {
                 MetadataName name = new MetadataName(fb1, null);
                 Assert.That(name.Equals(b2, 2, 5), Is.True);

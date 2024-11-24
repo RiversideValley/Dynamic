@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     internal class ComEventDesc {
         internal Guid sourceIID;
         internal int dispid;

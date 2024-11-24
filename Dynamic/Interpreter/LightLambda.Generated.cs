@@ -6,9 +6,9 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Reflection;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     public partial class LightLambda {
         #region Generated LightLambda Run Methods
 

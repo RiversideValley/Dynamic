@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Security;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     public abstract partial class CallInstruction : Instruction {
         public abstract MethodInfo Info { get; }
 
@@ -22,7 +22,7 @@ namespace Microsoft.Scripting.Interpreter {
         #region Construction
 
         internal CallInstruction() { }
-        
+
         private static readonly Dictionary<MethodInfo, CallInstruction> _cache = new Dictionary<MethodInfo, CallInstruction>();
 
         /// <exception cref="SecurityException">Instruction can't be created due to insufficient privileges.</exception>
@@ -69,7 +69,7 @@ namespace Microsoft.Scripting.Interpreter {
                 }
             }
 
-            // create it 
+            // create it
             try {
                 if (argumentCount < MaxArgs) {
                     res = FastCreate(info, parameters);
@@ -83,9 +83,9 @@ namespace Microsoft.Scripting.Interpreter {
 
                 res = new MethodInfoCallInstruction(info, argumentCount);
             } catch (NotSupportedException) {
-                // if Delegate.CreateDelegate can't handle the method fallback to 
-                // the slow reflection version.  For example this can happen w/ 
-                // a generic method defined on an interface and implemented on a class or 
+                // if Delegate.CreateDelegate can't handle the method fallback to
+                // the slow reflection version.  For example this can happen w/
+                // a generic method defined on an interface and implemented on a class or
                 // a virtual generic method.
                 res = new MethodInfoCallInstruction(info, argumentCount);
             }
@@ -109,20 +109,20 @@ namespace Microsoft.Scripting.Interpreter {
                         arrayType.GetMethod("GetValue", new[] { typeof(int)}) :
                         new Action<Array, int, object>(ArrayItemSetter1).GetMethodInfo()
                     );
-               
-                case 2: 
-                    return Create(isGetter ? 
+
+                case 2:
+                    return Create(isGetter ?
                         arrayType.GetMethod("GetValue", new[] { typeof(int), typeof(int) }) :
                         new Action<Array, int, int, object>(ArrayItemSetter2).GetMethodInfo()
                     );
 
-                case 3: 
+                case 3:
                     return Create(isGetter ?
                         arrayType.GetMethod("GetValue", new[] { typeof(int), typeof(int), typeof(int) }) :
                         new Action<Array, int, int, int, object>(ArrayItemSetter3).GetMethodInfo()
                     );
 
-                default: 
+                default:
                     return new MethodInfoCallInstruction(info, argumentCount);
             }
         }
@@ -142,7 +142,7 @@ namespace Microsoft.Scripting.Interpreter {
         private static bool ShouldCache(MethodInfo info) {
             return !ReflectionUtils.IsDynamicMethod(info);
         }
-               
+
         /// <summary>
         /// Gets the next type or null if no more types are available.
         /// </summary>
@@ -216,11 +216,11 @@ namespace Microsoft.Scripting.Interpreter {
             _target = target;
             _argumentCount = argumentCount;
         }
-        
+
         public override object Invoke(params object[] args) {
             return InvokeWorker(args);
         }
-       
+
         public override object InvokeInstance(object instance, params object[] args) {
             if (_target.IsStatic) {
                 try {

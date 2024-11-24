@@ -13,13 +13,13 @@ using System.Linq.Expressions;
 
 using ComTypes = System.Runtime.InteropServices.ComTypes;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     public class ComTypeClassDesc : ComTypeDesc, IDynamicMetaObjectProvider {
         private LinkedList<string> _itfs; // implemented interfaces
         private LinkedList<string> _sourceItfs; // source interfaces supported by this coclass
         private Type _typeObj;
-        
+
         public object CreateInstance() {
             if (_typeObj == null) {
                 _typeObj = Type.GetTypeFromCLSID(Guid);

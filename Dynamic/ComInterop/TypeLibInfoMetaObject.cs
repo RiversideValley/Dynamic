@@ -7,10 +7,10 @@ using System.Linq.Expressions;
 
 using System.Collections.Generic;
 using System.Dynamic;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     internal sealed class TypeLibInfoMetaObject : DynamicMetaObject {
         private readonly ComTypeLibInfo _info;

@@ -7,16 +7,16 @@ rmdir /s /y "%DST%"
 mkdir "%DST%"
 
 xcopy /s /y "%SRC%\Metadata.exe" "%DST%"
-xcopy /s /y "%SRC%\Microsoft.Dynamic.dll" "%DST%"
-xcopy /s /y "%SRC%\Microsoft.Scripting.dll" "%DST%"
+xcopy /s /y "%SRC%\Riverside.Dynamic.dll" "%DST%"
+xcopy /s /y "%SRC%\Riverside.Scripting.dll" "%DST%"
 
-%VSINSTR% "%SRC%\Microsoft.Dynamic.dll"
+%VSINSTR% "%SRC%\Riverside.Dynamic.dll"
 
 "%PERF_TOOLS%\vsperfcmd.exe" /start:coverage /OUTPUT:"%DST%\Metadata"
 
 "%DST%\Metadata.exe" /f "%DLR_ROOT%\Runtime\Tests\Metadata\TestFiles\1.exe"
 "%DST%\Metadata.exe" /u /d ponetmd > NUL
- 
+
 "%PERF_TOOLS%\vsperfcmd.exe" /shutdown
 
 @echo Code Coverage results generated to

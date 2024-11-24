@@ -5,9 +5,9 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public static partial class Utils {
         public static NewExpression SimpleNewHelper(ConstructorInfo constructor, params Expression[] arguments) {
             ContractUtils.RequiresNotNull(constructor, nameof(constructor));

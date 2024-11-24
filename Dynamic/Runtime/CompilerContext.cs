@@ -2,9 +2,9 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
 
     /// <summary>
     /// Represents the context that is flowed for doing Compiler.  Languages can derive

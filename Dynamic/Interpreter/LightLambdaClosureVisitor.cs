@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
 
     /// <summary>
     /// Visits a LambdaExpression, replacing the constants with direct accesses
     /// to their StrongBox fields. This is very similar to what
     /// ExpressionQuoter does for LambdaCompiler.
-    /// 
+    ///
     /// Also inserts debug information tracking similar to what the interpreter
     /// would do.
     /// </summary>

@@ -15,14 +15,14 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Ast;
-using Microsoft.Scripting.Interpreter;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Ast;
+using Riverside.Scripting.Interpreter;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
 
     // TODO: keep this?
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference")]
@@ -120,7 +120,7 @@ namespace Microsoft.Scripting.Generation {
 
         /// <summary>
         /// Returns the System.Type for any object, including null.  The type of null
-        /// is represented by None.Type and all other objects just return the 
+        /// is represented by None.Type and all other objects just return the
         /// result of Object.GetType
         /// </summary>
         public static Type GetType(object obj) {
@@ -170,7 +170,7 @@ namespace Microsoft.Scripting.Generation {
         /// Given a MethodInfo which may be declared on a non-public type this attempts to
         /// return a MethodInfo which will dispatch to the original MethodInfo but is declared
         /// on a public type.
-        /// 
+        ///
         /// Returns the original method if the method if a public version cannot be found.
         /// </summary>
         public static MethodInfo TryGetCallableMethod(Type targetType, MethodInfo method) {
@@ -209,7 +209,7 @@ namespace Microsoft.Scripting.Generation {
         /// <summary>
         /// Non-public types can have public members that we find when calling type.GetMember(...).  This
         /// filters out the non-visible members by attempting to resolve them to the correct visible type.
-        /// 
+        ///
         /// If no correct visible type can be found then the member is not visible and we won't call it.
         /// </summary>
         public static IEnumerable<MemberInfo> FilterNonVisibleMembers(Type targetType, IEnumerable<MemberInfo> members) {
@@ -649,11 +649,11 @@ namespace Microsoft.Scripting.Generation {
 
         /// <summary>
         /// Compiles the LambdaExpression.
-        /// 
+        ///
         /// If the lambda is compiled with emitDebugSymbols, it will be
         /// generated into a TypeBuilder. Otherwise, this method is the same as
         /// calling LambdaExpression.Compile()
-        /// 
+        ///
         /// This is a workaround for a CLR limitiation: DynamicMethods cannot
         /// have debugging information.
         /// </summary>
@@ -677,7 +677,7 @@ namespace Microsoft.Scripting.Generation {
         /// <summary>
         /// Compiles the LambdaExpression, emitting it into a new type, and
         /// optionally making it debuggable.
-        /// 
+        ///
         /// This is a workaround for a CLR limitiation: DynamicMethods cannot
         /// have debugging information.
         /// </summary>
@@ -705,7 +705,7 @@ namespace Microsoft.Scripting.Generation {
             var finished = type.CreateType();
 
             rewriter.InitializeFields(finished);
-            
+
             return finished.GetMethod(method.Name).CreateDelegate(lambda.Type);
         }
 

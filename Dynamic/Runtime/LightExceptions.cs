@@ -10,27 +10,27 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Ast;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Ast;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Provides support for light exceptions.  These exceptions are propagated by
     /// returning an instance of a private wrapper class containing the exception.  Code
     /// which is aware of light exceptions will branch to apporiate exception handling
-    /// blocks when in a try and otherwise return the value up the stack.  This avoids 
-    /// using the underlying CLR exception mechanism with overhead such as creating stack 
+    /// blocks when in a try and otherwise return the value up the stack.  This avoids
+    /// using the underlying CLR exception mechanism with overhead such as creating stack
     /// traces.
-    /// 
+    ///
     /// When a light exception reaches the boundary of code which is not light exception
     /// aware the caller must check to see if a light exception is being thrown and if
     /// so raise a .NET exception.
-    /// 
+    ///
     /// This class provides methods for re-writing expression trees to support light exceptions,
     /// methods to create light throw objects, check if an object is a light
     /// throw object, and turn such an object back into a .NET Exception which can be thrown.
-    /// 
+    ///
     /// Light exceptions also don't build up stack traces or interoperate with filter blocks
     /// via 2-pass exception handling.
     /// </summary>
@@ -38,15 +38,15 @@ namespace Microsoft.Scripting.Runtime {
         internal static MethodInfo _checkAndThrow = new Func<object, object>(LightExceptions.CheckAndThrow).GetMethodInfo();
 
         /// <summary>
-        /// Rewrites the provided expression to support light exceptions.  
-        /// 
+        /// Rewrites the provided expression to support light exceptions.
+        ///
         /// Calls to the returned expression, if not from other light-weight aware calls,
         /// need to call GetLightException on return to see if an exception was thrown
         /// and if so throw it.
         /// </summary>
         public static Expression Rewrite(Expression expression) {
             ContractUtils.RequiresNotNull(expression, nameof(expression));
-            
+
             return new LightExceptionRewriter().Rewrite(expression);
         }
 
@@ -63,7 +63,7 @@ namespace Microsoft.Scripting.Runtime {
         /// <summary>
         /// Returns a new expression which is re-written for light exceptions
         /// but will throw an exception if it escapes the expression.  If this
-        /// expression is part of a larger experssion which is later re-written 
+        /// expression is part of a larger experssion which is later re-written
         /// for light exceptions then it will propagate the light exception up.
         /// </summary>
         public static Expression RewriteExternal(Expression expression) {
@@ -102,7 +102,7 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// If the binder supports light exceptions then a light exception throwing expression is returned.
-        /// 
+        ///
         /// Otherwise a normal throwing expression is returned.
         /// </summary>
         public static Expression Throw(this DynamicMetaObjectBinder binder, Expression exceptionValue) {
@@ -118,7 +118,7 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// If the binder supports light exceptions then a light exception throwing expression is returned.
-        /// 
+        ///
         /// Otherwise a normal throwing expression is returned.
         /// </summary>
         public static Expression Throw(this DynamicMetaObjectBinder binder, Expression exceptionValue, Type retType) {
@@ -167,8 +167,8 @@ namespace Microsoft.Scripting.Runtime {
         /// <summary>
         /// Gets the light exception from an object which may contain a light
         /// exception.  Returns null if the object is not a light exception.
-        /// 
-        /// Used for throwing the exception at non-light exception boundaries.  
+        ///
+        /// Used for throwing the exception at non-light exception boundaries.
         /// </summary>
         public static Exception GetLightException(object exceptionValue) {
             LightException lightEx = exceptionValue as LightException;
@@ -200,7 +200,7 @@ namespace Microsoft.Scripting.Runtime {
                 Exception = exception;
             }
         }
-        
+
         private static ReadOnlyCollection<Expression> ToReadOnly(Expression[] args) {
             return new ReadOnlyCollectionBuilder<Expression>(args).ToReadOnlyCollection();
         }

@@ -9,16 +9,16 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     public partial class DefaultBinder : ActionBinder {
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -30,7 +30,7 @@ namespace Microsoft.Scripting.Actions {
         /// </param>
         /// <returns>
         /// Returns a DynamicMetaObject which represents the value that will be returned when the member is accessed.
-        /// 
+        ///
         /// The returned DynamicMetaObject may be strongly typed to a value type which needs boxing before being
         /// returned from a standard DLR GetMemberBinder.  The language is responsible for performing any boxing
         /// so that it has an opportunity to perform custom boxing.
@@ -46,7 +46,7 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -61,7 +61,7 @@ namespace Microsoft.Scripting.Actions {
         /// </param>
         /// <returns>
         /// Returns a DynamicMetaObject which represents the value that will be returned when the member is accessed.
-        /// 
+        ///
         /// The returned DynamicMetaObject may be strongly typed to a value type which needs boxing before being
         /// returned from a standard DLR GetMemberBinder.  The language is responsible for performing any boxing
         /// so that it has an opportunity to perform custom boxing.
@@ -77,7 +77,7 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -99,7 +99,7 @@ namespace Microsoft.Scripting.Actions {
         /// </param>
         /// <returns>
         /// Returns a DynamicMetaObject which represents the value that will be returned when the member is accessed.
-        /// 
+        ///
         /// The returned DynamicMetaObject may be strongly typed to a value type which needs boxing before being
         /// returned from a standard DLR GetMemberBinder.  The language is responsible for performing any boxing
         /// so that it has an opportunity to perform custom boxing.
@@ -121,7 +121,7 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -140,7 +140,7 @@ namespace Microsoft.Scripting.Actions {
         /// </param>
         /// <returns>
         /// Returns a DynamicMetaObject which represents the value that will be returned when the member is accessed.
-        /// 
+        ///
         /// The returned DynamicMetaObject may be strongly typed to a value type which needs boxing before being
         /// returned from a standard DLR GetMemberBinder.  The language is responsible for performing any boxing
         /// so that it has an opportunity to perform custom boxing.
@@ -166,7 +166,7 @@ namespace Microsoft.Scripting.Actions {
             DynamicMetaObject self = target;
             target = target.Restrict(target.GetLimitType());
 
-            // Specially recognized types: TypeTracker, NamespaceTracker, and StrongBox.  
+            // Specially recognized types: TypeTracker, NamespaceTracker, and StrongBox.
             // TODO: TypeTracker and NamespaceTracker should technically be IDO's.
             MemberGroup members = MemberGroup.EmptyGroup;
             if (typeof(TypeTracker).IsAssignableFrom(targetType)) {
@@ -253,7 +253,7 @@ namespace Microsoft.Scripting.Actions {
                     MakeTypeBody(getMemInfo, selfType, members);
                     break;
                 case TrackerTypes.Method:
-                    // turn into a MethodGroup                    
+                    // turn into a MethodGroup
                     MakeGenericBodyWorker(getMemInfo, selfType, ReflectionCache.GetMethodGroup(getMemInfo.Name, members), self);
                     break;
                 case TrackerTypes.Event:
@@ -279,7 +279,7 @@ namespace Microsoft.Scripting.Actions {
         private void MakeGenericBody(GetMemberInfo getMemInfo, Type instanceType, MemberGroup members, DynamicMetaObject instance) {
             MemberTracker bestMember = members[0];
             if (members.Count > 1) {
-                // if we were given multiple members pick the member closest to the type...                
+                // if we were given multiple members pick the member closest to the type...
                 Type bestMemberDeclaringType = members[0].DeclaringType;
 
                 for (int i = 1; i < members.Count; i++) {

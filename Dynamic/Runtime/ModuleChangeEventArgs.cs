@@ -4,9 +4,9 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
-    /// Event args for when a ScriptScope has had its contents changed.  
+    /// Event args for when a ScriptScope has had its contents changed.
     /// </summary>
     public class ModuleChangeEventArgs : EventArgs {
         /// <summary>

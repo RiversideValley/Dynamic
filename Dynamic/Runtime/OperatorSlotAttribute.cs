@@ -4,10 +4,10 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Represents an ops-extension method which is added as an operator.
-    /// 
+    ///
     /// The name must be a well-formed name such as "Add" that matches the CLS
     /// naming conventions for adding overloads associated with op_* methods.
     /// </summary>

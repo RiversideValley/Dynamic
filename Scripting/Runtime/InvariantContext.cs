@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Singleton LanguageContext which represents a language-neutral LanguageContext
     /// </summary>

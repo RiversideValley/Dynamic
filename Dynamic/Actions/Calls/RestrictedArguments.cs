@@ -8,9 +8,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Dynamic;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     public sealed class RestrictedArguments {
         private readonly DynamicMetaObject[] _objects;
         private readonly Type[] _types;

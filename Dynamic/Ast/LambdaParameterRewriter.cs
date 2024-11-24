@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     internal sealed class LambdaParameterRewriter : ExpressionVisitor {
         private readonly Dictionary<ParameterExpression, ParameterExpression> _map;
 

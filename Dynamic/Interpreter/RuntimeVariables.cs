@@ -4,7 +4,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal sealed class RuntimeVariables : IRuntimeVariables {
         private readonly IStrongBox[] _boxes;
 

@@ -8,7 +8,7 @@ using System.Security;
 using System.IO;
 using System.Diagnostics.Contracts;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     [Serializable]
     public enum MetadataRecordType {
         ModuleDef = ModuleTable.TableIndex,
@@ -62,7 +62,7 @@ namespace Microsoft.Scripting.Metadata {
             if (path == null) {
                 throw new ArgumentNullException(nameof(path));
             }
-            
+
             return new MetadataTables(CreateImport(path), path, null);
         }
 
@@ -110,7 +110,7 @@ namespace Microsoft.Scripting.Metadata {
     public partial struct MetadataTableView {
         /// <summary>
         /// Gets the number of records in the view.
-        /// If the view is over an entire table this operation is O(1), 
+        /// If the view is over an entire table this operation is O(1),
         /// otherwise it might take up to O(log(#records in the table)).
         /// </summary>
         public int GetCount() {
@@ -162,7 +162,7 @@ namespace Microsoft.Scripting.Metadata {
         /// ModuleDef:
         ///   If the target type is defined in the current module (this should not occur in a CLI "compressed metadata" module).
         /// Null token:
-        ///   There shall be a row in the ExportedType table for this Type - its Implementation field shall contain 
+        ///   There shall be a row in the ExportedType table for this Type - its Implementation field shall contain
         ///   a File token or an AssemblyRef token that says where the type is defined.
         /// </summary>
         public MetadataRecord ResolutionScope {
@@ -189,7 +189,7 @@ namespace Microsoft.Scripting.Metadata {
             Contract.Requires(record.IsTypeDef && record.Tables.IsValidToken(record.Token));
             m_record = record;
         }
-        
+
         public MetadataName Name {
             get {
                 return m_record.Tables.ToMetadataName(m_record.Import.TypeDefTable.GetName(m_record.Rid));
@@ -223,7 +223,7 @@ namespace Microsoft.Scripting.Metadata {
         /// </summary>
         public TypeDef FindDeclaringType() {
             return new MetadataRecord(
-                new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.NestedClassTable.FindParentTypeDefRowId(m_record.Rid)), 
+                new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.NestedClassTable.FindParentTypeDefRowId(m_record.Rid)),
                 m_record.Tables
             ).TypeDef;
         }
@@ -236,13 +236,13 @@ namespace Microsoft.Scripting.Metadata {
             return count;
         }
     }
-    
+
     public partial struct FieldDef {
         internal FieldDef(MetadataRecord record) {
             Contract.Requires(record.IsFieldDef && record.Tables.IsValidToken(record.Token));
             m_record = record;
         }
-        
+
         /// <summary>
         /// Flags field in the Field table.
         /// </summary>
@@ -290,7 +290,7 @@ namespace Microsoft.Scripting.Metadata {
         /// </summary>
         public TypeDef FindDeclaringType() {
             return new MetadataRecord(
-                new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.TypeDefTable.FindTypeContainingField(m_record.Rid, m_record.Import.FieldTable.NumberOfRows)), 
+                new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.TypeDefTable.FindTypeContainingField(m_record.Rid, m_record.Import.FieldTable.NumberOfRows)),
                 m_record.Tables
             ).TypeDef;
         }
@@ -347,7 +347,7 @@ namespace Microsoft.Scripting.Metadata {
         /// </summary>
         public TypeDef FindDeclaringType() {
             return new MetadataRecord(
-                new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.TypeDefTable.FindTypeContainingMethod(m_record.Rid, m_record.Import.MethodTable.NumberOfRows)), 
+                new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.TypeDefTable.FindTypeContainingMethod(m_record.Rid, m_record.Import.MethodTable.NumberOfRows)),
                 m_record.Tables
             ).TypeDef;
         }
@@ -368,7 +368,7 @@ namespace Microsoft.Scripting.Metadata {
             Contract.Requires(record.IsParamDef && record.Tables.IsValidToken(record.Token));
             m_record = record;
         }
-        
+
         public ParameterAttributes Attributes {
             get {
                 return m_record.Import.ParamTable.GetFlags(m_record.Rid);
@@ -376,7 +376,7 @@ namespace Microsoft.Scripting.Metadata {
         }
 
         /// <summary>
-        /// Value greater or equal to zero and less than or equal to the number of parameters in owner method. 
+        /// Value greater or equal to zero and less than or equal to the number of parameters in owner method.
         /// A value of 0 refers to the owner method's return type; its parameters are then numbered from 1 onwards.
         /// Not all parameters need to have a corresponding ParamDef entry.
         /// </summary>
@@ -416,14 +416,14 @@ namespace Microsoft.Scripting.Metadata {
             Contract.Requires(record.IsInterfaceImpl && record.Tables.IsValidToken(record.Token));
             m_record = record;
         }
-        
+
         /// <summary>
         /// Could be a null token in EnC scenarios.
         /// </summary>
         public TypeDef ImplementingType {
             get {
                 return new MetadataRecord(
-                    new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.InterfaceImplTable.GetClass(m_record.Rid)), 
+                    new MetadataToken(MetadataTokenType.TypeDef, m_record.Import.InterfaceImplTable.GetClass(m_record.Rid)),
                     m_record.Tables
                 ).TypeDef;
             }
@@ -447,14 +447,14 @@ namespace Microsoft.Scripting.Metadata {
 
         /// <summary>
         /// TypeRef or TypeDef:
-        ///   If the class that defines the member is defined in another module. 
-        ///   Note that it is unusual, but valid, to use a TypeRef token when the member is defined in this same module, 
+        ///   If the class that defines the member is defined in another module.
+        ///   Note that it is unusual, but valid, to use a TypeRef token when the member is defined in this same module,
         ///   in which case, its TypeDef token can be used instead.
         /// ModuleRef:
         ///   If the member is defined, in another module of the same assembly, as a global function or variable.
-        /// MethodDef: 
-        ///   When used to supply a call-site signature for a vararg method that is defined in this module. 
-        ///   The Name shall match the Name in the corresponding MethodDef row. 
+        /// MethodDef:
+        ///   When used to supply a call-site signature for a vararg method that is defined in this module.
+        ///   The Name shall match the Name in the corresponding MethodDef row.
         ///   The Signature shall match the Signature in the target method definition
         /// TypeSpec:
         ///   If the member is a member of a generic type
@@ -483,7 +483,7 @@ namespace Microsoft.Scripting.Metadata {
             Contract.Requires(record.IsCustomAttributeDef && record.Tables.IsValidToken(record.Token));
             m_record = record;
         }
-        
+
         /// <summary>
         /// Any token except the CustomAttribute.
         /// </summary>
@@ -506,10 +506,10 @@ namespace Microsoft.Scripting.Metadata {
         /// <summary>
         /// Value blob.
         /// </summary>
-        public MemoryBlock Value { 
+        public MemoryBlock Value {
             get {
                 return m_record.Import.GetBlobBlock(m_record.Import.CustomAttributeTable.GetValue(m_record.Rid));
-            } 
+            }
         }
     }
 
@@ -531,7 +531,7 @@ namespace Microsoft.Scripting.Metadata {
             Contract.Requires(record.IsProperty && record.Tables.IsValidToken(record.Token));
             m_record = record;
         }
-        
+
         public PropertyAttributes Attributes {
             get {
                 return m_record.Import.PropertyTable.GetFlags(m_record.Rid);
@@ -553,7 +553,7 @@ namespace Microsoft.Scripting.Metadata {
         public PropertyAccessors GetAccessors() {
             var import = m_record.Import;
             int semanticsRow = import.MethodSemanticsTable.FindSemanticMethodsForProperty(m_record.Rid, out int methodCount);
-            
+
             uint getter = 0, setter = 0;
             for (ushort i = 0; i < methodCount; i++) {
                 switch (import.MethodSemanticsTable.GetFlags(semanticsRow)) {
@@ -623,7 +623,7 @@ namespace Microsoft.Scripting.Metadata {
                 semanticsRow++;
             }
 
-            return new EventAccessors(this, 
+            return new EventAccessors(this,
                 new MetadataToken(MetadataTokenType.MethodDef, add),
                 new MetadataToken(MetadataTokenType.MethodDef, remove),
                 new MetadataToken(MetadataTokenType.MethodDef, fire)
@@ -825,7 +825,7 @@ namespace Microsoft.Scripting.Metadata {
         }
 
         public ManifestResourceAttributes Attributes {
-            get { 
+            get {
                 return m_record.Import.ManifestResourceTable.GetFlags(m_record.Rid);
             }
         }
@@ -875,7 +875,7 @@ namespace Microsoft.Scripting.Metadata {
         }
 
         /// <summary>
-        /// Value greater or equal to zero and less than or equal to the number of parameters in owner method/type. 
+        /// Value greater or equal to zero and less than or equal to the number of parameters in owner method/type.
         /// All generic parameters are listed in the table.
         /// </summary>
         public int Index {

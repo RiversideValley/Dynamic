@@ -4,7 +4,7 @@
 
 #if FEATURE_COM
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     public class ComTypeLibMemberDesc {
         internal ComTypeLibMemberDesc(ComType kind) {

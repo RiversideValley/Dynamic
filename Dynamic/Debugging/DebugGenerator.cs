@@ -6,7 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// Used to wrap a lambda that was already a generator prior to transform.
     /// </summary>

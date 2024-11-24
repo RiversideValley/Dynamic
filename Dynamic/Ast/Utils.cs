@@ -7,10 +7,10 @@ using System.Linq.Expressions;
 using System;
 using System.Reflection;
 using System.Dynamic;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     [Flags]
     public enum ExpressionAccess {
         None = 0,

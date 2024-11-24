@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public static partial class Utils {
         public static NewArrayExpression NewArrayHelper(Type type, IEnumerable<Expression> initializers) {
             ContractUtils.RequiresNotNull(type, nameof(type));

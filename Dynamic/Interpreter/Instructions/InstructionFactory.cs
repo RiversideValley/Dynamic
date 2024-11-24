@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     public abstract class InstructionFactory {
         // TODO: weak table for types in a collectible assembly?
         private static Dictionary<Type, InstructionFactory> _factories;

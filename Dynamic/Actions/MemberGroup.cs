@@ -5,19 +5,19 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// MemberGroups are a collection of MemberTrackers which are commonly produced
     /// on-demand to talk about the available members.  They can consist of a mix of
     /// different member types or multiple membes of the same type.
-    /// 
+    ///
     /// The most common source of MemberGroups is from ActionBinder.GetMember.  From here
     /// the DLR will perform binding to the MemberTrackers frequently producing the value
     /// resulted from the user.  If the result of the action produces a member it's self
     /// the ActionBinder can provide the value exposed to the user via ReturnMemberTracker.
-    /// 
+    ///
     /// ActionBinder provides default functionality for both getting members from a type
     /// as well as exposing the members to the user.  Getting members from the type maps
     /// closely to reflection and exposing them to the user exposes the MemberTrackers

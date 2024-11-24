@@ -4,7 +4,7 @@
 
 using MSAst = System.Linq.Expressions;
 
-namespace Microsoft.Scripting.Debugging.CompilerServices {
+namespace Riverside.Scripting.Debugging.CompilerServices {
     /// <summary>
     /// Implemented by compilers to allow the traceback engine to get additional information.
     /// </summary>

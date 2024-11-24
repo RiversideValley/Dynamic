@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\Microsoft.Dynamic\Microsoft.Dynamic.csproj" />
-    <ProjectReference Include="..\..\Src\Microsoft.Scripting.Metadata\Microsoft.Scripting.Metadata.csproj" />
+    <ProjectReference Include="..\..\Dynamic\Riverside.Dynamic.csproj" />
+    <ProjectReference Include="..\..\Metadata\Riverside.Scripting.Metadata.csproj" />
   </ItemGroup>
 
   <ItemGroup>

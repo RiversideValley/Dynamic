@@ -4,16 +4,16 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// Implemented by binders which support light exceptions.  Dynamic objects
-    /// binding against a binder which implements this interface can check 
-    /// SupportsLightThrow to see if the binder currently supports safely 
+    /// binding against a binder which implements this interface can check
+    /// SupportsLightThrow to see if the binder currently supports safely
     /// returning a light exception.  Light exceptions can be created with
     /// LightException.Throw.
     ///
     /// Binders also need to implement GetlightBinder.  This method
-    /// returns a new call site binder which may return light  exceptions if 
+    /// returns a new call site binder which may return light  exceptions if
     /// the binder supports them.
     /// </summary>
     public interface ILightExceptionBinder {

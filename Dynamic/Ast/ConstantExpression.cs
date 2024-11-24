@@ -7,10 +7,10 @@ using System.Linq.Expressions;
 using System.Numerics;
 using System.Reflection;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     public static partial class Utils {

@@ -8,7 +8,7 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Console input stream (Console.OpenStandardInput) has a bug that manifests itself if reading small amounts of data.
     /// This class wraps the standard input stream with a buffer that ensures that enough data are read from the underlying stream.
@@ -17,7 +17,7 @@ namespace Microsoft.Scripting.Utils {
         public static readonly ConsoleInputStream Instance = new ConsoleInputStream();
 
         // we use 0x1000 to be safe (MSVCRT uses this value for stdin stream buffer).
-        private const int MinimalBufferSize = 0x1000; 
+        private const int MinimalBufferSize = 0x1000;
 
         private readonly Stream _input;
         private readonly object _lock = new object();

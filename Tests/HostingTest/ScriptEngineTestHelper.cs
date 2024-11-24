@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 namespace HostingTest {
@@ -25,7 +25,7 @@ namespace HostingTest {
         }
 
         #region Additional test attributes
-        // 
+        //
         //You can use the following additional attributes as you write your tests:
         //
         //Use ClassInitialize to run code before running the first test in the class
@@ -104,21 +104,21 @@ namespace HostingTest {
 
         /// <summary>
         /// This is a simple helper method to create a test valid
-        /// CodeObject to be feed into the 
+        /// CodeObject to be feed into the
         ///     CreateScriptSource(CodeObject content, string id)
-        ///     
+        ///
         /// However, CodeObject is simply a base class so we probably
         /// need a specific type of CodeObject but what?
-        /// 
+        ///
         /// [Bill - has indicate that CodeObject parameter for CreateScriptSource
         ///  does in fact need to be a CodeMemberMethod - Maybe a spec BUG]
-        /// 
+        ///
         /// Probably need to put this somewhere else maybe put this in:
         ///     ScriptEngineTestHelper.cs
         /// </summary>
         /// <returns>A valid CodeObject boxes some kind of CompileUnit</returns>
         private static CodeObject BuildCountCode() {
-            // Create a new CodeCompileUnit to contain 
+            // Create a new CodeCompileUnit to contain
             // the program graph.
             CodeCompileUnit compileUnit = new CodeCompileUnit();
 
@@ -157,9 +157,9 @@ namespace HostingTest {
     internal static class ScriptEngineExtensions {
         internal static bool IsValidPythonEngine(this ScriptEngine eng) {
             ScriptScope scope = eng.CreateScope();
-            ScriptSource code = eng.CreateScriptSourceFromString("five=2+3", Microsoft.Scripting.SourceCodeKind.Statements);
-            
-            code.Execute(scope); 
+            ScriptSource code = eng.CreateScriptSourceFromString("five=2+3", Riverside.Scripting.SourceCodeKind.Statements);
+
+            code.Execute(scope);
             return (int)scope.GetVariable("five") == 5;
         }
     }

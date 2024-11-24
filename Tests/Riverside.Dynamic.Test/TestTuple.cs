@@ -6,10 +6,10 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting;
+using Riverside.Scripting;
 using NUnit.Framework;
 
-namespace Microsoft.Dynamic.Test {
+namespace Riverside.Dynamic.Test {
 
     // Strongbox should not ever be sealed
     class MyStrongBox<T> : StrongBox<T> {
@@ -91,14 +91,14 @@ namespace Microsoft.Dynamic.Test {
                     Assert.Throws<ArgumentOutOfRangeException>(delegate () { t.GetValue(size); });
                 } else {
                     /*We're requesting an index in the scope of this tuple but beyond the scope of our
-                     requested capacity (in which case the field's type will be Microsoft.Scripting.None
+                     requested capacity (in which case the field's type will be Riverside.Scripting.None
                      and we won't be able to convert "3" to that).  Imagine asking for a tuple of 3 ints,
-                     we'd actually get a Tuple<int,int,int,Microsoft.Scripting.None> since there is no
+                     we'd actually get a Tuple<int,int,int,Riverside.Scripting.None> since there is no
                      Tuple that takes only 3 generic arguments.*/
                     Assert.Throws<InvalidCastException>(delegate () { t.SetValue(size, 3); });
 
                     //Verify the type of the field
-                    Assert.AreEqual(typeof(Microsoft.Scripting.Runtime.DynamicNull), tupleType.GetGenericArguments()[size]);
+                    Assert.AreEqual(typeof(Riverside.Scripting.Runtime.DynamicNull), tupleType.GetGenericArguments()[size]);
 
                     //Verify the value of the field is null
                     Assert.AreEqual(null, t.GetValue(size));

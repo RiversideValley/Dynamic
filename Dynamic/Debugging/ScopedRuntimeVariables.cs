@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// Implements IRuntimeVariables in a way that preserves scoping within the lambda.
     /// </summary>

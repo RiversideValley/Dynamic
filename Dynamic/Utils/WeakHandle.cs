@@ -5,7 +5,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
 
     /// <summary>
     /// Changes the semantics of GC handle to return <c>null</c> instead of throwing

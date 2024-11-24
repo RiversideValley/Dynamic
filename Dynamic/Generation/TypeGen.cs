@@ -7,9 +7,9 @@
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     public sealed class TypeGen {
         private ILGen _initGen;                        // The IL generator for the .cctor()
 

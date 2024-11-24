@@ -5,7 +5,7 @@
 using System;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class ConstructorTracker : MemberTracker {
         private readonly ConstructorInfo _ctor;
 

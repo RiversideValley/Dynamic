@@ -11,47 +11,47 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     /// <summary>
     /// Provides binding and overload resolution to .NET methods.
-    /// 
+    ///
     /// MethodBinder's can be used for:
-    ///     generating new AST code for calling a method 
+    ///     generating new AST code for calling a method
     ///     calling a method via reflection at runtime
     ///     (not implemented) performing an abstract call
-    ///     
+    ///
     /// MethodBinder's support default arguments, optional arguments, by-ref (in and out), and keyword arguments.
-    /// 
+    ///
     /// Implementation Details:
-    /// 
+    ///
     /// The MethodBinder works by building up a CandidateSet for each number of effective arguments that can be
     /// passed to a set of overloads.  For example a set of overloads such as:
     ///     foo(object a, object b, object c)
     ///     foo(int a, int b)
-    ///     
+    ///
     /// would have 2 target sets - one for 3 parameters and one for 2 parameters.  For parameter arrays
     /// we fallback and create the appropriately sized CandidateSet on demand.
-    /// 
+    ///
     /// Each CandidateSet consists of a set of MethodCandidate's.  Each MethodCandidate knows the flattened
     /// parameters that could be received.  For example for a function such as:
     ///     foo(params int[] args)
-    ///     
+    ///
     /// When this method is in a CandidateSet of size 3 the MethodCandidate takes 3 parameters - all of them
-    /// ints; if it's in a CandidateSet of size 4 it takes 4 parameters.  Effectively a MethodCandidate is 
+    /// ints; if it's in a CandidateSet of size 4 it takes 4 parameters.  Effectively a MethodCandidate is
     /// a simplified view that allows all arguments to be treated as required positional arguments.
-    /// 
+    ///
     /// Each MethodCandidate in turn refers to a MethodTarget.  The MethodTarget is composed of a set
     /// of ArgBuilder's and a ReturnBuilder which know how to consume the positional arguments and pass
     /// them to the appropriate argument of the destination method.  This includes routing keyword
     /// arguments to the correct position, providing the default values for optional arguments, etc...
-    /// 
-    /// After binding is finished the MethodCandidates are thrown away and a BindingTarget is returned. 
+    ///
+    /// After binding is finished the MethodCandidates are thrown away and a BindingTarget is returned.
     /// The BindingTarget indicates whether the binding was successful and if not any additional information
     /// that should be reported to the user about the failed binding.  It also exposes the MethodTarget which
     /// allows consumers to get the flattened list of required parameters for the call.  MethodCandidates
@@ -65,7 +65,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         private IList<string> _argNames;
         private Dictionary<int, CandidateSet> _candidateSets;    // the methods as they map from # of arguments -> the possible CandidateSet's.
         private List<MethodCandidate> _paramsCandidates;         // the methods which are params methods which need special treatment because they don't have fixed # of args
-        
+
         // built as arguments are processed:
         private ActualArguments _actualArguments;
         private int _maxAccessedCollapsedArg;
@@ -98,7 +98,7 @@ namespace Microsoft.Scripting.Actions.Calls {
 
         /// <summary>
         /// Resolves a method overload and returns back a BindingTarget.
-        /// 
+        ///
         /// The BindingTarget can then be tested for the success or particular type of
         /// failure that prevents the method from being called. If successfully bound the BindingTarget
         /// contains a list of argument meta-objects with additional restrictions that ensure the selection
@@ -124,10 +124,10 @@ namespace Microsoft.Scripting.Actions.Calls {
             _methodName = methodName;
             _minLevel = minLevel;
             _maxLevel = maxLevel;
-            
+
             // step 1:
             GetNamedArguments(out IList<DynamicMetaObject> namedArgs, out _argNames);
-            
+
             // uses arg names:
             BuildCandidateSets(methods);
 
@@ -231,9 +231,9 @@ namespace Microsoft.Scripting.Actions.Calls {
 
                 AddBasicMethodTargets(method);
             }
-            
+
             if (_paramsCandidates != null) {
-                // For all the methods that take a params array, create MethodCandidates that clash with the 
+                // For all the methods that take a params array, create MethodCandidates that clash with the
                 // other overloads of the method
                 foreach (MethodCandidate candidate in _paramsCandidates) {
                     foreach (int count in _candidateSets.Keys) {
@@ -293,7 +293,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                 if (BindToUnexpandedParams(target)) {
                     AddTarget(target);
                 }
-                
+
                 if (_paramsCandidates == null) {
                     _paramsCandidates = new List<MethodCandidate>();
                 }
@@ -336,7 +336,7 @@ namespace Microsoft.Scripting.Actions.Calls {
             if (_actualArguments == null) {
                 throw new InvalidOperationException("Actual arguments have not been built yet.");
             }
-            return _actualArguments; 
+            return _actualArguments;
         }
 
         protected virtual void GetNamedArguments(out IList<DynamicMetaObject> namedArgs, out IList<string> argNames) {
@@ -365,7 +365,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                 return MakeFailedBindingTarget(nameBindingFailures.ToArray());
             }
 
-            // go through all available narrowing levels selecting candidates.  
+            // go through all available narrowing levels selecting candidates.
             for (NarrowingLevel level = _minLevel; level <= _maxLevel; level++) {
                 failures?.Clear();
 
@@ -394,7 +394,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                 var bestCandidate = SelectBestCandidate(applicable, level);
                 if (bestCandidate != null) {
                     return MakeSuccessfulBindingTarget(bestCandidate, potential, level, targetSet);
-                } 
+                }
 
                 return MakeAmbiguousBindingTarget(applicable);
             }
@@ -414,7 +414,7 @@ namespace Microsoft.Scripting.Actions.Calls {
             var result = new List<ApplicableCandidate>();
             foreach (MethodCandidate candidate in candidates) {
                 // skip params dictionaries - we want to only pick up the methods normalized
-                // to have argument names (which we created because the MethodBinder gets 
+                // to have argument names (which we created because the MethodBinder gets
                 // created w/ keyword arguments).
                 if (!candidate.HasParamsDictionary) {
                     if (_actualArguments.TryBindNamedArguments(candidate, out ArgumentBinding namesBinding, out CallFailure callFailure)) {
@@ -427,7 +427,7 @@ namespace Microsoft.Scripting.Actions.Calls {
             return result;
         }
 
-        private List<ApplicableCandidate> SelectCandidatesWithConvertibleArgs(List<ApplicableCandidate> candidates, NarrowingLevel level, 
+        private List<ApplicableCandidate> SelectCandidatesWithConvertibleArgs(List<ApplicableCandidate> candidates, NarrowingLevel level,
             ref List<CallFailure> failures) {
 
             bool hasGenericCandidates = false;
@@ -604,7 +604,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                             // params at the end, and therefore types.Length - 1 is usually if we're
                             // the last argument.  We always have to check this type to disambiguate
                             // between passing an object which is compatible with the arg array and
-                            // passing an object which goes into the arg array.  Maybe we could do 
+                            // passing an object which goes into the arg array.  Maybe we could do
                             // better sometimes.
                             return true;
                         }
@@ -832,7 +832,7 @@ namespace Microsoft.Scripting.Actions.Calls {
             if (levelOne > levelTwo) {
                 return Candidate.Two;
             }
-            
+
             return Candidate.Ambiguous;
         }
 
@@ -937,7 +937,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         #endregion
 
         #region Step 5: Results, Errors
-        
+
         private int[] GetExpectedArgCounts() {
             if (_candidateSets.Count == 0 && _paramsCandidates == null) {
                 return EmptyArray<int>.Instance;
@@ -1132,7 +1132,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                 int preCount = -1;
                 int postCount = -1;
 
-                // For all the methods that take a params array, create MethodCandidates that clash with the 
+                // For all the methods that take a params array, create MethodCandidates that clash with the
                 // other overloads of the method
                 foreach (MethodCandidate candidate in _paramsCandidates) {
                     preCount = System.Math.Max(preCount, candidate.ParamsArrayIndex);

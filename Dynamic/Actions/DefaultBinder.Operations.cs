@@ -11,17 +11,17 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     public partial class DefaultBinder : ActionBinder {
         [Obsolete("You should use the overload which takes ExpressionType instead")]
-        public DynamicMetaObject DoOperation(string operation, params DynamicMetaObject[] args) {            
+        public DynamicMetaObject DoOperation(string operation, params DynamicMetaObject[] args) {
             return DoOperation(operation, new DefaultOverloadResolverFactory(this), args);
         }
 
@@ -112,10 +112,10 @@ namespace Microsoft.Scripting.Actions {
 
         public DynamicMetaObject GetIsCallable(DynamicMetaObject target) {
             // IsCallable() is tightly tied to Call actions. So in general, we need the call-action providers to also
-            // provide IsCallable() status. 
+            // provide IsCallable() status.
             // This is just a rough fallback. We could also attempt to simulate the default CallBinder logic to see
-            // if there are any applicable calls targets, but that would be complex (the callbinder wants the argument list, 
-            // which we don't have here), and still not correct. 
+            // if there are any applicable calls targets, but that would be complex (the callbinder wants the argument list,
+            // which we don't have here), and still not correct.
             BindingRestrictions restrictions = BindingRestrictions.GetTypeRestriction(target.Expression, target.LimitType);
 
             bool callable = false;
@@ -173,7 +173,7 @@ namespace Microsoft.Scripting.Actions {
                 TryInvertedComparison(info, resolverFactory, args[0], args) ?? // inverted binding on the 2nd type
                 TryNullComparisonRule(args) ??                // see if we're comparing to null w/ an object ref or a Nullable<T>
                 TryPrimitiveCompare(info, args) ??            // see if this is a primitive type where we're comparing the two values.
-                MakeOperatorError(info, args);                // no comparisons are possible            
+                MakeOperatorError(info, args);                // no comparisons are possible
         }
 
         private DynamicMetaObject TryComparisonMethod(OperatorInfo info, OverloadResolverFactory resolverFactory, DynamicMetaObject target, DynamicMetaObject[] args) {
@@ -236,7 +236,7 @@ namespace Microsoft.Scripting.Actions {
             OperatorInfo revInfo = OperatorInfo.GetOperatorInfo(revOp);
             Debug.Assert(revInfo != null);
 
-            // try the 1st type's opposite function result negated 
+            // try the 1st type's opposite function result negated
             MethodBase[] targets = GetApplicableMembers(target.GetLimitType(), revInfo);
             if (targets.Length > 0) {
                 return TryMakeInvertedBindingTarget(resolverFactory, targets, args);
@@ -529,7 +529,7 @@ namespace Microsoft.Scripting.Actions {
 
                 if (pi != null) {
                     if (op == IndexType.Get) {
-                        MethodInfo method = pi.GetGetMethod(PrivateBinding); 
+                        MethodInfo method = pi.GetGetMethod(PrivateBinding);
                         if (method != null) methods.Add(method);
                     } else if (op == IndexType.Set) {
                         MethodInfo method = pi.GetSetMethod(PrivateBinding);
@@ -618,7 +618,7 @@ namespace Microsoft.Scripting.Actions {
             // filter down to just methods
             return FilterNonMethods(t, members);
         }
-        
+
         private static MethodInfo[] FilterNonMethods(Type t, MemberGroup members) {
             Assert.NotNull(t, members);
 

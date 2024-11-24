@@ -10,11 +10,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Helper methods that calls are generated to from the default DLR binders.
     /// </summary>

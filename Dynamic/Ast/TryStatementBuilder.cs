@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public sealed class TryStatementBuilder {
         private readonly List<CatchBlock> _catchBlocks = new List<CatchBlock>();
         private Expression _try;

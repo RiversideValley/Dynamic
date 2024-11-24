@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public enum BinderType {
         /// <summary>
         /// The MethodBinder will perform normal method binding.
@@ -15,7 +15,7 @@ namespace Microsoft.Scripting.Runtime {
         BinaryOperator,
         ComparisonOperator,
         /// <summary>
-        /// The MethodBinder will set properties/fields for unused keyword arguments on the instance 
+        /// The MethodBinder will set properties/fields for unused keyword arguments on the instance
         /// that gets returned from the method.
         /// </summary>
         Constructor

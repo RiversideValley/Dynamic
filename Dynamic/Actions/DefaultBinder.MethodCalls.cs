@@ -10,13 +10,13 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     public partial class DefaultBinder : ActionBinder {
 
@@ -95,7 +95,7 @@ namespace Microsoft.Scripting.Actions {
         /// <param name="target">The resulting binding target which can be used for producing error information.</param>
         /// <param name="name">The name of the method or null to use the name from targets.</param>
         /// <returns>A meta object which results from the call.</returns>
-        public DynamicMetaObject CallMethod(DefaultOverloadResolver resolver, IList<MethodBase> targets, BindingRestrictions restrictions, string name, 
+        public DynamicMetaObject CallMethod(DefaultOverloadResolver resolver, IList<MethodBase> targets, BindingRestrictions restrictions, string name,
             NarrowingLevel minLevel, NarrowingLevel maxLevel, out BindingTarget target) {
             ContractUtils.RequiresNotNull(resolver, nameof(resolver));
             ContractUtils.RequiresNotNullItems(targets, nameof(targets));
@@ -126,7 +126,7 @@ namespace Microsoft.Scripting.Actions {
         // TODO: revisit
         private DynamicMetaObject MakeInvalidParametersRule(DefaultOverloadResolver binder, BindingRestrictions restrictions, BindingTarget bt) {
             var args = binder.Arguments;
-            
+
             BindingRestrictions restriction = MakeSplatTests(binder.CallType, binder.Signature, true, args);
 
             // restrict to the exact type of all parameters for errors

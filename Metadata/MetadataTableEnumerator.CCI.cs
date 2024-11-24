@@ -5,7 +5,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     internal enum EnumerationIndirection {
         None = 0,
         Method = 1,
@@ -35,7 +35,7 @@ namespace Microsoft.Scripting.Metadata {
                 parent.Token,
                 out int start,
                 out int count);
-            
+
             m_startRid = start;
             m_endRid = start + count;
             m_currentRid = start - 1;
@@ -92,8 +92,8 @@ namespace Microsoft.Scripting.Metadata {
         }
 
         public MetadataRecord Current {
-            get { 
-                return new MetadataRecord(m_currentToken, m_tables); 
+            get {
+                return new MetadataRecord(m_currentToken, m_tables);
             }
         }
     }

@@ -5,9 +5,9 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Provides documentation for a single overload of an invokable object.
     /// </summary>

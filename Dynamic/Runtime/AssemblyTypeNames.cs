@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
 
     internal struct TypeName : IEquatable<TypeName> {
         internal TypeName(Type type) {

@@ -3,11 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     public interface ITraceCallback {
         void OnTraceEvent(
             TraceEventKind kind,

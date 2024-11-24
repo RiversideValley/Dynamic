@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
     public sealed class ImplicitConversionMethodAttribute : Attribute {
     }

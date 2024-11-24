@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Indicates an extension method should be added as a static method, not a instance method.
     /// </summary>

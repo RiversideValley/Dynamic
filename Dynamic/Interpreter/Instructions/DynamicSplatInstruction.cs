@@ -5,9 +5,9 @@
 using System;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     /// <summary>
     /// Implements dynamic call site with many arguments. Wraps the arguments into <see cref="ArgumentArray"/>.
     /// </summary>

@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     internal static class ReflectionUtils {
         public static MethodInfo GetMethodInfo(this Delegate d) {
             return d.Method;

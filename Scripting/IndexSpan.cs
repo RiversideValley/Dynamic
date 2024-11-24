@@ -4,13 +4,13 @@
 
 using System;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     /// <summary>
-    /// This structure represents an immutable integer interval that describes a range of values, from Start to End. 
-    /// 
-    /// It is closed on the left and open on the right: [Start .. End). 
+    /// This structure represents an immutable integer interval that describes a range of values, from Start to End.
+    ///
+    /// It is closed on the left and open on the right: [Start .. End).
     /// </summary>
     public readonly struct IndexSpan : IEquatable<IndexSpan> {
         public IndexSpan(int start, int length) {

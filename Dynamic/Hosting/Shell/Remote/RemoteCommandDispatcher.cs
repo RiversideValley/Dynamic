@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Security.Permissions;
 
-namespace Microsoft.Scripting.Hosting.Shell.Remote {
+namespace Riverside.Scripting.Hosting.Shell.Remote {
     /// <summary>
     /// This allows the RemoteConsoleHost to abort a long-running operation. The RemoteConsoleHost itself
     /// does not know which ThreadPool thread might be processing the remote call, and so it needs

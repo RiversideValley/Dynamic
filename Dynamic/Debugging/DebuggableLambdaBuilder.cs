@@ -7,12 +7,12 @@ using MSAst = System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.Scripting.Ast;
-using Microsoft.Scripting.Debugging.CompilerServices;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Ast;
+using Riverside.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     using Ast = MSAst.Expression;
 
     /// <summary>
@@ -371,7 +371,7 @@ namespace Microsoft.Scripting.Debugging {
                         _debugMarkerLocationMap,
                         _variableScopeMap,
                         _variableInfos,
-                        _lambdaInfo.CustomPayload), 
+                        _lambdaInfo.CustomPayload),
                     typeof(FunctionInfo));
             }
         }
@@ -424,7 +424,7 @@ namespace Microsoft.Scripting.Debugging {
                 }
             }
 
-            // Don't perform leaf-frame optimization if the compiler didn't ask for it or 
+            // Don't perform leaf-frame optimization if the compiler didn't ask for it or
             // if we found unconditional calls to other debuggable labmdas.
             _noPushFrameOptimization = !_lambdaInfo.OptimizeForLeafFrames || debugInfoToYieldRewriter.HasUnconditionalFunctionCalls;
             return transformedBody;
@@ -492,9 +492,9 @@ namespace Microsoft.Scripting.Debugging {
             // normal exit
             tryExpressions.Add(
                 Ast.Block(
-                    _retVal != null ? Ast.Assign(_retVal, debuggableBody) : debuggableBody, 
+                    _retVal != null ? Ast.Assign(_retVal, debuggableBody) : debuggableBody,
                     Ast.Assign(_frameExitException, Ast.Constant(true)),
-                    frameExit) 
+                    frameExit)
             );
 
             tryExpressions.Add(
@@ -535,7 +535,7 @@ namespace Microsoft.Scripting.Debugging {
                         ArrayUtils.Append(tryExpressions.ToArray(), Ast.Default(returnType))
                     ),
                     Ast.Catch(
-                        caughtException = Ast.Variable(typeof(Exception), "$caughtException"), 
+                        caughtException = Ast.Variable(typeof(Exception), "$caughtException"),
                         Ast.Block(
                             // The expressions below will always throw.
                             // If the exception needs to be cancelled then OnTraceEvent will throw ForceToGeneratorLoopException.
@@ -579,7 +579,7 @@ namespace Microsoft.Scripting.Debugging {
                         Ast.Block(
                             returnType != typeof(void) ? Ast.Block(
                                 Ast.Assign(
-                                    _retValFromGeneratorLoop, 
+                                    _retValFromGeneratorLoop,
                                     Ast.Call(
                                         typeof(RuntimeOps).GetMethod(nameof(RuntimeOps.GeneratorLoopProc)),
                                         _thread
@@ -616,7 +616,7 @@ namespace Microsoft.Scripting.Debugging {
                         ),
                         // Make sure that the debugMarker is up-to-date after the generator loop
                         Ast.Assign(
-                            _debugMarker, 
+                            _debugMarker,
                             Ast.Call(
                                 typeof(RuntimeOps).GetMethod(nameof(RuntimeOps.GetCurrentSequencePointForLeafGeneratorFrame)),
                                 _thread

@@ -10,15 +10,15 @@ using MarshalByRefObject = System.Object;
 
 using System;
 using System.Runtime.Serialization;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Providers {
+namespace Riverside.Scripting.Hosting.Providers {
 
     /// <summary>
-    /// Advanced APIs for HAPI providers. These methods should not be used by hosts. 
-    /// They are provided for other hosting API implementers that would like to leverage existing HAPI and 
-    /// extend it with language specific functionality, for example. 
+    /// Advanced APIs for HAPI providers. These methods should not be used by hosts.
+    /// They are provided for other hosting API implementers that would like to leverage existing HAPI and
+    /// extend it with language specific functionality, for example.
     /// </summary>
     public static class HostingHelpers {
         /// <exception cref="ArgumentNullException"><paramref name="runtime"/> is a <c>null</c> reference.</exception>
@@ -79,7 +79,7 @@ namespace Microsoft.Scripting.Hosting.Providers {
         /// Performs a callback in the ScriptEngine's app domain and returns the result.
         /// </summary>
         [Obsolete("You should implement a service via LanguageContext and call ScriptEngine.GetService")]
-        public static TRet CallEngine<T, TRet>(ScriptEngine engine, Func<LanguageContext, T, TRet> f, T arg) {            
+        public static TRet CallEngine<T, TRet>(ScriptEngine engine, Func<LanguageContext, T, TRet> f, T arg) {
             return engine.Call(f, arg);
         }
 

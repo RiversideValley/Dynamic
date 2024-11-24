@@ -7,19 +7,19 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// Represents a logical member of a type.  The member could either be real concrete member on a type or
     /// an extension member.
-    /// 
+    ///
     /// This seperates the "physical" members that .NET knows exist on types from the members that
     /// logically exist on a type.  It also provides other abstractions above the level of .NET reflection
     /// such as MemberGroups and NamespaceTracker's.
-    /// 
+    ///
     /// It also provides a wrapper around the reflection APIs which cannot be extended from partial trust.
     /// </summary>
     public abstract class MemberTracker {
@@ -29,10 +29,10 @@ namespace Microsoft.Scripting.Actions {
         private static readonly Dictionary<MemberKey, MemberTracker> _trackers = new Dictionary<MemberKey, MemberTracker>();
 
         /// <summary>
-        /// We ensure we only produce one MemberTracker for each member which logically lives on the declaring type.  So 
-        /// for example if you get a member from a derived class which is declared on the base class it should be the same 
-        /// as getting the member from the base class.  That’s easy enough until you get into extension members – here there
-        /// might be one extension member which is being applied to multiple types.  Therefore we need to take into account the 
+        /// We ensure we only produce one MemberTracker for each member which logically lives on the declaring type.  So
+        /// for example if you get a member from a derived class which is declared on the base class it should be the same
+        /// as getting the member from the base class.  Thatï¿½s easy enough until you get into extension members ï¿½ here there
+        /// might be one extension member which is being applied to multiple types.  Therefore we need to take into account the
         /// extension type when ensuring that we only have 1 MemberTracker ever created.
         /// </summary>
         class MemberKey {
@@ -133,9 +133,9 @@ namespace Microsoft.Scripting.Actions {
         #region Public expression builders
 
         /// <summary>
-        /// Gets the expression that creates the value.  
-        /// 
-        /// Returns null if it's an error to get the value.  The caller can then call GetErrorForGet to get 
+        /// Gets the expression that creates the value.
+        ///
+        /// Returns null if it's an error to get the value.  The caller can then call GetErrorForGet to get
         /// the correct error Expression (or null if they should provide a default).
         /// </summary>
         public virtual DynamicMetaObject GetValue(OverloadResolverFactory resolverFactory, ActionBinder binder, Type instanceType) {
@@ -144,7 +144,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Gets an expression that assigns a value to the left hand side.
-        /// 
+        ///
         /// Returns null if it's an error to assign to.  The caller can then call GetErrorForSet to
         /// get the correct error Expression (or null if a default error should be provided).
         /// </summary>
@@ -154,7 +154,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Gets an expression that assigns a value to the left hand side.
-        /// 
+        ///
         /// Returns null if it's an error to assign to.  The caller can then call GetErrorForSet to
         /// get the correct error Expression (or null if a default error should be provided).
         /// </summary>
@@ -164,8 +164,8 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Gets an expression that performs a call on the object using the specified arguments.
-        /// 
-        /// Returns null if it's an error to perform the specific operation.  The caller can then call 
+        ///
+        /// Returns null if it's an error to perform the specific operation.  The caller can then call
         /// GetErrorsForDoCall to get the correct error Expression (or null if a default error should be provided).
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Call")] // TODO: fix
@@ -178,8 +178,8 @@ namespace Microsoft.Scripting.Actions {
         #region Public error expression builders
 
         /// <summary>
-        /// Returns the error associated with getting the value.  
-        /// 
+        /// Returns the error associated with getting the value.
+        ///
         /// A null return value indicates that the default error message should be provided by the caller.
         /// </summary>
         public virtual ErrorInfo GetError(ActionBinder binder, Type instanceType) {
@@ -188,7 +188,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Returns the error associated with accessing this member via a bound instance.
-        /// 
+        ///
         /// A null return value indicates that the default error message should be provided by the caller.
         /// </summary>
         public virtual ErrorInfo GetBoundError(ActionBinder binder, DynamicMetaObject instance, Type instanceType) {
@@ -221,7 +221,7 @@ namespace Microsoft.Scripting.Actions {
 
 
         /// <summary>
-        /// Binds the member tracker to the specified instance rturning a new member tracker if binding 
+        /// Binds the member tracker to the specified instance rturning a new member tracker if binding
         /// is possible.  If binding is not possible the existing member tracker will be returned.  For example
         /// binding to a static field results in returning the original MemberTracker.  Binding to an instance
         /// field results in a new BoundMemberTracker which will get GetBoundValue/SetBoundValue to pass the

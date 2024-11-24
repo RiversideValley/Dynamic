@@ -11,19 +11,19 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
-using RuntimeHelpers = Microsoft.Scripting.Runtime.ScriptingRuntimeHelpers;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
+using RuntimeHelpers = Riverside.Scripting.Runtime.ScriptingRuntimeHelpers;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
     /// The builder for creating the LambdaExpression node.
-    /// 
+    ///
     /// Since the nodes require that parameters and variables are created
     /// before hand and then passed to the factories creating LambdaExpression
     /// this builder keeps track of the different pieces and at the end creates
     /// the LambdaExpression.
-    /// 
+    ///
     /// TODO: This has some functionality related to CodeContext that should be
     /// removed, in favor of languages handling their own local scopes
     /// </summary>
@@ -124,7 +124,7 @@ namespace Microsoft.Scripting.Ast {
                 _visible = value;
             }
         }
-        
+
         public List<ParameterExpression> GetVisibleVariables() {
             var vars = new List<ParameterExpression>(_visibleVars.Count);
             foreach (var v in _visibleVars) {
@@ -137,7 +137,7 @@ namespace Microsoft.Scripting.Ast {
 
         /// <summary>
         /// Creates a parameter on the lambda with a given name and type.
-        /// 
+        ///
         /// Parameters maintain the order in which they are created,
         /// however custom ordering is possible via direct access to
         /// Parameters collection.
@@ -152,7 +152,7 @@ namespace Microsoft.Scripting.Ast {
 
         /// <summary>
         /// Creates a parameter on the lambda with a given name and type.
-        /// 
+        ///
         /// Parameters maintain the order in which they are created,
         /// however custom ordering is possible via direct access to
         /// Parameters collection.
@@ -167,7 +167,7 @@ namespace Microsoft.Scripting.Ast {
 
         /// <summary>
         /// adds existing parameter to the lambda.
-        /// 
+        ///
         /// Parameters maintain the order in which they are created,
         /// however custom ordering is possible via direct access to
         /// Parameters collection.
@@ -178,7 +178,7 @@ namespace Microsoft.Scripting.Ast {
 
         /// <summary>
         /// Creates a hidden parameter on the lambda with a given name and type.
-        /// 
+        ///
         /// Parameters maintain the order in which they are created,
         /// however custom ordering is possible via direct access to
         /// Parameters collection.
@@ -192,7 +192,7 @@ namespace Microsoft.Scripting.Ast {
 
         /// <summary>
         /// Creates a params array argument on the labmda.
-        /// 
+        ///
         /// The params array argument is added to the signature immediately. Before the lambda is
         /// created, the builder validates that it is still the last (since the caller can modify
         /// the order of parameters explicitly by maniuplating the parameter list)
@@ -281,7 +281,7 @@ namespace Microsoft.Scripting.Ast {
 
             LambdaExpression lambda = Expression.Lambda(
                 GetLambdaType(_returnType, _params),
-                AddDefaultReturn(MakeBody()), 
+                AddDefaultReturn(MakeBody()),
                 _name + "$" + Interlocked.Increment(ref _lambdaId),
                 _params
             );
@@ -306,7 +306,7 @@ namespace Microsoft.Scripting.Ast {
                 lambdaType,
                 label,
                 MakeBody(),
-                _name + "$" + Interlocked.Increment(ref _lambdaId), 
+                _name + "$" + Interlocked.Increment(ref _lambdaId),
                 _params
             );
 
@@ -331,7 +331,7 @@ namespace Microsoft.Scripting.Ast {
             // Example:
             //      delegate siganture      del(x, params y[])
             //      lambda signature        lambda(a, b, param n[])
-            //          
+            //
             //  for the situation above the mapping will be  <a, x>, <b, V1>, <n, V2>
             //  where V1 and V2 are synthetic variables and initialized as follows -  V1 = y[0] , V2 = {y[1], y[2],... y[n]}
             ParameterInfo[] delegateParams = delegateType.GetMethod("Invoke").GetParameters();
@@ -500,7 +500,7 @@ namespace Microsoft.Scripting.Ast {
 
         private Expression MakeBody() {
             Expression body = _body;
-            
+
             // wrap a scope if needed
             if (_locals != null && _locals.Count > 0) {
                 body = Expression.Block(new ReadOnlyCollection<ParameterExpression>(_locals.ToArray()), body);
@@ -553,13 +553,13 @@ namespace Microsoft.Scripting.Ast {
     }
 }
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public static partial class ScriptingRuntimeHelpers {
         /// <summary>
-        /// Used by prologue code that is injected in lambdas to ensure that delegate signature matches what 
-        /// lambda body expects. Such code typically unwraps subset of the params array manually, 
+        /// Used by prologue code that is injected in lambdas to ensure that delegate signature matches what
+        /// lambda body expects. Such code typically unwraps subset of the params array manually,
         /// but then passes the rest in bulk if lambda body also expects params array.
-        /// 
+        ///
         /// This calls ArrayUtils.ShiftLeft, but performs additional checks that
         /// ArrayUtils.ShiftLeft assumes.
         /// </summary>

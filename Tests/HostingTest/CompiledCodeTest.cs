@@ -4,12 +4,12 @@
 
 using System;
 using System.Dynamic;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
-using Microsoft.Scripting;
+using Riverside.Scripting;
 
 namespace HostingTest {
-    using Microsoft.Scripting.Runtime;
+    using Riverside.Scripting.Runtime;
 
     class MyErrorListener : ErrorListener {
         public ScriptSource _source;
@@ -107,7 +107,7 @@ namespace HostingTest {
         /// <summary>
         /// Test      : Validate that file is only re-read on Execute, change file between Executes
         /// Expected  : Validate that Executes have updated source.
-        /// 
+        ///
         /// Note      : A new test case based on spec for compiledcode
         /// </summary>
         [Test]
@@ -120,8 +120,8 @@ namespace HostingTest {
         /// <summary>
         /// Test      : Engine Property is accessible from Compiled scope
         /// Expected  : Engine is same as engine that created scope, source, etc
-        /// 
-        /// Note      : validate the scope value is the same in the engine as the 
+        ///
+        /// Note      : validate the scope value is the same in the engine as the
         ///             scope.
         /// </summary>
         [Test]

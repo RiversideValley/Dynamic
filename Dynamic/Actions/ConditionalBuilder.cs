@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     /// <summary>
     /// Builds up a series of conditionals when the False clause isn't yet known.  We can

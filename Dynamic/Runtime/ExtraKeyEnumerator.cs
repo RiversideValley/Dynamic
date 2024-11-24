@@ -4,9 +4,9 @@
 
 using System.Diagnostics;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     class ExtraKeyEnumerator : CheckedDictionaryEnumerator {
         private readonly CustomStringDictionary _idDict;
         private int _curIndex = -1;

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     public sealed class NewArrayInitInstruction<TElement> : Instruction {
         private readonly int _elementCount;
 

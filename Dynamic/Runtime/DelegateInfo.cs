@@ -9,11 +9,11 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Used as the value for the ScriptingRuntimeHelpers.GetDelegate method caching system
     /// </summary>
@@ -28,8 +28,8 @@ namespace Microsoft.Scripting.Runtime {
 
         // to enable:
         // function x() { }
-        // someClass.someEvent += delegateType(x) 
-        // someClass.someEvent -= delegateType(x) 
+        // someClass.someEvent += delegateType(x)
+        // someClass.someEvent -= delegateType(x)
         //
         // We need to avoid re-creating the closure because the delegates won't
         // compare equal when removing the delegate if they have different closure
@@ -43,7 +43,7 @@ namespace Microsoft.Scripting.Runtime {
         // Note that the closure content depends on the signature of the delegate. So a single dynamic object
         // might need multiple closures if it is converted to delegates of different signatures.
         private WeakDictionary<object, WeakReference> _closureMap = new WeakDictionary<object, WeakReference>();
-        
+
         private readonly Type _returnType;
         private readonly Type[] _parameterTypes;
         private readonly MethodInfo _method;
@@ -259,11 +259,11 @@ namespace Microsoft.Scripting.Runtime {
                 convertSiteType = null;
                 convertSite = null;
             }
-          
+
             var locals = new List<ParameterExpression>();
-            
+
             ParameterExpression invokeSiteVar = Expression.Parameter(invokeSiteType, "site");
-            ParameterExpression convertSiteVar = null; 
+            ParameterExpression convertSiteVar = null;
 
             var args = new List<Expression>();
             args.Add(invokeSiteVar);
@@ -277,13 +277,13 @@ namespace Microsoft.Scripting.Runtime {
 
                     Type elementType = argType.GetElementType();
                     Type concreteType = typeof(StrongBox<>).MakeGenericType(elementType);
-                   
+
                     var strongBox = Expression.Parameter(concreteType, "box" + i);
                     locals.Add(strongBox);
 
                     args.Add(
                         Expression.Assign(
-                            strongBox, 
+                            strongBox,
                             Expression.New(
                                 concreteType.GetConstructor(new Type[] { elementType }),
                                 parameters[i]
@@ -297,15 +297,15 @@ namespace Microsoft.Scripting.Runtime {
             }
 
             int strongBoxVarsEnd = locals.Count;
-            
+
             Expression invocation = Expression.Invoke(
                 Expression.Field(
                     Expression.Assign(
-                        invokeSiteVar, 
+                        invokeSiteVar,
                         Expression.Convert(Expression.Constant(invokeSite), invokeSiteType)
-                    ), 
+                    ),
                     invokeSiteType.GetDeclaredField("Target")
-                ), 
+                ),
                 args
             );
 
@@ -315,12 +315,12 @@ namespace Microsoft.Scripting.Runtime {
                 invocation = Expression.Invoke(
                     Expression.Field(
                         Expression.Assign(
-                            convertSiteVar, 
+                            convertSiteVar,
                             Expression.Convert(Expression.Constant(convertSite), convertSiteType)
                         ),
                         convertSiteType.GetDeclaredField("Target")
                     ),
-                    convertSiteVar, 
+                    convertSiteVar,
                     invocation
                 );
             }
@@ -335,7 +335,7 @@ namespace Microsoft.Scripting.Runtime {
             // copy back from StrongBox.Value
             if (strongBoxVarsEnd > strongBoxVarsStart) {
                 var block = new Expression[1 + strongBoxVarsEnd - strongBoxVarsStart + 1];
-                
+
                 var resultVar = Expression.Parameter(invocation.Type, "result");
                 locals.Add(resultVar);
 
@@ -351,7 +351,7 @@ namespace Microsoft.Scripting.Runtime {
                         block[b++] = Expression.Assign(
                             parameters[i],
                             Expression.Field(local, local.Type.GetDeclaredField("Value"))
-                        ); 
+                        );
                     }
                 }
 

@@ -8,11 +8,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
-using RuntimeHelpers = Microsoft.Scripting.Runtime.ScriptingRuntimeHelpers;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
+using RuntimeHelpers = Riverside.Scripting.Runtime.ScriptingRuntimeHelpers;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     /// <summary>
     /// An argument that the user wants to explicitly pass by-reference (with copy-in copy-out semantics).

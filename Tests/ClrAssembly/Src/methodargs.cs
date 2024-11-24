@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Merlin.Testing.TypeSample;
-using Microsoft.Scripting;
+using Riverside.Scripting;
 
 namespace Merlin.Testing.Call {
     public class VariousParameters {

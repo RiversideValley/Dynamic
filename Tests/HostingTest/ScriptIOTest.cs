@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 
@@ -21,7 +21,7 @@ namespace HostingTest    {
         /// this class.
         /// </summary>
         public ScriptIOTest(){
-           
+
         }
 
         [Negative()]
@@ -56,7 +56,7 @@ namespace HostingTest    {
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void SetOutput_TextWriterSecondParameterIsNull() {
-            
+
             string file = TestHelpers.CreateTempFile("Test!");
             FileStream stream = new FileStream(file, FileMode.Create, FileAccess.ReadWrite);
             _runTime.IO.SetOutput((Stream)stream, (StreamWriter)null);
@@ -114,7 +114,7 @@ namespace HostingTest    {
             _runTime.IO.SetOutput((Stream)stream, streamWriter);
 
             ScriptScope scope = _testEng.CreateScope();
-            ScriptSource source = scope.Engine.CreateScriptSourceFromString("print \"" + expectedOutput + "\"", Microsoft.Scripting.SourceCodeKind.Statements);
+            ScriptSource source = scope.Engine.CreateScriptSourceFromString("print \"" + expectedOutput + "\"", Riverside.Scripting.SourceCodeKind.Statements);
             source.Execute(scope);
             stream.Close();
 
@@ -124,19 +124,19 @@ namespace HostingTest    {
 
         /// <summary>
         /// Tests    : Set stream to a valid object; set encoding to a known value
-        /// Expected : The output stream receives the proper values in proper format 
+        /// Expected : The output stream receives the proper values in proper format
         /// </summary>
         [Test]
         public void SetOutput_ValidateOutput() {
             string testFile = Path.GetTempFileName();
-           
+
             string expectedOutput = "test-" + DateTime.Now.ToUniversalTime();
             FileStream stream = new FileStream(testFile, FileMode.Create, FileAccess.ReadWrite);
 
             _runTime.IO.SetOutput((Stream)stream, Encoding.ASCII);
 
             ScriptScope scope = _testEng.CreateScope();
-            ScriptSource source = _testEng.CreateScriptSourceFromString("print \'" + expectedOutput + "\'", Microsoft.Scripting.SourceCodeKind.Statements);
+            ScriptSource source = _testEng.CreateScriptSourceFromString("print \'" + expectedOutput + "\'", Riverside.Scripting.SourceCodeKind.Statements);
             source.Execute(scope);
 
             _runTime.IO.OutputStream.Close();
@@ -145,8 +145,8 @@ namespace HostingTest    {
         }
 
         /// <summary>
-        /// Tests    : ‘stream’ is set explicitly; output is captured in ‘stream’ then ‘stream’ 
-        ///            is closed when still in use by the engine	
+        /// Tests    : ‘stream’ is set explicitly; output is captured in ‘stream’ then ‘stream’
+        ///            is closed when still in use by the engine
         /// Expected : ObjectDisposed exception is thrown since the stream was closed
         /// </summary>
         [Test]
@@ -158,9 +158,9 @@ namespace HostingTest    {
             _runTime.IO.SetOutput((Stream)stream, Encoding.ASCII);
 
             ScriptScope scope = _testEng.CreateScope();
-            ScriptSource source = _testEng.CreateScriptSourceFromString("print 'something'", Microsoft.Scripting.SourceCodeKind.Statements);
+            ScriptSource source = _testEng.CreateScriptSourceFromString("print 'something'", Riverside.Scripting.SourceCodeKind.Statements);
 
-            source.Execute(scope);   
+            source.Execute(scope);
             stream.Close();
 
             ValidateAttachedStreamOutput(testFile, "something");
@@ -213,7 +213,7 @@ namespace HostingTest    {
         [ExpectedException(typeof(ArgumentNullException))]
         public void SetErrorOutput_FirstParameterIsNull() {
             _runTime.IO.SetErrorOutput((Stream)null, Encoding.ASCII);
-        
+
         }
 
         [Negative()]

@@ -5,8 +5,8 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
 #if FEATURE_REMOTING
 using System.Runtime.Remoting;
@@ -14,7 +14,7 @@ using System.Runtime.Remoting;
 using MarshalByRefObject = System.Object;
 #endif
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     public sealed class ExceptionOperations : MarshalByRefObject {
         private readonly LanguageContext _context;
 

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     [DebuggerDisplay("{Name}")]
     public sealed class FunctionInfo {
         private readonly bool[] _traceLocations;

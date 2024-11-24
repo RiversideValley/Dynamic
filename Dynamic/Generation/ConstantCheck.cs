@@ -5,9 +5,9 @@
 using System.Linq.Expressions;
 
 using System.Diagnostics;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
 
     public static class ConstantCheck {
 
@@ -65,7 +65,7 @@ namespace Microsoft.Scripting.Generation {
             if (node.Conversion != null) {
                 return false;
             }
-    
+
             if (value is bool b) {
                 if (b) {
                     return IsConstant(node.Left, true) && IsConstant(node.Right, true);

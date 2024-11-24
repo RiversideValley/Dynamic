@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     public sealed class ActualArguments {
         public ActualArguments(IList<DynamicMetaObject> args, IList<DynamicMetaObject> namedArgs, IList<string> argNames,
             int hiddenCount, int collapsedCount, int firstSplattedArg, int splatIndex) {
@@ -74,9 +74,9 @@ namespace Microsoft.Scripting.Actions.Calls {
             index < Arguments.Count ? Arguments[index] : NamedArguments[index - Arguments.Count];
 
         /// <summary>
-        /// Binds named arguments to the parameters. Returns a permutation of indices that captures the relationship between 
+        /// Binds named arguments to the parameters. Returns a permutation of indices that captures the relationship between
         /// named arguments and their corresponding parameters. Checks for duplicate and unbound named arguments.
-        /// Ensures that for all i: namedArgs[i] binds to parameters[args.Length + bindingPermutation[i]] 
+        /// Ensures that for all i: namedArgs[i] binds to parameters[args.Length + bindingPermutation[i]]
         /// </summary>
         internal bool TryBindNamedArguments(MethodCandidate method, out ArgumentBinding binding, out CallFailure failure) {
             if (NamedArguments.Count == 0) {

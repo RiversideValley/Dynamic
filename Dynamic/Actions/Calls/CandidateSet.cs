@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
     /// Represents a collection of MethodCandidate's which all accept the
     /// same number of logical parameters.  For example a params method

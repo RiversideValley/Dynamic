@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using Microsoft.Scripting.Metadata;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Metadata;
+using Riverside.Scripting.Utils;
 
 namespace Metadata {
     public sealed class RNamespaceTreeNode {
@@ -40,7 +40,7 @@ namespace Metadata {
                 _lastChild._nextSibling = ns;
                 _lastChild = ns;
             }
-            
+
         }
 
         public string Name { get; }
@@ -66,7 +66,7 @@ namespace Metadata {
         /// </summary>
         public void Merge(RNamespaceTreeNode other) {
             ContractUtils.Requires(other != null);
-            
+
             if (other._typeDefs != null) {
                 _typeDefs.AddRange(other._typeDefs);
                 other._typeDefs = null;
@@ -134,7 +134,7 @@ namespace Metadata {
 
                     ContractUtils.Assert(prefix.Length > 0);
                     int lastDot = prefix.LastIndexOf('.', prefix.Length - 1, prefix.Length);
-                    
+
                     string name = (lastDot >= 0) ? prefix.Substring(lastDot + 1) : prefix;
                     RNamespaceTreeNode newNs = new RNamespaceTreeNode(name);
                     if (ns == null) {

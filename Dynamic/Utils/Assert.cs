@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
 
     public static class Assert {
 

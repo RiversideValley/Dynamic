@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")] // TODO: fix
     public sealed class ScriptDomainManager {
         private List<Assembly> _loadedAssemblies = new List<Assembly>();
@@ -125,7 +125,7 @@ namespace Microsoft.Scripting.Runtime {
 
             return true;
         }
-        
+
         public IList<Assembly> GetLoadedAssemblyList() {
             lock (_loadedAssemblies) {
                 return _loadedAssemblies.ToArray();

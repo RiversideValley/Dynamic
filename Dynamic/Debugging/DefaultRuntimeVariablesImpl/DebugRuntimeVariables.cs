@@ -5,7 +5,7 @@
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// Implementation of IDebugRuntimeVariables, which wraps IRuntimeVariables + FunctionInfo/DebugMarker
     /// </summary>

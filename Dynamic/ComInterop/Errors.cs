@@ -5,7 +5,7 @@
 #if FEATURE_COM
 using System;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     #region Generated Com Exception Factory
 

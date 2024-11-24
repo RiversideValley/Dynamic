@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using IronPython.Runtime.Exceptions;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 using System.Runtime.Remoting;
 using System.Text;
 
@@ -28,7 +28,7 @@ namespace HostingTest {
 
 
         /// <summary>
-        /// Test : No Default Engine test for existence of a variable contained in the scope with wrong 
+        /// Test : No Default Engine test for existence of a variable contained in the scope with wrong
         /// case lookup string.
         /// Expected : Fail
         /// </summary>
@@ -54,7 +54,7 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// Test     : Null name	
+        /// Test     : Null name
         /// Expected : ArgumentNullException
         /// </summary>
         [Negative]
@@ -92,7 +92,7 @@ namespace HostingTest {
             _runtime.CreateScope().GetVariable("MissingVar");
         }
 
-        [Ignore]        
+        [Ignore]
         [Test]
         public void DefaultEngine_GetDefaultEngineTest() {
             ScriptRuntime defaultRuntime = CreateRuntime();
@@ -111,8 +111,8 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// Test : No default engine, empty string name, any value	
-        /// Expect : the value to be inserted properly with an empty 
+        /// Test : No default engine, empty string name, any value
+        /// Expect : the value to be inserted properly with an empty
         ///          string name identifier (or arguably an exception)
         /// </summary>
         [Test]
@@ -126,8 +126,8 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// Test : No default engine and case sensitive engine, existing name with a new casing, 
-        ///        any value	
+        /// Test : No default engine and case sensitive engine, existing name with a new casing,
+        ///        any value
         /// Expected : New casing inserted properly, old casing undisturbed
         /// </summary>
         [Test]
@@ -168,7 +168,7 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// Test : ‘name’ already exists; but value’s actual type is different from the 
+        /// Test : ‘name’ already exists; but value’s actual type is different from the
         ///         current one.
         /// Expected : New value and new  type is available subsequently
         /// </summary>
@@ -192,7 +192,7 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// Test     : Correct T value and valid Expression 
+        /// Test     : Correct T value and valid Expression
         /// Expected : Returns a expresion as type T.
         /// </summary>
         [Test]
@@ -327,7 +327,7 @@ namespace HostingTest {
 
         /// <summary>
         /// Scope bound to thsi engine, new name
-        /// 
+        ///
         /// New variable is created matching the given name and value.
         /// </summary>
         [Test]
@@ -349,9 +349,9 @@ namespace HostingTest {
         }
 
         /// <summary>
-        ///  
+        ///
         ///  Test for empty string value lookup
-        /// 
+        ///
         /// </summary>
         [Test]
         public void ContainVariable_EmptyStringValue() {
@@ -389,7 +389,7 @@ namespace HostingTest {
 
         /// <summary>
         ///  name.Length > 255 and name not declared in scope
-        ///  
+        ///
         /// Expected return false
         /// </summary>
         [Test]
@@ -411,19 +411,19 @@ namespace HostingTest {
 
             string tLongKey = longStrTest.ToString();
 
-            // Validate that this key is longer then 256 
+            // Validate that this key is longer then 256
             Assert.IsTrue(tLongKey.Length > BigValueToTestBeyond);
 
             // Get default scope with set values
             ScriptScope TestScope = _testEng.CreateScope(new ObjectDictionaryExpando(global));
-            // Lookup Long key 
+            // Lookup Long key
             Assert.IsFalse(TestScope.ContainsVariable(tLongKey));
 
 
         }
 
         /// <summary>
-        /// name.Length > 20 and name declared in scope 
+        /// name.Length > 20 and name declared in scope
         /// expected return true.
         /// </summary>
         [Test]
@@ -443,14 +443,14 @@ namespace HostingTest {
 
             Assert.IsTrue(TestScope.ContainsVariable(key[0]));
         }
-        
+
         /// <summary>
         /// Try Get Variable for the casses of GetVariableGenericT(...)
-        /// 
+        ///
         /// 1) Get When var exists - Get value set to its value and a return of true
-        /// 2) Get when it doesn't exist - value set to null and a 
+        /// 2) Get when it doesn't exist - value set to null and a
         ///    return of false
-        /// 3) When it doesn't or cannot be converted to T, value set to null 
+        /// 3) When it doesn't or cannot be converted to T, value set to null
         ///    and return of false - HOW CAN WE TEST THIS CASE?
         /// </summary>
         [Test]
@@ -486,9 +486,9 @@ namespace HostingTest {
 
         /// <summary>
         /// 1) Get When var exists - Get value set to its value and a return of true
-        /// 2) Get when it doesn't exist - value set to null and a 
+        /// 2) Get when it doesn't exist - value set to null and a
         ///    return of false
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TryGetVariable_multipleCases() {
@@ -525,9 +525,9 @@ namespace HostingTest {
 
         /// <summary>
         /// 1) Get When var exists - Get value set to its value and a return of true
-        /// 2) Get when it doesn't exist - value set to null and a 
+        /// 2) Get when it doesn't exist - value set to null and a
         ///    return of false
-        /// 
+        ///
         /// </summary>
         [Test]
         public void TryGetVariableAsHandle_MultipleCases() {
@@ -628,7 +628,7 @@ namespace HostingTest {
         }
 
 
-        
+
         [Test]
         public void GetItems_MultipleCallsRemoteRuntime() {
             ValidateGetItems(_remoteRuntime);
@@ -640,9 +640,9 @@ namespace HostingTest {
         {
             Assert.AreEqual((int)(_testEng.Execute("1 + 1")), 2);
         }
-       
+
         // Bug # 482429 validation
-        // TODO : Replace existing Generic Execute 
+        // TODO : Replace existing Generic Execute
         [Test]
         public void ExecuteGeneric_ValidExpressionResult()
         {
@@ -658,7 +658,7 @@ namespace HostingTest {
             int expected1;
             Assert.IsTrue(scope.TryGetVariable<int>("var1", out expected1));
             Assert.AreEqual(expected1, 1);
-            
+
         }
 
         // Bug # 485727
@@ -669,7 +669,7 @@ namespace HostingTest {
             string expected1;
             Assert.IsFalse(scope.TryGetVariable<string>("var1", out expected1));
             Assert.AreEqual(expected1, null);
-            
+
         }
 
         // Bug # 485727
@@ -695,7 +695,7 @@ namespace HostingTest {
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetVariableAsHandle_NullName() {
 
-            // Create a valid Scope Dictionary 
+            // Create a valid Scope Dictionary
             ScriptScopeDictionary global = new ScriptScopeDictionary();
             // Populate with some test data
             global["Test1"] = 1111;
@@ -730,7 +730,7 @@ namespace HostingTest {
         [Test]
         public void GetVariableAsHandle_LocalEngineExistingName() {
 
-            // Create a valid Scope Dictionary 
+            // Create a valid Scope Dictionary
             ScriptScopeDictionary global = new ScriptScopeDictionary();
             // Populate with some test data
             global["Test1"] = 1111;
@@ -750,7 +750,7 @@ namespace HostingTest {
 
 
         /// <summary>
-        /// Remote engine, remote value, return var value returned 
+        /// Remote engine, remote value, return var value returned
         /// wrapped in ObjectHandle.
         /// </summary>
         [Test]
@@ -774,17 +774,17 @@ namespace HostingTest {
 
 
         /// <summary>
-        /// Use a Non-null globals dictonary should Returns a new, usable, 
+        /// Use a Non-null globals dictonary should Returns a new, usable,
         /// ScriptScope with globals as the backing dictionary.  Scope updates s
         /// hold be reflected in globals.
-        /// 
+        ///
         /// Also make changes with Execute and verify they are global
         /// scope is updated.
         /// </summary>
         [Test]
         public void CreateScope_UsingValidScopeDic() {
 
-            // Create a Scope Dictionary 
+            // Create a Scope Dictionary
             ScriptScopeDictionary global = new ScriptScopeDictionary();
             // Populate with some test data
             global["One"] = 1;
@@ -811,7 +811,7 @@ namespace HostingTest {
         [Test]
         public void GetVariable_EmptyString() {
 
-            // Create a Scope Dictionary 
+            // Create a Scope Dictionary
             ScriptScopeDictionary global = new ScriptScopeDictionary();
             // Populate with some test data
             global["Test1"] = 1111;

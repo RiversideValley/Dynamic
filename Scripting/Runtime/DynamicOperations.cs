@@ -10,17 +10,17 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
 
     /// <summary>
-    /// ObjectOperations provide a large catalogue of object operations such as member access, conversions, 
+    /// ObjectOperations provide a large catalogue of object operations such as member access, conversions,
     /// indexing, and things like addition.  There are several introspection and tool support services available
-    /// for more advanced hosts.  
-    /// 
-    /// You get ObjectOperation instances from ScriptEngine, and they are bound to their engines for the semantics 
-    /// of the operations.  There is a default instance of ObjectOperations you can share across all uses of the 
+    /// for more advanced hosts.
+    ///
+    /// You get ObjectOperation instances from ScriptEngine, and they are bound to their engines for the semantics
+    /// of the operations.  There is a default instance of ObjectOperations you can share across all uses of the
     /// engine.  However, very advanced hosts can create new instances.
     /// </summary>
     public sealed partial class DynamicOperations {
@@ -58,14 +58,14 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// Calls the provided object with the given parameters and returns the result.
-        /// 
-        /// The prefered way of calling objects is to convert the object to a strongly typed delegate 
+        ///
+        /// The prefered way of calling objects is to convert the object to a strongly typed delegate
         /// using the ConvertTo methods and then invoking that delegate.
         /// </summary>
         public object Invoke(object obj, params object[] parameters) {
             return GetInvoker(parameters.Length)(this, _lc.CreateInvokeBinder(new CallInfo(parameters.Length)), obj, parameters);
         }
-        
+
         /// <summary>
         /// Invokes a member on the provided object with the given parameters and returns the result.
         /// </summary>
@@ -103,7 +103,7 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and 
+        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and
         /// stores the value in the value out param.
         /// </summary>
         public bool TryGetMember(object obj, string name, out object value) {
@@ -158,7 +158,7 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and 
+        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and
         /// stores the value in the value out param.
         /// </summary>
         public bool TryGetMember(object obj, string name, bool ignoreCase, out object value) {
@@ -213,7 +213,7 @@ namespace Microsoft.Scripting.Runtime {
             return site.Target(site, obj);
         }
 
-        /// <summary> 
+        /// <summary>
         /// Converts the object obj to the type type.  The conversion will be explicit or implicit
         /// depending on what the langauge prefers.
         /// </summary>
@@ -239,7 +239,7 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// Converts the object obj to the type T.  Returns true if the value can be converted, false if it cannot.
-        /// 
+        ///
         /// The conversion will be explicit or implicit depending on what the langauge prefers.
         /// </summary>
         public bool TryConvertTo<T>(object obj, out T result) {
@@ -257,7 +257,7 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// Converts the object obj to the type type.  Returns true if the value can be converted, false if it cannot.
-        /// 
+        ///
         /// The conversion will be explicit or implicit depending on what the langauge prefers.
         /// </summary>
         public bool TryConvertTo(object obj, Type type, out object result) {
@@ -290,8 +290,8 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Converts the object obj to the type type including explicit conversions which may lose information.  
-        /// 
+        /// Converts the object obj to the type type including explicit conversions which may lose information.
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryExplicitConvertTo(object obj, Type type, out object result) {
@@ -340,8 +340,8 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Converts the object obj to the type type including implicit conversions. 
-        /// 
+        /// Converts the object obj to the type type including implicit conversions.
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryImplicitConvertTo(object obj, Type type, out object result) {
@@ -389,7 +389,7 @@ namespace Microsoft.Scripting.Runtime {
             var site = GetOrCreateSite<TTarget, TOther, TResult>(_lc.CreateBinaryOperationBinder(operation));
             return site.Target(site, target, other);
         }
-        
+
         public string GetDocumentation(object o) {
             return _lc.GetDocumentation(o);
         }
@@ -401,7 +401,7 @@ namespace Microsoft.Scripting.Runtime {
         public bool IsCallable(object o) {
             return _lc.IsCallable(o);
         }
-        
+
         /// <summary>
         /// Returns a list of strings which contain the known members of the object.
         /// </summary>
@@ -534,7 +534,7 @@ namespace Microsoft.Scripting.Runtime {
                         toRemove.Add(sk);
                         if (toRemove.Count > StopCleanupThreshold) {
                             // if we have a setup like weight(100), weight(1), weight(1), weight(1), ... we don't want
-                            // to just run through and remove all of the weight(1)'s. 
+                            // to just run through and remove all of the weight(1)'s.
                             break;
                         }
                     }
@@ -546,7 +546,7 @@ namespace Microsoft.Scripting.Runtime {
                         _sites.Remove(sk);
                     }
 
-                    // reset all hit counts so the next time through is fair 
+                    // reset all hit counts so the next time through is fair
                     // to newly added members which may take precedence.
                     foreach (SiteKey sk in _sites.Keys) {
                         sk.HitCount = 0;
@@ -558,8 +558,8 @@ namespace Microsoft.Scripting.Runtime {
         /// <summary>
         /// Helper class for tracking all of our unique dynamic sites and their
         /// usage patterns.  We hash on the combination of the binder and site type.
-        /// 
-        /// We also track the hit count and the key holds the site associated w/ the 
+        ///
+        /// We also track the hit count and the key holds the site associated w/ the
         /// key.  Logically this is a set based upon the binder and site-type but we
         /// store it in a dictionary.
         /// </summary>

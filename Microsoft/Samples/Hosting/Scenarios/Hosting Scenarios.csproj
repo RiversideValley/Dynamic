@@ -19,13 +19,13 @@
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)..\Runtime\Microsoft.Scripting\Microsoft.Scripting.csproj">
+    <ProjectReference Include="$(SolutionDir)..\Runtime\Riverside.Scripting\Riverside.Scripting.csproj">
       <Project>{02FF0909-F5AD-48CF-A86A-345E721B7E40}</Project>
-      <Name>Microsoft.Scripting</Name>
+      <Name>Riverside.Scripting</Name>
     </ProjectReference>
-    <ProjectReference Include="$(SolutionDir)..\Runtime\Microsoft.Dynamic\Microsoft.Dynamic.csproj">
+    <ProjectReference Include="$(SolutionDir)..\Runtime\Riverside.Dynamic\Riverside.Dynamic.csproj">
       <Project>{EB66B766-6354-4208-A3D4-AACBDCB5C3B3}</Project>
-      <Name>Microsoft.Dynamic</Name>
+      <Name>Riverside.Dynamic</Name>
     </ProjectReference>
     <ProjectReference Include="$(SolutionDir)..\Languages\IronPython\IronPython.Modules\IronPython.Modules.csproj">
       <Project>{155CE436-1669-4A48-8095-410F2430237F}</Project>

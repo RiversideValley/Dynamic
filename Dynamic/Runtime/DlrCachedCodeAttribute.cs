@@ -4,9 +4,9 @@
 
 using System;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// An attribute that is applied to saved ScriptCode's to be used to re-create the ScriptCode
     /// from disk.
@@ -28,7 +28,7 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Gets names stored in optimized scope. 
+        /// Gets names stored in optimized scope.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
         public string[] Names { get; }

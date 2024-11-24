@@ -4,7 +4,7 @@
 
 #if FEATURE_COM
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     internal static class ComDispIds {
         internal const int DISPID_VALUE = 0;
         internal const int DISPID_PROPERTYPUT = -3;

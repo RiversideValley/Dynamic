@@ -6,9 +6,9 @@ using System;
 using System.IO;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
 
     public class BasicConsole : IConsole, IDisposable {
         private TextWriter _output;
@@ -142,7 +142,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
         protected void WriteColor(TextWriter output, string str, ConsoleColor c) {
             ConsoleColor origColor = Console.ForegroundColor;
             Console.ForegroundColor = c;
-      
+
             output.Write(str);
             output.Flush();
 
@@ -166,7 +166,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
                     // received ctrl-C
                     return "";
                 }
-                    
+
                 // received ctrl-Z
                 return null;
             }

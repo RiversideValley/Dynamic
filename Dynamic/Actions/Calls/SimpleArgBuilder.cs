@@ -7,9 +7,9 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
     /// SimpleArgBuilder produces the value produced by the user as the argument value.  It
     /// also tracks information about the original parameter and is used to create extended
@@ -32,7 +32,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         public SimpleArgBuilder(ParameterInfo info, int index)
             : this(info, info.ParameterType, index, info.IsParamArray(), info.IsParamDictionary()) {
         }
-        
+
         public SimpleArgBuilder(ParameterInfo info, Type parameterType, int index, bool isParams, bool isParamsDict)
             : base(info) {
             ContractUtils.Requires(index >= 0);
@@ -67,7 +67,7 @@ namespace Microsoft.Scripting.Actions.Calls {
             Debug.Assert(hasBeenUsed.Length == args.Length);
             Debug.Assert(Index < args.Length);
             Debug.Assert(!hasBeenUsed[Index]);
-            
+
             hasBeenUsed[Index] = true;
             return resolver.Convert(args.GetObject(Index), args.GetType(Index), ParameterInfo, _parameterType);
         }

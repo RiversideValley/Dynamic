@@ -6,15 +6,15 @@ using System;
 using System.Dynamic;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     /// <summary>
-    /// Represents a logical Property as a member of a Type.  This Property can either be a real 
+    /// Represents a logical Property as a member of a Type.  This Property can either be a real
     /// concrete Property on a type (implemented with a ReflectedPropertyTracker) or an extension
     /// property (implemented with an ExtensionPropertyTracker).
     /// </summary>
@@ -100,7 +100,7 @@ namespace Microsoft.Scripting.Actions {
                 return null;
             }
 
-            // TODO (tomat): this used to use getter.ReflectedType, is it still correct? 
+            // TODO (tomat): this used to use getter.ReflectedType, is it still correct?
             getter = CompilerHelpers.TryGetCallableMethod(instance.GetLimitType(), getter);
 
             var defaultBinder = (DefaultBinder)binder;

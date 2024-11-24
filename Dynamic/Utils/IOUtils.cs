@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static class IOUtils {
         /// <summary>
         /// Seeks the first character of a specified line in the text stream.
@@ -45,7 +45,7 @@ namespace Microsoft.Scripting.Utils {
         }
 
         /// <summary>
-        /// Reads characters to a string until end position or a terminator is reached. 
+        /// Reads characters to a string until end position or a terminator is reached.
         /// Doesn't include the terminator into the resulting string.
         /// Returns <c>null</c>, if the reader is at the end position.
         /// </summary>
@@ -67,7 +67,7 @@ namespace Microsoft.Scripting.Utils {
 
         /// <summary>
         /// Reads characters until end position or a terminator is reached.
-        /// Returns <c>true</c> if the character has been found (the reader is positioned right behind the character), 
+        /// Returns <c>true</c> if the character has been found (the reader is positioned right behind the character),
         /// <c>false</c> otherwise.
         /// </summary>
         public static bool SeekTo(TextReader reader, char c) {

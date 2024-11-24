@@ -8,8 +8,8 @@ using System.Runtime.Remoting;
 using System.Security.Policy;
 using System.Security;
 using Microsoft.CSharp.RuntimeBinder;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 
 // TODO:
 //if (ops.IsInvokable(obj, memberName)) {
@@ -82,7 +82,7 @@ namespace Scenarios {
 
             runtime.Globals.SetVariable("App", hostOM);
             runtime.ExecuteFile("register_user_commands.py");
-            
+
             hostOM.UserCommands["foo"]();
         }
 
@@ -154,7 +154,7 @@ namespace Scenarios {
 
             // 5 requests for same page:
             for (int i = 0; i < 5; i++) {
-                // on each request, create new scope with a custom dictionary for latebound look up of elements on page. 
+                // on each request, create new scope with a custom dictionary for latebound look up of elements on page.
                 // This uses a derived type of DynamicObject for convenience.
                 var page = new DynamicPage();
 
@@ -216,7 +216,7 @@ namespace Scenarios {
             var ops = engine.GetService<DocumentationOperations>();
             foreach (MemberDoc doc in ops.GetMembers(obj)) {
                 Console.WriteLine(doc.Name);
-                
+
                 object member = engine.Operations.GetMember(obj, doc.Name);
                 PrintSignatures(ops.GetOverloads(member));
             }
@@ -281,7 +281,7 @@ namespace Scenarios {
 class C(object):
   def __init__(self, value):
     self.value = value
-    
+
   def __int__(self):
     return self.value
 

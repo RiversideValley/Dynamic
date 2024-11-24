@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 namespace HostingTest
@@ -38,13 +38,13 @@ namespace HostingTest
             return new ScriptRuntime(srs);
         }
     }
-	
+
     internal static class ScriptRuntimeExtensions {
         internal static bool IsValid(this ScriptRuntime sr) {
             ScriptEngine se = sr.GetEngine("py");
             ScriptScope ss = se.CreateScope();
 
-            ScriptSource code = se.CreateScriptSourceFromString("five=2+3", Microsoft.Scripting.SourceCodeKind.Statements);
+            ScriptSource code = se.CreateScriptSourceFromString("five=2+3", Riverside.Scripting.SourceCodeKind.Statements);
             code.Execute(ss);
 
             return (int)ss.GetVariable("five") == 5;

@@ -6,13 +6,13 @@ using System;
 using System.Dynamic;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     public partial class DefaultBinder : ActionBinder {
         public DynamicMetaObject DeleteMember(string name, DynamicMetaObject target) {
@@ -85,7 +85,7 @@ namespace Microsoft.Scripting.Actions {
 
         private void MakePropertyDeleteStatement(SetOrDeleteMemberInfo delInfo, DynamicMetaObject instance, MethodInfo delete) {
             delInfo.Body.FinishCondition(
-                instance == null ? 
+                instance == null ?
                     MakeCallExpression(delInfo.ResolutionFactory, delete) :
                     MakeCallExpression(delInfo.ResolutionFactory, delete, instance)
             );

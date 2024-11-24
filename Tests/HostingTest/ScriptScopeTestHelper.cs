@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 
@@ -20,7 +20,7 @@ namespace HostingTest
                 testContextInstance = value;
             }
         }
-  
+
         private void ValidateGetItems(ScriptRuntime runtime) {
             ScriptScope scope = runtime.CreateScope();
 
@@ -45,7 +45,7 @@ namespace HostingTest
 
         /// <summary>
         /// Check If Scope Is Empty
-        /// 
+        ///
         /// Simply verify that there are zero elements
         /// </summary>
         internal static bool IsEmpty(this ScriptScope scope) {
@@ -68,9 +68,9 @@ namespace HostingTest
         }
 
         /// <summary>
-        /// Check to make sure that two seperate (i.e. not references to same memory) 
+        /// Check to make sure that two seperate (i.e. not references to same memory)
         /// ScriptScope objects are equivalent.
-        /// 
+        ///
         /// 1) If they are NOT pointing at the same memory.
         /// 2) If they have the same number of elements and each scope element is the
         ///    same then they are both equal

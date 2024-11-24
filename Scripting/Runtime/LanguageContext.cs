@@ -11,9 +11,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Provides language specific facilities which are typically called by the runtime.
     /// </summary>
@@ -26,10 +26,10 @@ namespace Microsoft.Scripting.Runtime {
             DomainManager = domainManager;
             ContextId = domainManager.GenerateContextId();
         }
-       
+
         /// <summary>
         /// Provides the ContextId which includes members that should only be shown for this LanguageContext.
-        /// 
+        ///
         /// ContextId's are used for filtering by Scope's.
         /// </summary>
         public ContextId ContextId { get; }
@@ -59,19 +59,19 @@ namespace Microsoft.Scripting.Runtime {
         public virtual Scope CreateScope() {
             return new Scope();
         }
-                
+
         /// <summary>
         /// Creates a new ScriptScope whose storage contains the provided dictionary of objects
-        /// 
+        ///
         /// Accesses to the ScriptScope will turn into get,set, and delete members against this dictionary
         /// </summary>
         public virtual Scope CreateScope(IDictionary<string, object> dictionary) {
             return new Scope(dictionary);
         }
-        
+
         /// <summary>
         /// Creates a new ScriptScope whose storage is an arbitrary object.
-        /// 
+        ///
         /// Accesses to the ScriptScope will turn into get, set, and delete members against the object.
         /// </summary>
         public virtual Scope CreateScope(IDynamicMetaObjectProvider storage) {
@@ -100,12 +100,12 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Provides access to setting variables in scopes.  
-        /// 
-        /// By default this goes through ObjectOperations which can be rather slow.  
-        /// Languages can override this to provide fast customized access which avoids 
-        /// ObjectOperations.  Languages can provide fast access to commonly used scope 
-        /// types for that language.  Typically this includes ScopeStorage and any other 
+        /// Provides access to setting variables in scopes.
+        ///
+        /// By default this goes through ObjectOperations which can be rather slow.
+        /// Languages can override this to provide fast customized access which avoids
+        /// ObjectOperations.  Languages can provide fast access to commonly used scope
+        /// types for that language.  Typically this includes ScopeStorage and any other
         /// classes which the language themselves uses for backing of a Scope.
         /// </summary>
         public virtual void ScopeSetVariable(Scope scope, string name, object value) {
@@ -113,12 +113,12 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Provides access to try getting variables in scopes.  
-        /// 
-        /// By default this goes through ObjectOperations which can be rather slow.  
-        /// Languages can override this to provide fast customized access which avoids 
-        /// ObjectOperations.  Languages can provide fast access to commonly used scope 
-        /// types for that language.  Typically this includes ScopeStorage and any other 
+        /// Provides access to try getting variables in scopes.
+        ///
+        /// By default this goes through ObjectOperations which can be rather slow.
+        /// Languages can override this to provide fast customized access which avoids
+        /// ObjectOperations.  Languages can provide fast access to commonly used scope
+        /// types for that language.  Typically this includes ScopeStorage and any other
         /// classes which the language themselves uses for backing of a Scope.
         /// </summary>
         public virtual bool ScopeTryGetVariable(Scope scope, string name, out dynamic value) {
@@ -127,11 +127,11 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// Provides access to getting variables in scopes and converting the result.
-        /// 
-        /// By default this goes through ObjectOperations which can be rather slow.  
-        /// Languages can override this to provide fast customized access which avoids 
-        /// ObjectOperations.  Languages can provide fast access to commonly used scope 
-        /// types for that language.  Typically this includes ScopeStorage and any other 
+        ///
+        /// By default this goes through ObjectOperations which can be rather slow.
+        /// Languages can override this to provide fast customized access which avoids
+        /// ObjectOperations.  Languages can provide fast access to commonly used scope
+        /// types for that language.  Typically this includes ScopeStorage and any other
         /// classes which the language themselves uses for backing of a Scope.
         /// </summary>
         public virtual T ScopeGetVariable<T>(Scope scope, string name) {
@@ -140,11 +140,11 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// Provides access to getting variables in scopes.
-        /// 
-        /// By default this goes through ObjectOperations which can be rather slow.  
-        /// Languages can override this to provide fast customized access which avoids 
-        /// ObjectOperations.  Languages can provide fast access to commonly used scope 
-        /// types for that language.  Typically this includes ScopeStorage and any other 
+        ///
+        /// By default this goes through ObjectOperations which can be rather slow.
+        /// Languages can override this to provide fast customized access which avoids
+        /// ObjectOperations.  Languages can provide fast access to commonly used scope
+        /// types for that language.  Typically this includes ScopeStorage and any other
         /// classes which the language themselves uses for backing of a Scope.
         /// </summary>
         public virtual dynamic ScopeGetVariable(Scope scope, string name) {
@@ -190,7 +190,7 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Parses the source code within a specified compiler context. 
+        /// Parses the source code within a specified compiler context.
         /// The source unit to parse is held on by the context.
         /// </summary>
         /// <returns><b>null</b> on failure.</returns>
@@ -258,7 +258,7 @@ namespace Microsoft.Scripting.Runtime {
         public virtual IList<DynamicStackFrame> GetStackFrames(Exception exception) {
             return Array.Empty<DynamicStackFrame>();
         }
-        
+
         public virtual LanguageOptions Options => new LanguageOptions();
 
         #region Source Units
@@ -313,18 +313,18 @@ namespace Microsoft.Scripting.Runtime {
 
             return new SourceUnit(this, contentProvider, path, kind);
         }
-        
+
         #endregion
 
-        
+
         #endregion
-        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         public virtual ErrorSink GetCompilerErrorSink() {
             return ErrorSink.Null;
         }
 
-        
+
         #region Object Operations Support
 
         internal static DynamicMetaObject ErrorMetaObject(Type resultType, DynamicMetaObject target, DynamicMetaObject[] args, DynamicMetaObject errorSuggestion) {
@@ -393,10 +393,10 @@ namespace Microsoft.Scripting.Runtime {
 
         /// <summary>
         /// Creates a conversion binder.
-        /// 
+        ///
         /// If explicitCast is true then the binder should do explicit conversions.
         /// If explicitCast is false then the binder should do implicit conversions.
-        /// 
+        ///
         /// If explicitCast is null it is up to the language to select the conversions
         /// which closest match their normal behavior.
         /// </summary>

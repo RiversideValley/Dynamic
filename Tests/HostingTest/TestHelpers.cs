@@ -5,8 +5,8 @@
 using System;
 using System.IO;
 using System.Text;
-using Microsoft.Scripting.Hosting;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Hosting;
+using Riverside.Scripting.Utils;
 using NUnit.Framework;
 using System.Reflection;
 using System.Collections;
@@ -24,7 +24,7 @@ namespace HostingTest {
         public static string StandardConfigFile { get; private set; }
 
         /// <summary>
-        ///Directory where tests execute and binaries are loaded from 
+        ///Directory where tests execute and binaries are loaded from
         /// </summary>
         public static string BinDirectory { get; private set; }
 
@@ -62,7 +62,7 @@ namespace HostingTest {
                 runTime.IO.RedirectToConsole();
             }
         }
-        
+
         [Flags]
         internal enum OutputFlags {
             None = 0,
@@ -91,7 +91,7 @@ namespace HostingTest {
             Assert.IsTrue(actualOutput == expectedOutput, "Unexpected output: '" +
                 builder.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\t", "\\t") + "'.");
         }
-        
+
         internal static void AreEqualArrays<T>(IList<T> expected, IList<T> actual) {
             Assert.AreEqual(actual.Count, expected.Count);
             for (int i = 0; i < actual.Count; i++) {
@@ -145,7 +145,7 @@ namespace HostingTest {
             public EnvSetupTearDown(string name, string newValue) {
                 _envName = name;
                 _oldEnvEntry = Environment.GetEnvironmentVariable(name);
-                
+
                 Environment.SetEnvironmentVariable(name, newValue);
             }
             ~EnvSetupTearDown() {

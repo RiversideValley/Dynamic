@@ -8,17 +8,17 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Similar to Dictionary[TKey,TValue], but it also ensures that the keys will not be kept alive
     /// if the only reference is from this collection. The value will be kept alive as long as the key
     /// is alive.
-    /// 
-    /// This currently has a limitation that the caller is responsible for ensuring that an object used as 
+    ///
+    /// This currently has a limitation that the caller is responsible for ensuring that an object used as
     /// a key is not also used as a value in *any* instance of a WeakHash. Otherwise, it will result in the
     /// object being kept alive forever. This effectively means that the owner of the WeakHash should be the
     /// only one who has access to the object used as a value.
-    /// 
+    ///
     /// Currently, there is also no guarantee of how long the values will be kept alive even after the keys
     /// get collected. This could be fixed by triggerring CheckCleanup() to be called on every garbage-collection
     /// by having a dummy watch-dog object with a finalizer which calls CheckCleanup().
@@ -77,7 +77,7 @@ namespace Microsoft.Scripting.Utils {
                 if (valueConstructor == null) {
                     throw new InvalidOperationException($"{typeof(TValue).Name} does not have a default constructor.");
                 }
-            
+
                 value = (TValue)valueConstructor.Invoke(Array.Empty<object>());
                 Add(key, value);
             }
@@ -110,7 +110,7 @@ namespace Microsoft.Scripting.Utils {
 
         /// <summary>
         /// Check if any of the keys have gotten collected
-        /// 
+        ///
         /// Currently, there is also no guarantee of how long the values will be kept alive even after the keys
         /// get collected. This could be fixed by triggerring CheckCleanup() to be called on every garbage-collection
         /// by having a dummy watch-dog object with a finalizer which calls CheckCleanup().

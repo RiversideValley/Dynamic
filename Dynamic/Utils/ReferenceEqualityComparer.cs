@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Linq.Expressions;
 using System.Dynamic;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public sealed class ReferenceEqualityComparer<T> : IEqualityComparer<T> where T : class {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly ReferenceEqualityComparer<T> Instance = new ReferenceEqualityComparer<T>();

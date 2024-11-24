@@ -16,19 +16,7 @@ $_BASEDIR = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 
 if(!$global:isUnix) {
     $_VSWHERE = [System.IO.Path]::Combine(${env:ProgramFiles(x86)}, 'Microsoft Visual Studio\Installer\vswhere.exe')
-    $_VSINSTPATH = ''
-
-    if([System.IO.File]::Exists($_VSWHERE)) {
-        $_VSINSTPATH = & "$_VSWHERE" -latest -requires Microsoft.Component.MSBuild -property installationPath
-    } else {
-        Write-Error "Visual Studio 2019 16.8.0 or later is required"
-        Exit 1
-    }
-
-    if(-not [System.IO.Directory]::Exists($_VSINSTPATH)) {
-        Write-Error "Could not determine installation path to Visual Studio"
-        Exit 1
-    }
+    $_VSINSTPATH = 'C:\Program Files\Microsoft Visual Studio\2022\Community'
 
     if([System.IO.File]::Exists([System.IO.Path]::Combine($_VSINSTPATH, 'MSBuild\Current\Bin\MSBuild.exe'))) {
         $_MSBUILDPATH = [System.IO.Path]::Combine($_VSINSTPATH, 'MSBuild\Current\Bin\')
@@ -40,7 +28,7 @@ if(!$global:isUnix) {
 
 $_defaultFrameworkSettings = @{
     "runner" = "dotnet";
-    "tests" = @{ "Microsoft.Dynamic.Test" = "Tests/Microsoft.Dynamic.Test"; "Microsoft.Scripting.Test" = "Tests/Microsoft.Scripting.Test"; "Metadata" = "Tests/Metadata" };
+    "tests" = @{ "Riverside.Dynamic.Test" = "Tests/Riverside.Dynamic.Test"; "Riverside.Scripting.Test" = "Tests/Riverside.Scripting.Test"; "Metadata" = "Tests/Metadata" };
     "args" = @('test', '__BASEDIR__/__TESTFOLDER__', '-f', '__FRAMEWORK__', '-o', '__BASEDIR__/bin/__CONFIGURATION__/__FRAMEWORK__', '-c', '__CONFIGURATION__', '--no-build', '-l', "trx;LogFileName=__FILTERNAME__-__TESTDESC__-__FRAMEWORK__-__CONFIGURATION__-result.trx", '-s', '__RUNSETTINGS__');
     "filterArg" = '--filter="__FILTER__"';
     "filters" = @{

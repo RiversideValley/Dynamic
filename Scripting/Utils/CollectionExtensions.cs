@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     internal static class CollectionExtensions {
         /// <summary>
         /// Wraps the provided enumerable into a ReadOnlyCollection{T}
-        /// 
+        ///
         /// Copies all of the data into a new array, so the data can't be
         /// changed after creation. The exception is if the enumerable is
         /// already a ReadOnlyCollection{T}, in which case we just return it.
@@ -48,7 +48,7 @@ namespace Microsoft.Scripting.Utils {
             return new List<T>(enumerable).ToArray();
         }
 
-        
+
         internal static bool Any<T>(this IEnumerable<T> source, Func<T, bool> predicate) {
             foreach (T element in source) {
                 if (predicate(element)) {

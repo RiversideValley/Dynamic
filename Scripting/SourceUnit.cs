@@ -8,11 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 using System.Text;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     [DebuggerDisplay("{DebugString}")]
     public sealed class SourceUnit {
         private readonly LanguageContext _language;
@@ -24,7 +24,7 @@ namespace Microsoft.Scripting {
         private KeyValuePair<int, int>[] _lineMap;
 
         /// <summary>
-        /// Identification of the source unit. Assigned by the host. 
+        /// Identification of the source unit. Assigned by the host.
         /// The format and semantics is host dependent (could be a path on file system or URL).
         /// Empty string for anonymous source units.
         /// </summary>
@@ -84,7 +84,7 @@ namespace Microsoft.Scripting {
         }
 
         /// <summary>
-        /// Reads specified range of lines (or less) from the source unit. 
+        /// Reads specified range of lines (or less) from the source unit.
         /// Line numbers starts with 1.
         /// </summary>
         public string[] GetCodeLines(int start, int count) {
@@ -189,7 +189,7 @@ namespace Microsoft.Scripting {
         }
 
         /// <summary>
-        /// Errors are reported to the specified sink. 
+        /// Errors are reported to the specified sink.
         /// Returns <c>null</c> if the parser cannot compile the code due to error(s).
         /// </summary>
         public ScriptCode Compile(CompilerOptions options, ErrorSink errorSink) {

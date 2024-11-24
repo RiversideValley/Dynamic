@@ -8,9 +8,9 @@ using System;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     internal sealed class BoundDispEvent : DynamicObject {
         private object _rcw;
         private Guid _sourceIid;

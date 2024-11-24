@@ -5,14 +5,14 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
-using Microsoft.Scripting.Debugging.CompilerServices;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// TraceSession.
-    /// 
-    /// Basically holds a list of last encountered DebugFrame instances 
+    ///
+    /// Basically holds a list of last encountered DebugFrame instances
     /// (one per running thread).
     /// </summary>
     public sealed class TracePipeline : ITracePipeline, IDebugCallback {

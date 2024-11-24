@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     public sealed class LocalVariable {
         private const int IsBoxedFlag = 1;
         private const int InClosureFlag = 2;
@@ -120,7 +120,7 @@ namespace Microsoft.Scripting.Interpreter {
             } else {
                 _variables.Remove(definition.Parameter);
             }
-            
+
             _localCount--;
         }
 
@@ -130,7 +130,7 @@ namespace Microsoft.Scripting.Interpreter {
             LocalVariable local = scope.Variable;
             Debug.Assert(!local.IsBoxed && !local.InClosure);
             _variables[variable].Variable.IsBoxed = true;
-                
+
             int curChild = 0;
             for (int i = scope.Start; i < scope.Stop && i < instructions.Count; i++) {
                 if (scope.ChildScopes != null && scope.ChildScopes[curChild].Start == i) {

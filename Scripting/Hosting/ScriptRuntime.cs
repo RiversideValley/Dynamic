@@ -15,12 +15,12 @@ using System.Dynamic;
 using System.IO;
 using System.Reflection;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
-    /// Represents a Dynamic Language Runtime in Hosting API. 
+    /// Represents a Dynamic Language Runtime in Hosting API.
     /// Hosting API counterpart for <see cref="ScriptDomainManager"/>.
     /// </summary>
     public sealed class ScriptRuntime : MarshalByRefObject {
@@ -78,7 +78,7 @@ namespace Microsoft.Scripting.Hosting {
         public ScriptIO IO { get; }
 
         /// <summary>
-        /// Creates a new runtime with languages set up according to the current application configuration 
+        /// Creates a new runtime with languages set up according to the current application configuration
         /// (using System.Configuration).
         /// </summary>
         public static ScriptRuntime CreateFromConfiguration() {
@@ -97,12 +97,12 @@ namespace Microsoft.Scripting.Hosting {
         public static ScriptRuntime CreateRemote(AppDomain domain, ScriptRuntimeSetup setup) {
             ContractUtils.RequiresNotNull(domain, nameof(domain));
             return (ScriptRuntime)domain.CreateInstanceAndUnwrap(
-                typeof(ScriptRuntime).Assembly.FullName, 
-                typeof(ScriptRuntime).FullName, 
-                false, 
-                BindingFlags.Default, 
-                null, 
-                new object[] { setup }, 
+                typeof(ScriptRuntime).Assembly.FullName,
+                typeof(ScriptRuntime).FullName,
+                false,
+                BindingFlags.Default,
+                null,
+                new object[] { setup },
                 null,
                 null
             );
@@ -285,9 +285,9 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// This property returns the "global object" or name bindings of the ScriptRuntime as a ScriptScope.  
-        /// 
-        /// You can set the globals scope, which you might do if you created a ScriptScope with an 
+        /// This property returns the "global object" or name bindings of the ScriptRuntime as a ScriptScope.
+        ///
+        /// You can set the globals scope, which you might do if you created a ScriptScope with an
         /// IAttributesCollection so that your host could late bind names.
         /// </summary>
         public ScriptScope Globals {
@@ -316,11 +316,11 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// This method walks the assembly's namespaces and name bindings to ScriptRuntime.Globals 
-        /// to represent the types available in the assembly.  Each top-level namespace name gets 
-        /// bound in Globals to a dynamic object representing the namespace.  Within each top-level 
-        /// namespace object, nested namespace names are bound to dynamic objects representing each 
-        /// tier of nested namespaces.  When this method encounters the same namespace-qualified name, 
+        /// This method walks the assembly's namespaces and name bindings to ScriptRuntime.Globals
+        /// to represent the types available in the assembly.  Each top-level namespace name gets
+        /// bound in Globals to a dynamic object representing the namespace.  Within each top-level
+        /// namespace object, nested namespace names are bound to dynamic objects representing each
+        /// tier of nested namespaces.  When this method encounters the same namespace-qualified name,
         /// it merges names together objects representing the namespaces.
         /// </summary>
         /// <param name="assembly"></param>

@@ -11,7 +11,7 @@ using System;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     internal class DispatchArgBuilder : SimpleArgBuilder {
         private readonly bool _isWrapper;

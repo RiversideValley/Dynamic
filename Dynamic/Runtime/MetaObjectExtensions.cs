@@ -7,11 +7,11 @@ using System.Linq.Expressions;
 using System;
 using System.Dynamic;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public static class MetaObjectExtensions {
         public static bool NeedsDeferral(this DynamicMetaObject self) {
             if (self.HasValue) {
@@ -77,13 +77,13 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         public static DynamicMetaObject Clone(this DynamicMetaObject self, Expression newExpression, BindingRestrictions newRestrictions) {
-            return (self.HasValue) ? 
+            return (self.HasValue) ?
                 new DynamicMetaObject(newExpression, newRestrictions, self.Value) :
                 new DynamicMetaObject(newExpression, newRestrictions);
         }
 
         /// <summary>
-        ///Returns Microsoft.Scripting.Runtime.DynamicNull if the object contains a null value,
+        ///Returns Riverside.Scripting.Runtime.DynamicNull if the object contains a null value,
         ///otherwise, returns self.LimitType
         /// </summary>
         public static Type GetLimitType(this DynamicMetaObject self) {
@@ -94,7 +94,7 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        ///Returns Microsoft.Scripting.Runtime.DynamicNull if the object contains a null value,
+        ///Returns Riverside.Scripting.Runtime.DynamicNull if the object contains a null value,
         ///otherwise, returns self.RuntimeType
         /// </summary>
         public static Type GetRuntimeType(this DynamicMetaObject self) {

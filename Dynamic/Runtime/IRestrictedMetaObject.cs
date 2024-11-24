@@ -5,7 +5,7 @@
 using System;
 using System.Dynamic;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Indicates that a MetaObject is already representing a restricted type.  Useful
     /// when we're already restricted to a known type but this isn't captured in

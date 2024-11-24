@@ -5,10 +5,10 @@
 using System;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// TODO: Alternatively, it should be sufficient to remember indices for this, list, dict and block.
     /// </summary>

@@ -8,13 +8,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     public partial class DefaultBinder : ActionBinder {
         public DynamicMetaObject ConvertTo(Type toType, ConversionResultKind kind, DynamicMetaObject arg) {
@@ -30,11 +30,11 @@ namespace Microsoft.Scripting.Actions {
             ContractUtils.RequiresNotNull(arg, nameof(arg));
 
             // try all the conversions - first look for conversions against the expression type,
-            // these can be done w/o any additional tests.  Then look for conversions against the 
+            // these can be done w/o any additional tests.  Then look for conversions against the
             // restricted type.
             BindingRestrictions typeRestrictions = arg.Restrictions.Merge(BindingRestrictionsHelpers.GetRuntimeTypeRestriction(arg.Expression, arg.GetLimitType()));
 
-            DynamicMetaObject res = 
+            DynamicMetaObject res =
                 TryConvertToObject(toType, arg.Expression.Type, arg, typeRestrictions) ??
                 TryAllConversions(resolverFactory, toType, kind, arg.Expression.Type, typeRestrictions, arg) ??
                 TryAllConversions(resolverFactory, toType, kind, arg.GetLimitType(), typeRestrictions, arg) ??
@@ -133,7 +133,7 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Checks if any of the members of the MemberGroup provide the applicable conversion and 
+        /// Checks if any of the members of the MemberGroup provide the applicable conversion and
         /// if so uses it to build a conversion rule.
         /// </summary>
         private static DynamicMetaObject TryUserDefinedConversion(ConversionResultKind kind, Type toType, Type type, MemberGroup conversions, bool isImplicit, BindingRestrictions restrictions, DynamicMetaObject arg) {
@@ -345,15 +345,15 @@ namespace Microsoft.Scripting.Actions {
 
             /*
             if (toType.IsValueType && _rule.ReturnType == typeof(object) && Expression.Type == typeof(object)) {
-                // boxed value type is being converted back to object.  We've done 
-                // the type check, there's no need to unbox & rebox the value.  infact 
+                // boxed value type is being converted back to object.  We've done
+                // the type check, there's no need to unbox & rebox the value.  infact
                 // it breaks calls on instance methods so we need to avoid it.
                 _rule.Target =
                     _rule.MakeReturn(
                         Binder,
                         Expression
                     );
-            } 
+            }
              * */
         }
 
@@ -477,9 +477,9 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Helper that checks if fromType is an Extensible of T or a subtype of 
+        /// Helper that checks if fromType is an Extensible of T or a subtype of
         /// Extensible of T and if so returns the T.  Otherwise it returns fromType.
-        /// 
+        ///
         /// This is used to treat extensible types the same as their underlying types.
         /// </summary>
         private static Type GetUnderlyingType(Type fromType) {

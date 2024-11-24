@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     internal static class ArrayUtils {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2105:ArrayFieldsShouldNotBeReadOnly")]
         public static readonly string[] EmptyStrings = EmptyArray<string>.Instance;
@@ -262,8 +262,8 @@ namespace Microsoft.Scripting.Utils {
         }
 
         /// <summary>
-        /// Converts a generic ICollection of T into an array of T.  
-        /// 
+        /// Converts a generic ICollection of T into an array of T.
+        ///
         /// If the collection is already an  array of T the original collection is returned.
         /// </summary>
         public static T[] ToArray<T>(ICollection<T> list) {

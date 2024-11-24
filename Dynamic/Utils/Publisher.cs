@@ -8,13 +8,13 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.Threading;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Thread safe dictionary that allows lazy-creation where readers will block for
     /// the creation of the lazily created value.  Call GetOrCreateValue w/ a key
     /// and a callback function.  If the value exists it is returned, if not the create
     /// callback is called (w/o any locks held).  The create call back will only be called
-    /// once for each key.  
+    /// once for each key.
     /// </summary>
     public class Publisher<TKey, TValue> {
         private readonly Dictionary<TKey, PublishInfo<TValue>> data = new Dictionary<TKey, PublishInfo<TValue>>();

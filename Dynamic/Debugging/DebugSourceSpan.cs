@@ -5,7 +5,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// Combines source file and span.  Also provides Contains and Intersects functionality.
     /// </summary>
@@ -47,7 +47,7 @@ namespace Microsoft.Scripting.Debugging {
 
         internal int ColumnEnd {
             get { return _columnEnd; }
-        } 
+        }
 
         internal SourceSpan ToDlrSpan() {
             return new SourceSpan(

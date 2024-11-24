@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     /// <summary>
     /// Class that represents compiler options.

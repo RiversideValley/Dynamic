@@ -5,11 +5,11 @@
 using System.Linq.Expressions;
 
 using System;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public static partial class Utils {
         /// <summary>
         /// Converts an expression to a void type.

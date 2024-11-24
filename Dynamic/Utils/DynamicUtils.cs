@@ -13,12 +13,12 @@ using System.Dynamic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Interpreter;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Interpreter;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Utils {
-    using AstUtils = Microsoft.Scripting.Ast.Utils;
+namespace Riverside.Scripting.Utils {
+    using AstUtils = Riverside.Scripting.Ast.Utils;
 
     public static class DynamicUtils {
         /// <summary>

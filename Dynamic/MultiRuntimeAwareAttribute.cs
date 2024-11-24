@@ -5,19 +5,19 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     /// <summary>
     /// marks a field, class, or struct as being safe to have statics which can be accessed
     /// from multiple runtimes.
-    /// 
-    /// Static fields which are not read-only or marked with this attribute will be flagged 
+    ///
+    /// Static fields which are not read-only or marked with this attribute will be flagged
     /// by a test which looks for state being shared between runtimes.  Before applying this
     /// attribute you should ensure that it is safe to share the state.  This is typically
     /// state which is lazy initialized or state which is caching values which are identical
     /// in all runtimes and are immutable.
     /// </summary>
     [Conditional("DEBUG")]
-    [AttributeUsage(AttributeTargets.Field)]   
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class MultiRuntimeAwareAttribute : Attribute {
     }
 }

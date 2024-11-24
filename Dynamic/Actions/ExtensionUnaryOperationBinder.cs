@@ -5,9 +5,9 @@
 using System.Dynamic;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public abstract class ExtensionUnaryOperationBinder : UnaryOperationBinder {
         private readonly string _operation;
 

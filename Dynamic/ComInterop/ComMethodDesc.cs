@@ -7,7 +7,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices.ComTypes;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     public class ComMethodDesc {
 
@@ -88,7 +88,7 @@ namespace Microsoft.Scripting.ComInterop {
                 return (InvokeKind & INVOKEKIND.INVOKE_PROPERTYPUTREF) != 0;
             }
         }
-        
+
         internal int ParamCount {
             get {
                 return _paramCnt;

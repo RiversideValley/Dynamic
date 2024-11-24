@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     public sealed class DebugSourceFile {
         private DebugMode _debugMode;
         private readonly Dictionary<DebugSourceSpan, FunctionInfo> _functionInfoMap;

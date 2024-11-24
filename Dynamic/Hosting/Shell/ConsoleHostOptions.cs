@@ -3,10 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Generic;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
 
     public class ConsoleHostOptions {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")] // TODO: fix

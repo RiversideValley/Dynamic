@@ -6,9 +6,9 @@ using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal sealed partial class DynamicInstructionN : Instruction {
         private readonly CallInstruction _targetInvocationInstruction;
         private readonly object _targetDelegate;

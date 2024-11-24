@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     [Serializable]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design","CA1032:ImplementStandardExceptionConstructors")]
     public sealed class ForceToGeneratorLoopException : Exception {

@@ -5,9 +5,9 @@
 using System;
 using System.Dynamic;
 
-using Microsoft.Scripting.Actions.Calls;
+using Riverside.Scripting.Actions.Calls;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class BoundMemberTracker : MemberTracker {
         public BoundMemberTracker(MemberTracker tracker, DynamicMetaObject instance) {
             BoundTo = tracker;

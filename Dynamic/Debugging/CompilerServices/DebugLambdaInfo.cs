@@ -6,7 +6,7 @@ using MSAst = System.Linq.Expressions;
 
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Debugging.CompilerServices {
+namespace Riverside.Scripting.Debugging.CompilerServices {
     /// <summary>
     /// Used by compilers to provide additional debug information about LambdaExpression to DebugContext
     /// </summary>

@@ -9,9 +9,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// A TypeCollision is used when we have a collision between
     /// two types with the same name.  Currently this is only possible w/ generic
@@ -19,10 +19,10 @@ namespace Microsoft.Scripting.Actions {
     ///      System.EventHandler and System.EventHandler[T]
     ///      System.Nullable and System.Nullable[T]
     ///      System.IComparable and System.IComparable[T]
-    /// 
+    ///
     /// The TypeCollision provides an indexer but also is a real type.  When used
     /// as a real type it is the non-generic form of the type.
-    /// 
+    ///
     /// The indexer allows the user to disambiguate between the generic and
     /// non-generic versions.  Therefore users must always provide additional
     /// information to get the generic version.
@@ -48,7 +48,7 @@ namespace Microsoft.Scripting.Actions {
             // TODO: types of different arities might be inherited, but we don't support that yet:
             Debug.Assert(t1.DeclaringType == existingTypes.DeclaringType);
             Debug.Assert(ReflectionUtils.GetNormalizedTypeName(t1) == existingTypes.Name);
-            
+
             _typesByArity = new Dictionary<int, Type>(existingTypes._typesByArity);
             _typesByArity[GetGenericArity(t1)] = t1;
             _name = existingTypes.Name;
@@ -167,7 +167,7 @@ namespace Microsoft.Scripting.Actions {
         public override string Name => _name;
 
         /// <summary>
-        /// This will return the result only for the non-generic type if one exists, and will throw 
+        /// This will return the result only for the non-generic type if one exists, and will throw
         /// an exception if all types in the TypeGroup are generic
         /// </summary>
         public override Type Type => GetNonGenericType();
@@ -175,7 +175,7 @@ namespace Microsoft.Scripting.Actions {
         public override bool IsGenericType => _typesByArity.Count > 0;
 
         /// <summary>
-        /// This will return the result only for the non-generic type if one exists, and will throw 
+        /// This will return the result only for the non-generic type if one exists, and will throw
         /// an exception if all types in the TypeGroup are generic
         /// </summary>
         public override bool IsPublic => GetNonGenericType().IsPublic;

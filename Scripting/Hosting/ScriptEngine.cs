@@ -16,13 +16,13 @@ using System.Dynamic;
 using System.Text;
 using System.Threading;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
 
     /// <summary>
-    /// Represents a language in Hosting API. 
+    /// Represents a language in Hosting API.
     /// Hosting API counterpart for <see cref="LanguageContext"/>.
     /// </summary>
     [DebuggerDisplay("{Setup.DisplayName}")]
@@ -41,21 +41,21 @@ namespace Microsoft.Scripting.Hosting {
         #region Object Operations
 
         /// <summary>
-        /// Returns a default ObjectOperations for the engine.  
-        /// 
-        /// Because an ObjectOperations object caches rules for the types of 
-        /// objects and operations it processes, using the default ObjectOperations for 
-        /// many objects could degrade the caching benefits.  Eventually the cache for 
-        /// some operations could degrade to a point where ObjectOperations stops caching and 
-        /// does a full search for an implementation of the requested operation for the given objects.  
-        /// 
+        /// Returns a default ObjectOperations for the engine.
+        ///
+        /// Because an ObjectOperations object caches rules for the types of
+        /// objects and operations it processes, using the default ObjectOperations for
+        /// many objects could degrade the caching benefits.  Eventually the cache for
+        /// some operations could degrade to a point where ObjectOperations stops caching and
+        /// does a full search for an implementation of the requested operation for the given objects.
+        ///
         /// Another reason to create a new ObjectOperations instance is to have it bound
         /// to the specific view of a ScriptScope.  Languages may attach per-language
         /// behavior to a ScriptScope which would alter how the operations are performed.
-        /// 
+        ///
         /// For simple hosting situations, this is sufficient behavior.
-        /// 
-        /// 
+        ///
+        ///
         /// </summary>
         public ObjectOperations Operations {
             get {
@@ -75,8 +75,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Returns a new ObjectOperations object that inherits any semantics particular to the provided ScriptScope.  
-        /// 
+        /// Returns a new ObjectOperations object that inherits any semantics particular to the provided ScriptScope.
+        ///
         /// See the Operations property for why you might want to call this.
         /// </summary>
         public ObjectOperations CreateOperations(ScriptScope scope) {
@@ -95,9 +95,9 @@ namespace Microsoft.Scripting.Hosting {
         /// <exception cref="NotSupportedException">The engine doesn't support code execution.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="expression"/> is a <c>null</c> reference.</exception>
         public dynamic Execute(string expression) {
-            // The host doesn't need the scope so do not create it here. 
+            // The host doesn't need the scope so do not create it here.
             // The language can treat the code as not bound to a DLR scope and change global lookup semantics accordingly.
-            return CreateScriptSourceFromString(expression).Execute(); 
+            return CreateScriptSourceFromString(expression).Execute();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Microsoft.Scripting.Hosting {
         public T Execute<T>(string expression) {
             return Operations.ConvertTo<T>((object)Execute(expression));
         }
-        
+
         /// <summary>
         /// Executes an expression within the specified scope and converts result to the given type.
         /// </summary>
@@ -153,7 +153,7 @@ namespace Microsoft.Scripting.Hosting {
 #if FEATURE_REMOTING
         /// <summary>
         /// Executes the expression in the specified scope and return a result.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
         /// </summary>
         public ObjectHandle ExecuteAndWrap(string expression, ScriptScope scope) {
             return new ObjectHandle((object)Execute(expression, scope));
@@ -161,7 +161,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Executes the code in an empty scope.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
         /// </summary>
         public ObjectHandle ExecuteAndWrap(string expression) {
             return new ObjectHandle((object)Execute(expression));
@@ -169,13 +169,13 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Executes the expression in the specified scope and return a result.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
-        /// 
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
+        ///
         /// If an exception is thrown the exception is caught and an ObjectHandle to
         /// the exception is provided.
         /// </summary>
         /// <remarks>
-        /// Use this API in case the exception is not serializable (for example, due to security restrictions) or its serialization 
+        /// Use this API in case the exception is not serializable (for example, due to security restrictions) or its serialization
         /// loses information that you need to access.
         /// </remarks>
         [Obsolete("Use ScriptSource.ExecuteAndWrap instead")]
@@ -192,13 +192,13 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Executes the code in an empty scope.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
-        /// 
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
+        ///
         /// If an exception is thrown the exception is caught and an ObjectHandle to
         /// the exception is provided.
         /// </summary>
         /// <remarks>
-        /// Use this API in case the exception is not serializable (for example, due to security restrictions) or its serialization 
+        /// Use this API in case the exception is not serializable (for example, due to security restrictions) or its serialization
         /// loses information that you need to access.
         /// </remarks>
         [Obsolete("Use ScriptSource.ExecuteAndWrap instead")]
@@ -213,7 +213,7 @@ namespace Microsoft.Scripting.Hosting {
             }
         }
 #endif
-        
+
         #endregion
 
         #region Scopes
@@ -227,7 +227,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Creates a new ScriptScope whose storage contains the provided dictionary of objects
-        /// 
+        ///
         /// Accesses to the ScriptScope will turn into get,set, and delete members against this dictionary
         /// </summary>
         public ScriptScope CreateScope(IDictionary<string, object> dictionary)
@@ -238,7 +238,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Creates a new ScriptScope whose storage is an arbitrary object.
-        /// 
+        ///
         /// Accesses to the ScriptScope will turn into get, set, and delete members against the object.
         /// </summary>
         public ScriptScope CreateScope(IDynamicMetaObjectProvider storage) {
@@ -248,16 +248,16 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// This method returns the ScriptScope in which a ScriptSource of given path was executed.  
-        /// 
-        /// The ScriptSource.Path property is the key to finding the ScriptScope.  Hosts need 
+        /// This method returns the ScriptScope in which a ScriptSource of given path was executed.
+        ///
+        /// The ScriptSource.Path property is the key to finding the ScriptScope.  Hosts need
         /// to make sure they create a ScriptSource and set its Path property appropriately.
-        /// 
-        /// GetScope is primarily useful for tools that need to map files to their execution scopes. For example, 
-        /// an editor and interpreter tool might run a file Foo that imports or requires a file Bar.  
-        /// 
-        /// The editor's user might later open the file Bar and want to execute expressions in its context.  
-        /// The tool would need to find Bar's ScriptScope for setting the appropriate context in its interpreter window. 
+        ///
+        /// GetScope is primarily useful for tools that need to map files to their execution scopes. For example,
+        /// an editor and interpreter tool might run a file Foo that imports or requires a file Bar.
+        ///
+        /// The editor's user might later open the file Bar and want to execute expressions in its context.
+        /// The tool would need to find Bar's ScriptScope for setting the appropriate context in its interpreter window.
         /// This method helps with this scenario.
         /// </summary>
         public ScriptScope GetScope(string path) {
@@ -272,9 +272,9 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Return a ScriptSource object from string contents with the current engine as the language binding.
-        /// 
+        ///
         /// The default SourceCodeKind is AutoDetect.
-        /// 
+        ///
         /// The ScriptSource's Path property defaults to <c>null</c>.
         /// </summary>
         public ScriptSource CreateScriptSourceFromString(string expression) {
@@ -285,7 +285,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Return a ScriptSource object from string contents with the current engine as the language binding.
-        /// 
+        ///
         /// The ScriptSource's Path property defaults to <c>null</c>.
         /// </summary>
         public ScriptSource CreateScriptSourceFromString(string code, SourceCodeKind kind) {
@@ -297,7 +297,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Return a ScriptSource object from string contents with the current engine as the language binding.
-        /// 
+        ///
         /// The default SourceCodeKind is AutoDetect.
         /// </summary>
         public ScriptSource CreateScriptSourceFromString(string expression, string path) {
@@ -317,15 +317,15 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Return a ScriptSource object from file contents with the current engine as the language binding.  
-        /// 
-        /// The path's extension does NOT have to be in ScriptRuntime.GetRegisteredFileExtensions 
+        /// Return a ScriptSource object from file contents with the current engine as the language binding.
+        ///
+        /// The path's extension does NOT have to be in ScriptRuntime.GetRegisteredFileExtensions
         /// or map to this language engine with ScriptRuntime.GetEngineByFileExtension.
-        /// 
+        ///
         /// The default SourceCodeKind is File.
-        /// 
+        ///
         /// The ScriptSource's Path property will be the path argument.
-        /// 
+        ///
         /// The encoding defaults to the default encoding of the language.
         /// </summary>
         public ScriptSource CreateScriptSourceFromFile(string path) {
@@ -333,13 +333,13 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Return a ScriptSource object from file contents with the current engine as the language binding.  
-        /// 
-        /// The path's extension does NOT have to be in ScriptRuntime.GetRegisteredFileExtensions 
+        /// Return a ScriptSource object from file contents with the current engine as the language binding.
+        ///
+        /// The path's extension does NOT have to be in ScriptRuntime.GetRegisteredFileExtensions
         /// or map to this language engine with ScriptRuntime.GetEngineByFileExtension.
-        /// 
+        ///
         /// The default SourceCodeKind is File.
-        /// 
+        ///
         /// The ScriptSource's Path property will be the path argument.
         /// </summary>
         public ScriptSource CreateScriptSourceFromFile(string path, Encoding encoding) {
@@ -347,11 +347,11 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Return a ScriptSource object from file contents with the current engine as the language binding.  
-        /// 
-        /// The path's extension does NOT have to be in ScriptRuntime.GetRegisteredFileExtensions 
+        /// Return a ScriptSource object from file contents with the current engine as the language binding.
+        ///
+        /// The path's extension does NOT have to be in ScriptRuntime.GetRegisteredFileExtensions
         /// or map to this language engine with ScriptRuntime.GetEngineByFileExtension.
-        /// 
+        ///
         /// The ScriptSource's Path property will be the path argument.
         /// </summary>
         public ScriptSource CreateScriptSourceFromFile(string path, Encoding encoding, SourceCodeKind kind) {
@@ -365,12 +365,12 @@ namespace Microsoft.Scripting.Hosting {
 
 #if FEATURE_CODEDOM
         /// <summary>
-        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.  
+        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.
         /// This is a factory method for creating a ScriptSources with this language binding.
-        /// 
-        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.  
-        /// 
-        /// Languages may do more, but hosts should only expect CodeMemberMethod support, 
+        ///
+        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.
+        ///
+        /// Languages may do more, but hosts should only expect CodeMemberMethod support,
         /// and only sub nodes consisting of the following:
         ///     CodeSnippetStatement
         ///     CodeSnippetExpression
@@ -383,12 +383,12 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.  
+        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.
         /// This is a factory method for creating a ScriptSources with this language binding.
-        /// 
-        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.  
-        /// 
-        /// Languages may do more, but hosts should only expect CodeMemberMethod support, 
+        ///
+        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.
+        ///
+        /// Languages may do more, but hosts should only expect CodeMemberMethod support,
         /// and only sub nodes consisting of the following:
         ///     CodeSnippetStatement
         ///     CodeSnippetExpression
@@ -401,12 +401,12 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.  
+        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.
         /// This is a factory method for creating a ScriptSources with this language binding.
-        /// 
-        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.  
-        /// 
-        /// Languages may do more, but hosts should only expect CodeMemberMethod support, 
+        ///
+        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.
+        ///
+        /// Languages may do more, but hosts should only expect CodeMemberMethod support,
         /// and only sub nodes consisting of the following:
         ///     CodeSnippetStatement
         ///     CodeSnippetExpression
@@ -419,12 +419,12 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.  
+        /// This method returns a ScriptSource object from a System.CodeDom.CodeObject.
         /// This is a factory method for creating a ScriptSources with this language binding.
-        /// 
-        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.  
-        /// 
-        /// Languages may do more, but hosts should only expect CodeMemberMethod support, 
+        ///
+        /// The expected CodeDom support is extremely minimal for syntax-independent expression of semantics.
+        ///
+        /// Languages may do more, but hosts should only expect CodeMemberMethod support,
         /// and only sub nodes consisting of the following:
         ///     CodeSnippetStatement
         ///     CodeSnippetExpression
@@ -441,10 +441,10 @@ namespace Microsoft.Scripting.Hosting {
 #endif
 
         /// <summary>
-        /// These methods return ScriptSource objects from stream contents with the current engine as the language binding.  
-        /// 
+        /// These methods return ScriptSource objects from stream contents with the current engine as the language binding.
+        ///
         /// The default SourceCodeKind is File.
-        /// 
+        ///
         /// The encoding defaults to the default encoding of the language.
         /// </summary>
         public ScriptSource CreateScriptSource(StreamContentProvider content, string path) {
@@ -454,8 +454,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// These methods return ScriptSource objects from stream contents with the current engine as the language binding.  
-        /// 
+        /// These methods return ScriptSource objects from stream contents with the current engine as the language binding.
+        ///
         /// The default SourceCodeKind is File.
         /// </summary>
         public ScriptSource CreateScriptSource(StreamContentProvider content, string path, Encoding encoding) {
@@ -466,8 +466,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// These methods return ScriptSource objects from stream contents with the current engine as the language binding.  
-        /// 
+        /// These methods return ScriptSource objects from stream contents with the current engine as the language binding.
+        ///
         /// The encoding defaults to Encoding.Default.
         /// </summary>
         public ScriptSource CreateScriptSource(StreamContentProvider content, string path, Encoding encoding, SourceCodeKind kind) {
@@ -480,7 +480,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// This method returns a ScriptSource with the content provider supplied with the current engine as the language binding.
-        /// 
+        ///
         /// This helper lets you own the content provider so that you can implement a stream over internal host data structures, such as an editor's text representation.
         /// </summary>
         public ScriptSource CreateScriptSource(TextContentProvider contentProvider, string path, SourceCodeKind kind) {
@@ -496,11 +496,11 @@ namespace Microsoft.Scripting.Hosting {
         #region Additional Services
 
         /// <summary>
-        /// This method returns a language-specific service.  
-        /// 
-        /// It provides a point of extensibility for a language implementation 
+        /// This method returns a language-specific service.
+        ///
+        /// It provides a point of extensibility for a language implementation
         /// to offer more functionality than the standard engine members discussed here.
-        /// 
+        ///
         /// Commonly available services include:
         ///     TokenCategorizer
         ///         Provides standardized tokenization of source code
@@ -536,7 +536,7 @@ namespace Microsoft.Scripting.Hosting {
         /// This property returns readon-only LanguageOptions this engine is using.
         /// </summary>
         /// <remarks>
-        /// The values are determined during runtime initialization and read-only afterwards. 
+        /// The values are determined during runtime initialization and read-only afterwards.
         /// You can change the settings via a configuration file or explicitly using ScriptRuntimeSetup class.
         /// </remarks>
         public LanguageSetup Setup {
@@ -581,8 +581,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Sets the search paths used by the engine for loading files when a script wants 
-        /// to import or require another file of code.  
+        /// Sets the search paths used by the engine for loading files when a script wants
+        /// to import or require another file of code.
         /// </summary>
         /// <exception cref="NotSupportedException">The language doesn't allow to set search paths.</exception>
         public void SetSearchPaths(ICollection<string> paths) {
@@ -593,8 +593,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Gets the search paths used by the engine for loading files when a script wants 
-        /// to import or require another file of code.  
+        /// Gets the search paths used by the engine for loading files when a script wants
+        /// to import or require another file of code.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         public ICollection<string> GetSearchPaths() {

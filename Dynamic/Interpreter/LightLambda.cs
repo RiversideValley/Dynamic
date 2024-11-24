@@ -10,12 +10,12 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using System.Threading.Tasks;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
 
     public sealed class LightLambdaCompileEventArgs : EventArgs {
         public Delegate Compiled { get; }
@@ -93,7 +93,7 @@ namespace Microsoft.Scripting.Interpreter {
 
                 if (DelegateHelpers.MakeDelegate(paramTypes) == delegateType) {
                     name = "Make" + name + paramInfos.Length;
-                    
+
                     MethodInfo ctorMethod = typeof(LightLambda).GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static).MakeGenericMethod(paramTypes);
                     return _runCache[delegateType] = (Func<LightLambda, Delegate>)ctorMethod.CreateDelegate(typeof(Func<LightLambda, Delegate>));
                 }
@@ -118,7 +118,7 @@ namespace Microsoft.Scripting.Interpreter {
             var targetMethod = runMethod.IsGenericMethodDefinition ? runMethod.MakeGenericMethod(paramTypes) : runMethod;
             return _runCache[delegateType] = lambda => targetMethod.CreateDelegate(delegateType, lambda);
         }
-    
+
         //TODO enable sharing of these custom delegates
         private Delegate CreateCustomDelegate(Type delegateType) {
             PerfTrack.NoteEvent(PerfTrack.Categories.Compiler, "Synchronously compiling a custom delegate");
@@ -179,8 +179,8 @@ namespace Microsoft.Scripting.Interpreter {
                 if (_interpreter.CompileSynchronously) {
                     _delegateCreator.Compile(null);
                     return TryGetCompiled();
-                } 
-                
+                }
+
                 // Kick off the compile on another thread so this one can keep going
                 new Task(_delegateCreator.Compile, null).Start();
             }

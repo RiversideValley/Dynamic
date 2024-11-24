@@ -2,13 +2,13 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 using IronRuby.Runtime;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Scripting.Generation;
+using Riverside.Scripting.Generation;
 
 
 namespace HostingTest {
@@ -17,7 +17,7 @@ namespace HostingTest {
         static internal PreDefinedCodeSnippets _codeSnippets;
 //      static string _testLanguage;
 
-        //Don't use this member. Use _runtime instead. 
+        //Don't use this member. Use _runtime instead.
         //This will be deleted once all the files are switched over to the id with correct casing
         protected ScriptRuntime _runTime;
         protected ScriptRuntime _runtime, _remoteRuntime;
@@ -30,7 +30,7 @@ namespace HostingTest {
         protected ScriptScope _defaultScope;
 
         protected HAPITestBase() {
-            
+
             var ses = CreateSetup();
             ses.HostType = typeof(TestHost);
             _runtime = new ScriptRuntime(ses);
@@ -42,7 +42,7 @@ namespace HostingTest {
             _RBEng = _runTime.GetEngine("rb");
 
             SetTestLanguage();
-            
+
             _defaultScope = _runTime.CreateScope();
             _codeSnippets = new PreDefinedCodeSnippets();
         }
@@ -63,7 +63,7 @@ namespace HostingTest {
 
         private void SetTestLanguage() {
 //          _testLanguage = "ironpython";
-            _testEng = _PYEng; 
+            _testEng = _PYEng;
         }
 
     }

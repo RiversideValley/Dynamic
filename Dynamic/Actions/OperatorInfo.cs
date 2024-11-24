@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// OperatorInfo provides a mapping from DLR ExpressionType to their associated .NET methods.
     /// </summary>
@@ -85,10 +85,10 @@ namespace Microsoft.Scripting.Actions {
             res[ExpressionType.Or]                 = new OperatorInfo(ExpressionType.Or,                  "op_LogicalOr",                 "Or");             // ||
             res[ExpressionType.LeftShift]          = new OperatorInfo(ExpressionType.LeftShift,           "op_LeftShift",                 "LeftShift");      // <<
             res[ExpressionType.RightShift]         = new OperatorInfo(ExpressionType.RightShift,          "op_RightShift",                "RightShift");     // >>
-            res[ExpressionType.Equal]              = new OperatorInfo(ExpressionType.Equal,               "op_Equality",                  "Equals");         // ==   
+            res[ExpressionType.Equal]              = new OperatorInfo(ExpressionType.Equal,               "op_Equality",                  "Equals");         // ==
             res[ExpressionType.GreaterThan]        = new OperatorInfo(ExpressionType.GreaterThan,         "op_GreaterThan",               "GreaterThan");    // >
             res[ExpressionType.LessThan]           = new OperatorInfo(ExpressionType.LessThan,            "op_LessThan",                  "LessThan");       // <
-            res[ExpressionType.NotEqual]           = new OperatorInfo(ExpressionType.NotEqual,            "op_Inequality",                "NotEquals");      // != 
+            res[ExpressionType.NotEqual]           = new OperatorInfo(ExpressionType.NotEqual,            "op_Inequality",                "NotEquals");      // !=
             res[ExpressionType.GreaterThanOrEqual] = new OperatorInfo(ExpressionType.GreaterThanOrEqual,  "op_GreaterThanOrEqual",        "GreaterThanOrEqual");        // >=
             res[ExpressionType.LessThanOrEqual]    = new OperatorInfo(ExpressionType.LessThanOrEqual,     "op_LessThanOrEqual",           "LessThanOrEqual");        // <=
             res[ExpressionType.MultiplyAssign]     = new OperatorInfo(ExpressionType.MultiplyAssign,      "op_MultiplicationAssignment",  "InPlaceMultiply");       // *=
@@ -97,7 +97,7 @@ namespace Microsoft.Scripting.Actions {
             res[ExpressionType.LeftShiftAssign]    = new OperatorInfo(ExpressionType.LeftShiftAssign,     "op_LeftShiftAssignment",       "InPlaceLeftShift");      // <<=
             res[ExpressionType.RightShiftAssign]   = new OperatorInfo(ExpressionType.RightShiftAssign,    "op_RightShiftAssignment",      "InPlaceRightShift");     // >>=
             res[ExpressionType.ModuloAssign]       = new OperatorInfo(ExpressionType.ModuloAssign,        "op_ModulusAssignment",         "InPlaceMod");            // %=
-            res[ExpressionType.AddAssign]          = new OperatorInfo(ExpressionType.AddAssign,           "op_AdditionAssignment",        "InPlaceAdd");            // += 
+            res[ExpressionType.AddAssign]          = new OperatorInfo(ExpressionType.AddAssign,           "op_AdditionAssignment",        "InPlaceAdd");            // +=
             res[ExpressionType.AndAssign]          = new OperatorInfo(ExpressionType.AndAssign,           "op_BitwiseAndAssignment",      "InPlaceBitwiseAnd");     // &=
             res[ExpressionType.OrAssign]           = new OperatorInfo(ExpressionType.OrAssign,            "op_BitwiseOrAssignment",       "InPlaceBitwiseOr");      // |=
             res[ExpressionType.DivideAssign]       = new OperatorInfo(ExpressionType.DivideAssign,        "op_DivisionAssignment",        "InPlaceDivide");         // /=

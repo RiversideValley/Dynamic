@@ -10,10 +10,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     public abstract class MutableTuple {
         public const int MaxSize = 128;
         private static readonly Dictionary<Type, int> _sizeDict = new Dictionary<Type, int>();
@@ -98,10 +98,10 @@ namespace Microsoft.Scripting {
         }
 
         /// <summary>
-        /// Creates a generic tuple with the specified types.  
-        /// 
-        /// If the number of slots fits within the maximum tuple size then we simply 
-        /// create a single tuple.  If it's greater then we create nested tuples 
+        /// Creates a generic tuple with the specified types.
+        ///
+        /// If the number of slots fits within the maximum tuple size then we simply
+        /// create a single tuple.  If it's greater then we create nested tuples
         /// (e.g. a Tuple`2 which contains a Tuple`128 and a Tuple`8 if we had a size of 136).
         /// </summary>
         public static Type MakeTupleType(params Type[] types) {
@@ -123,7 +123,7 @@ namespace Microsoft.Scripting {
                 }
             }
 
-            Stack<Type> types = new Stack<Type>(tupleType.GetGenericArguments());            
+            Stack<Type> types = new Stack<Type>(tupleType.GetGenericArguments());
 
             while (types.Count != 0) {
                 Type t = types.Pop();
@@ -202,7 +202,7 @@ namespace Microsoft.Scripting {
             // inner most tuples.  The mask is initialized to mask the upper bits and adjust is initialized
             // and adjust is the value we need to divide by to get the index in the least significant bits.
             // As we go through we shift the mask and adjust down each loop to pull out the inner slot.  Logically
-            // everything in here is shifting bits (not multiplying or dividing) because NewTuple.MaxSize is a 
+            // everything in here is shifting bits (not multiplying or dividing) because NewTuple.MaxSize is a
             // power of 2.
             int depth = 0;
             int mask = MutableTuple.MaxSize - 1;
@@ -267,7 +267,7 @@ namespace Microsoft.Scripting {
 
         private static MutableTuple CreateTupleInstance(Type tupleType, int start, int end, object[] args) {
             if (args == null) return (MutableTuple)Activator.CreateInstance(tupleType);
-            
+
             object[] realArgs = new object[tupleType.GetGenericArguments().Length];
             Array.Copy(args, start, realArgs, 0, end - start);
             return (MutableTuple)Activator.CreateInstance(tupleType, realArgs);
@@ -367,9 +367,9 @@ namespace Microsoft.Scripting {
                     newValues[i] = Expression.Constant(null, typeof(DynamicNull));
                 }
             }
-            
+
             return Expression.New(
-                tupleType.GetConstructor(ArrayUtils.ConvertAll(newValues, x => x.Type)), 
+                tupleType.GetConstructor(ArrayUtils.ConvertAll(newValues, x => x.Type)),
                 newValues);
         }
     }

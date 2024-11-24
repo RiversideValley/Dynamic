@@ -9,12 +9,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Interpreter;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using Microsoft.Scripting.Actions;
+using Riverside.Scripting.Interpreter;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using Riverside.Scripting.Actions;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public abstract class LightDynamicExpression : Expression, IInstructionProvider {
         private readonly CallSiteBinder _binder;
 
@@ -80,7 +80,7 @@ namespace Microsoft.Scripting.Ast {
     public class LightDynamicExpression1 : LightDynamicExpression, ILightExceptionAwareExpression {
         internal readonly Expression _arg0;
 
-        internal protected LightDynamicExpression1(CallSiteBinder binder, Expression arg0) 
+        internal protected LightDynamicExpression1(CallSiteBinder binder, Expression arg0)
             : base(binder) {
             ContractUtils.RequiresNotNull(arg0, nameof(arg0));
             _arg0 = arg0;
@@ -498,12 +498,12 @@ namespace Microsoft.Scripting.Ast {
         private readonly IList<Expression> _args;
         private readonly Type _returnType;
 
-        internal protected LightTypedDynamicExpressionN(CallSiteBinder binder, Type returnType, IList<Expression> args) 
+        internal protected LightTypedDynamicExpressionN(CallSiteBinder binder, Type returnType, IList<Expression> args)
             : base(binder) {
                 Debug.Assert(args.Count > 0);
             ContractUtils.RequiresNotNull(returnType, nameof(returnType));
             ContractUtils.RequiresNotEmpty(args, nameof(args));
-            
+
             _args = args;
             _returnType = returnType;
         }
@@ -550,7 +550,7 @@ namespace Microsoft.Scripting.Ast {
             }
             return this;
         }
-        
+
         protected sealed override Expression GetArgument(int index) {
             return _args[index];
         }
@@ -579,7 +579,7 @@ namespace Microsoft.Scripting.Ast {
         }
 
         public static LightDynamicExpression LightDynamic(CallSiteBinder binder, Type returnType, Expression arg0) {
-            return returnType == typeof(object) ? 
+            return returnType == typeof(object) ?
                 new LightDynamicExpression1(binder, arg0) :
                 (LightDynamicExpression)new LightTypedDynamicExpression1(binder, returnType, arg0);
         }

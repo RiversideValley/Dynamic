@@ -5,9 +5,9 @@
 using System;
 using System.Runtime.Serialization;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     [Serializable]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors")]
     public class AmbiguousFileNameException : Exception {

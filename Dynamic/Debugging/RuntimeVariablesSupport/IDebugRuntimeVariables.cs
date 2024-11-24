@@ -4,7 +4,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// IDebugRuntimeVariables is used to wrap IRuntimeVariables and add properties for retrieving
     /// FunctionInfo and DebugMarker from debuggable labmdas.

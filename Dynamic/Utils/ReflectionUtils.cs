@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 #if FEATURE_METADATA_READER
-using Microsoft.Scripting.Metadata;
+using Riverside.Scripting.Metadata;
 #endif
 
 using TypeInfo = System.Type;
@@ -19,10 +19,10 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static class ReflectionUtils {
         #region Accessibility
 
@@ -242,19 +242,19 @@ namespace Microsoft.Scripting.Utils {
 
         // CLI specification, partition I, 8.10.4: Hiding, overriding, and layout
         // ----------------------------------------------------------------------
-        // While hiding applies to all members of a type, overriding deals with object layout and is applicable only to instance fields 
-        // and virtual methods. The CTS provides two forms of member overriding, new slot and expect existing slot. A member of a derived 
-        // type that is marked as a new slot will always get a new slot in the object's layout, guaranteeing that the base field or method 
-        // is available in the object by using a qualified reference that combines the name of the base type with the name of the member 
-        // and its type or signature. A member of a derived type that is marked as expect existing slot will re-use (i.e., share or override) 
-        // a slot that corresponds to a member of the same kind (field or method), name, and type if one already exists from the base type; 
+        // While hiding applies to all members of a type, overriding deals with object layout and is applicable only to instance fields
+        // and virtual methods. The CTS provides two forms of member overriding, new slot and expect existing slot. A member of a derived
+        // type that is marked as a new slot will always get a new slot in the object's layout, guaranteeing that the base field or method
+        // is available in the object by using a qualified reference that combines the name of the base type with the name of the member
+        // and its type or signature. A member of a derived type that is marked as expect existing slot will re-use (i.e., share or override)
+        // a slot that corresponds to a member of the same kind (field or method), name, and type if one already exists from the base type;
         // if no such slot exists, a new slot is allocated and used.
         //
         // The general algorithm that is used for determining the names in a type and the layout of objects of the type is roughly as follows:
-        // - Flatten the inherited names (using the hide by name or hide by name-and-signature rule) ignoring accessibility rules. 
-        // - For each new member that is marked "expect existing slot", look to see if an exact match on kind (i.e., field or method), 
-        //   name, and signature exists and use that slot if it is found, otherwise allocate a new slot. 
-        // - After doing this for all new members, add these new member-kind/name/signatures to the list of members of this type 
+        // - Flatten the inherited names (using the hide by name or hide by name-and-signature rule) ignoring accessibility rules.
+        // - For each new member that is marked "expect existing slot", look to see if an exact match on kind (i.e., field or method),
+        //   name, and signature exists and use that slot if it is found, otherwise allocate a new slot.
+        // - After doing this for all new members, add these new member-kind/name/signatures to the list of members of this type
         // - Finally, remove any inherited names that match the new members based on the hide by name or hide by name-and-signature rules.
 
         // NOTE: Following GetXxx only implement overriding, not hiding specified by hide-by-name or hide-by-name-and-signature flags.
@@ -312,11 +312,11 @@ namespace Microsoft.Scripting.Utils {
 
         // CLI spec 22.34 Properties
         // -------------------------
-        // [Note: The CLS (see Partition I) refers to instance, virtual, and static properties.  
-        // The signature of a property (from the Type column) can be used to distinguish a static property, 
+        // [Note: The CLS (see Partition I) refers to instance, virtual, and static properties.
+        // The signature of a property (from the Type column) can be used to distinguish a static property,
         // since instance and virtual properties will have the "HASTHIS" bit set in the signature (§23.2.1)
-        // while a static property will not.  The distinction between an instance and a virtual property 
-        // depends on the signature of the getter and setter methods, which the CLS requires to be either 
+        // while a static property will not.  The distinction between an instance and a virtual property
+        // depends on the signature of the getter and setter methods, which the CLS requires to be either
         // both virtual or both instance. end note]
         private static bool IncludeProperty(PropertyInfo member, Type reflectedType, HashSet<MethodInfo> baseDefinitions, bool flattenHierarchy) {
             var getter = member.GetGetMethod(nonPublic: true);
@@ -684,8 +684,8 @@ namespace Microsoft.Scripting.Utils {
 
         #region Signature and Type Formatting
 
-        // Generic type names have the arity (number of generic type paramters) appended at the end. 
-        // For eg. the mangled name of System.List<T> is "List`1". This mangling is done to enable multiple 
+        // Generic type names have the arity (number of generic type paramters) appended at the end.
+        // For eg. the mangled name of System.List<T> is "List`1". This mangling is done to enable multiple
         // generic types to exist as long as they have different arities.
         public const char GenericArityDelimiter = '`';
 
@@ -1496,7 +1496,7 @@ namespace Microsoft.Scripting.Utils {
         }
 
         /// <summary>
-        /// Determines if a given type matches the type that the method extends. 
+        /// Determines if a given type matches the type that the method extends.
         /// The match might be non-trivial if the extended type is an open generic type with constraints.
         /// </summary>
         public bool IsExtensionOf(Type/*!*/ type) {
@@ -1517,10 +1517,10 @@ namespace Microsoft.Scripting.Utils {
             //
             // Ignores constraints that can't be instantiated given the information we have (type of the first parameter).
             //
-            // For example, 
+            // For example,
             // void Foo<S, T>(this S x, T y) where S : T;
             //
-            // We make such methods available on all types. 
+            // We make such methods available on all types.
             // If they are not called with arguments that satisfy the constraint the overload resolver might fail.
             //
             return ReflectionUtils.BindGenericParameters(_extendedType, type, true) != null;

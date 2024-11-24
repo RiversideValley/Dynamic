@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
-using Microsoft.Scripting.Utils;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
 
 using System.Dynamic;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     #region Generated Reflected Caller
 
     // *** BEGIN GENERATED CODE ***
@@ -71,13 +71,13 @@ namespace Microsoft.Scripting.Interpreter {
         /// Fast creation works if we have a known primitive types for the entire
         /// method siganture.  If we have any non-primitive types then FastCreate
         /// falls back to SlowCreate which works for all types.
-        /// 
+        ///
         /// Fast creation is fast because it avoids using reflection (MakeGenericType
         /// and Activator.CreateInstance) to create the types.  It does this through
         /// calling a series of generic methods picking up each strong type of the
-        /// signature along the way.  When it runs out of types it news up the 
+        /// signature along the way.  When it runs out of types it news up the
         /// appropriate CallInstruction with the strong-types that have been built up.
-        /// 
+        ///
         /// One relaxation is that for return types which are non-primitive types
         /// we can fallback to object due to relaxed delegates.
         /// </summary>

@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// A binder which can combine multiple binders into a single dynamic site.  The creator
     /// of this needs to perform the mapping of parameters, constants, and sub-site expressions
@@ -52,7 +52,7 @@ namespace Microsoft.Scripting.Actions {
 
                 restrictions = restrictions.Merge(next.Restrictions);
                 if (next.Expression.NodeType == ExpressionType.Throw) {
-                    // end of the line... the expression is throwing, none of the other 
+                    // end of the line... the expression is throwing, none of the other
                     // binders will have an opportunity to run.
                     steps.Add(next.Expression);
                     break;

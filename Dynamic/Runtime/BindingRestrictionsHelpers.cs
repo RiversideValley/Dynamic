@@ -6,9 +6,9 @@ using System;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public static class BindingRestrictionsHelpers {
-        //If the type is Microsoft.Scripting.Runtime.DynamicNull, create an instance restriction to test null
+        //If the type is Riverside.Scripting.Runtime.DynamicNull, create an instance restriction to test null
         public static BindingRestrictions GetRuntimeTypeRestriction(Expression expr, Type type) {
             if (type == typeof(DynamicNull)) {
                 return BindingRestrictions.GetInstanceRestriction(expr, null);

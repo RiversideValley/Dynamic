@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 namespace HostingTest
@@ -21,12 +21,12 @@ namespace HostingTest
 
        public ObjectOperationsTest()
             : base() {
-           
+
        }
 
        internal object GetVariableValue(string code, string varname) {
             ScriptScope scope = _testEng.CreateScope();
-            ScriptSource source = scope.Engine.CreateScriptSourceFromString(code, Microsoft.Scripting.SourceCodeKind.Statements);
+            ScriptSource source = scope.Engine.CreateScriptSourceFromString(code, Riverside.Scripting.SourceCodeKind.Statements);
             source.Execute(scope);
             return scope.GetVariable(varname);
        }

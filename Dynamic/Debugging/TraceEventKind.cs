@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     public enum TraceEventKind {
         // Fired when the execution enters a new frame
         //
@@ -29,12 +29,12 @@ namespace Microsoft.Scripting.Debugging {
         TracePoint,
 
         // Fired when an exception is thrown during the execution
-        // 
+        //
         // Payload:
         //   the exception object that was thrown
         Exception,
 
-        // Fired when an exception is thrown and is not handled by 
+        // Fired when an exception is thrown and is not handled by
         // the current method.
         //
         // Payload:

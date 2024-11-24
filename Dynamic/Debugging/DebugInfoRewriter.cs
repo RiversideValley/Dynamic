@@ -10,14 +10,14 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq.Expressions;
-using Microsoft.Scripting.Debugging.CompilerServices;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     using Ast = MSAst.Expression;
     using System.Threading;
-    
+
     /// <summary>
     /// Used to rewrite expressions containing DebugInfoExpressions.
     /// </summary>

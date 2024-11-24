@@ -10,9 +10,9 @@ using MarshalByRefObject = System.Object;
 
 using System;
 using System.IO;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     /// <summary>
     /// Provides a StreamContentProvider for a stream of content backed by a file on disk.

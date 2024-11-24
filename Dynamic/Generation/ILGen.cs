@@ -17,10 +17,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Linq;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
 
     public delegate void EmitArrayHelper(int index);
 
@@ -1345,7 +1345,7 @@ namespace Microsoft.Scripting.Generation {
         private void EmitNullableToReferenceConversion(Type typeFrom) {
             Debug.Assert(TypeUtils.IsNullableType(typeFrom));
             // We've got a conversion from nullable to Object, ValueType, Enum, etc.  Just box it so that
-            // we get the nullable semantics.  
+            // we get the nullable semantics.
             Emit(OpCodes.Box, typeFrom);
         }
 
@@ -1426,7 +1426,7 @@ namespace Microsoft.Scripting.Generation {
         }
 
         /// <summary>
-        /// Emits an array construction code.  
+        /// Emits an array construction code.
         /// The code assumes that bounds for all dimensions
         /// are already emitted.
         /// </summary>

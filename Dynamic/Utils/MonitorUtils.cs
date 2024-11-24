@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static class MonitorUtils {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference")]
         public static void Enter(object obj, ref bool lockTaken) {

@@ -3,15 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Text;
 using System;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     /// <summary>
     /// Source code reader.
-    /// </summary>    
+    /// </summary>
     public class SourceCodeReader : TextReader {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static new readonly SourceCodeReader Null = new SourceCodeReader(TextReader.Null, null);

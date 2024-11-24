@@ -5,10 +5,10 @@
 using System;
 using System.Runtime.Serialization;
 using System.Dynamic;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Security;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     [Serializable]
     public class SyntaxErrorException : Exception {

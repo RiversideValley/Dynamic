@@ -11,9 +11,9 @@ using MarshalByRefObject = System.Object;
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Provides documentation against live objects for use in a REPL window.
     /// </summary>
@@ -23,7 +23,7 @@ namespace Microsoft.Scripting.Hosting {
         internal DocumentationOperations(DocumentationProvider provider) {
             _provider = provider;
         }
-        
+
         /// <summary>
         /// Gets the available members defined on the provided object.
         /// </summary>

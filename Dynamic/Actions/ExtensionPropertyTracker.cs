@@ -5,16 +5,16 @@
 using System;
 using System.Reflection;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class ExtensionPropertyTracker : PropertyTracker {
         private MethodInfo _getter, _setter, _deleter;
 
         public ExtensionPropertyTracker(string name, MethodInfo getter, MethodInfo setter, MethodInfo deleter, Type declaringType) {
-            Name = name; 
-            _getter = getter; 
+            Name = name;
+            _getter = getter;
             _setter = setter;
             _deleter = deleter;
             DeclaringType = declaringType;

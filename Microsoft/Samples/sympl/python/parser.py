@@ -4,8 +4,8 @@ import lexer
 ### Only needed for _getOpKind
 import clr
 if clr.use35:
-    clr.AddReference("Microsoft.Scripting.Core")
-    from Microsoft.Scripting.Ast import ExpressionType
+    clr.AddReference("Riverside.Scripting.Core")
+    from Riverside.Scripting.Ast import ExpressionType
 else:
     clr.AddReference("System.Core")
     from System.Linq.Expressions import ExpressionType
@@ -52,7 +52,7 @@ def _parseExpr (lexr):
         if (token.IsKeywordToken and
             token not in [lexer.KeywordToken.Nil, lexer.KeywordToken.True,
                           lexer.KeywordToken.False]):
-            raise Exception("Keyword cannot be an expression: " + 
+            raise Exception("Keyword cannot be an expression: " +
                             token.Name)
         else:
             res = SymplIdExpr(token)
@@ -66,7 +66,7 @@ def _parseExpr (lexr):
             return _parseDottedExpr(lexr, res)
         else:
             return res
-    raise Exception("Unexpected token when expecting "+ 
+    raise Exception("Unexpected token when expecting "+
                     "beginning of expression -- " + str(token) + " ... " +
                     repr([lexr.GetToken(), lexr.GetToken(),
                           lexr.GetToken(), lexr.GetToken(),
@@ -98,7 +98,7 @@ def _parseForm (lexr):
     else:
         lexr.PutToken(token)
         return _parseFunctionCall(lexr)
-        
+
         ## What else could start a function call?  Any Expr?
         #raise Exception("Sympl form must have ID or keyword as first element." +
         #                "  Got " + str(token))
@@ -143,7 +143,7 @@ def _parseKeywordForm (lexr):
     elif (name is lexer.KeywordToken.Add or name is lexer.KeywordToken.Subtract or
           name is lexer.KeywordToken.Multiply or name is lexer.KeywordToken.Divide or
           name is lexer.KeywordToken.Equal or name is lexer.KeywordToken.NotEqual or
-          name is lexer.KeywordToken.GreaterThan or 
+          name is lexer.KeywordToken.GreaterThan or
           name is lexer.KeywordToken.LessThan or
           name is lexer.KeywordToken.And or name is lexer.KeywordToken.Or):
         return _parseExprTreeBinaryOp(lexr)
@@ -243,7 +243,7 @@ def _parseImportNameOrModule (lexr):
 def _parseImportNames (lexr, nameKinds, allowKeywords):
     token = lexr.GetToken()
     debugprint("IN parseimport: " + str(token))
-    if (isinstance(token, lexer.IdOrKeywordToken) and 
+    if (isinstance(token, lexer.IdOrKeywordToken) and
         not token.IsKeywordToken):
         names = [token]
     elif token is lexer.SyntaxToken.Paren:
@@ -361,8 +361,8 @@ def _parseBlock (lexr):
 ### member and call, which the runtime binder decides).  The non-dotted expr
 ### simply evals to an object that better be callable with the supplied args,
 ### which may be none.
-### 
-def _parseFunctionCall (lexr):  
+###
+def _parseFunctionCall (lexr):
     debugprint("IN parse fun call:")
     ## First sub expr is callable object or invoke member expr.
     fun = _parseExpr(lexr)
@@ -399,7 +399,7 @@ def _parseEq (lexr):
         raise Exception("Internal: parsing Eq?")
     left, right = _parseBinaryRuntimeCall(lexr)
     return SymplEqExpr(left, right)
-    
+
 def _parseCons (lexr):
     token = lexr.GetToken()
     if token is not lexer.KeywordToken.Cons:
@@ -439,7 +439,7 @@ def _parseIf (lexr):
         return SymplIfExpr(args[0], args[1], args[2])
     else:
         raise Exception("IF must be (if <test> <consequent> [<alternative>]).")
-    
+
 ### _parseLoop parses a loop expression, a sequence of exprs to
 ### execute in order, forever.  See Break for returning expression's value.
 ###
@@ -474,7 +474,7 @@ def _parseBreak (lexr):
 ### be used to specific concrete generic type instances.  Without this support
 ### SymPL programmers need to open code this as the examples show.
 ###
-def _parseNew (lexr):  
+def _parseNew (lexr):
     debugprint("IN new call:")
     token = lexr.GetToken()
     if token is not lexer.KeywordToken.New:
@@ -491,7 +491,7 @@ def _parseElt (lexr):
     obj = _parseExpr(lexr)
     indexes = _parseBody(lexr, "Unexpected EOF in arg list for call to Elt.")
     return SymplEltExpr(obj, indexes)
-  
+
 
 ### _parseExprTreeBinaryOp handles operators that map to ET node kinds, but it
 ### doesn't handle Eq.  We could fold that in here, but it is harder to do in C#.
@@ -501,7 +501,7 @@ def _parseExprTreeBinaryOp (lexr):
     if (token is lexer.KeywordToken.Add or token is lexer.KeywordToken.Subtract or
         token is lexer.KeywordToken.Multiply or token is lexer.KeywordToken.Divide or
         token is lexer.KeywordToken.Equal or token is lexer.KeywordToken.NotEqual or
-        token is lexer.KeywordToken.GreaterThan or 
+        token is lexer.KeywordToken.GreaterThan or
         token is lexer.KeywordToken.LessThan or
         token is lexer.KeywordToken.And or token is lexer.KeywordToken.Or):
         pass

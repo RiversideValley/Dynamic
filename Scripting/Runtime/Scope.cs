@@ -7,18 +7,18 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Represents a host-provided variables for executable code.  The variables are
     /// typically backed by a host-provided dictionary. Languages can also associate per-language
     /// information with the context by using scope extensions.  This can be used for tracking
-    /// state which is used across multiple executions, for providing custom forms of 
+    /// state which is used across multiple executions, for providing custom forms of
     /// storage (for example object keyed access), or other language specific semantics.
-    /// 
+    ///
     /// Scope objects are thread-safe as long as their underlying storage is thread safe.
-    /// 
+    ///
     /// Script hosts can choose to use thread safe or thread unsafe modules but must be sure
     /// to constrain the code they right to be single-threaded if using thread unsafe
     /// storage.
@@ -29,7 +29,7 @@ namespace Microsoft.Scripting.Runtime {
         private readonly IDynamicMetaObjectProvider _storage;
 
         /// <summary>
-        /// Creates a new scope with a new empty thread-safe dictionary.  
+        /// Creates a new scope with a new empty thread-safe dictionary.
         /// </summary>
         public Scope() {
             _extensions = ScopeExtension.EmptyArray;
@@ -56,10 +56,10 @@ namespace Microsoft.Scripting.Runtime {
         public ScopeExtension GetExtension(ContextId languageContextId) {
             return (languageContextId.Id < _extensions.Length) ? _extensions[languageContextId.Id] : null;
         }
-        
+
         /// <summary>
-        /// Sets the ScopeExtension to the provided value for the given ContextId.  
-        /// 
+        /// Sets the ScopeExtension to the provided value for the given ContextId.
+        ///
         /// The extension can only be set once.  The returned value is either the new ScopeExtension
         /// if no value was previously set or the previous value.
         /// </summary>
@@ -90,7 +90,7 @@ namespace Microsoft.Scripting.Runtime {
                 return Restrict(StorageMetaObject.BindInvokeMember(binder, args));
             }
 
-            public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value) {                
+            public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value) {
                 return Restrict(StorageMetaObject.BindSetMember(binder, value));
             }
 

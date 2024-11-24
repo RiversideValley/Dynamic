@@ -5,9 +5,9 @@ using System.IO;
 using System.Runtime.Remoting;
 using System.Text;
 using IronPython.Runtime;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
+using Riverside.Scripting.Runtime;
 using NUnit.Framework;
 using System.Dynamic;
 
@@ -49,7 +49,7 @@ namespace HostingTest {
             result = _runTime.GetEngine("ruby").Setup.FileExtensions;
             TestHelpers.AreEqualArrays(new string[] { ".rb" }, result);
         }
-        
+
         [Test]
         public void LanguageVersion_Test() {
             //LanguageVersion
@@ -114,7 +114,7 @@ namespace HostingTest {
                 ScriptScope scope = _runTime.CreateScope();
 
                 src.Execute(scope);
-                
+
             }
 
             DeleteTempFiles();
@@ -225,7 +225,7 @@ namespace HostingTest {
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void CreateScriptSource_NullStreamContentProvider3_Test() {
-            _testEng.CreateScriptSource((StreamContentProvider)null, "some_path.py", 
+            _testEng.CreateScriptSource((StreamContentProvider)null, "some_path.py",
                                             Encoding.Unicode, SourceCodeKind.Statements);
         }
 
@@ -264,7 +264,7 @@ namespace HostingTest {
         public void CreateScriptSourceFromFile_InvalidFileUnicode_Test() {
             _testEng.CreateScriptSourceFromFile("some_path.py", null, SourceCodeKind.File);
         }
-        
+
         [Negative]
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -358,15 +358,15 @@ namespace HostingTest {
 
             ScriptScope scope = _testEng.CreateScope();
             scope.SetVariable("y", 1);
-            
+
             ScriptScope result = _testEng.ExecuteFile(tmpFile, scope);
             Assert.AreEqual(result, scope);
 
             var x = scope.GetVariable<int>("x");
             Assert.AreEqual(x, 2);
         }
-        
-        //TODO : these tests should move to script source. 
+
+        //TODO : these tests should move to script source.
         #region CompileExpression tests
         /// <summary>
         /// Covers ScriptEngine.CompileExpression for various basic expressions
@@ -388,7 +388,7 @@ namespace HostingTest {
 
             //Compile an invalid expression
             _testEng.CreateScriptSourceFromString("? 2+2").Compile();
-            
+
         }
 
         [Negative]
@@ -400,7 +400,7 @@ namespace HostingTest {
             //Compile an expression referencing an unbound variable, which generates a runtime error
             CompiledCode e1 = _testEng.CreateScriptSourceFromString("unbound + 2").Compile();
             e1.Execute(scope);
-            
+
         }
 
         [Test]
@@ -449,7 +449,7 @@ namespace HostingTest {
 
             //Compile an invalid statement
             _testEng.CreateScriptSourceFromString("? 2+2", SourceCodeKind.Statements).Compile();
-            
+
         }
 
         [Negative]
@@ -461,7 +461,7 @@ namespace HostingTest {
             //Compile a statement referencing an unbound variable, which generates a runtime error
             CompiledCode e1 = _testEng.CreateScriptSourceFromString("print unbound+2", SourceCodeKind.Statements).Compile();
             e1.Execute(scope);
-            
+
         }
 
         [Test]
@@ -545,7 +545,7 @@ def f(arg):
         public void LanguageDisplayName_EmptyLanguage() {
             var name = _runTime.GetEngine("").Setup.DisplayName;
         }
-        
+
         [Test]
         public void GetRegisteredIdentifiers_LangWithNoIDs_Test() {
             ScriptRuntime runtime = ScriptRuntimeTest.CreatePythonOnlyRuntime(new string[] { }, new string[]{".py"});
@@ -566,7 +566,7 @@ def f(arg):
         /// </summary>
         [Test]
         public void Operations_InvokeIsNotNull_Test() {
-            
+
             Assert.IsNotNull(_testEng.Operations);
             Assert.IsNotNull(_RBEng.Operations);
             Assert.IsNotNull(_runTime.Operations);
@@ -578,14 +578,14 @@ def f(arg):
         /// </summary>
         [Test]
         public void Operations_MultiAccess_Test() {
-                        
+
             ObjectOperations operations = _testEng.Operations;
             ObjectOperations dummyResult = _testEng.CreateOperations();
 
             //Ensure the previous call didn't have any side effects.
             Assert.AreEqual(operations, _testEng.Operations);
 
-            
+
         }
         /// <summary>
         /// Verify Successfully Invoke a usable new instance.
@@ -596,15 +596,15 @@ def f(arg):
         }
 
         /// <summary>
-        /// Make multiple instances of an object and 
+        /// Make multiple instances of an object and
         /// and make sure that they are different.
-        /// 
+        ///
         /// Only test that the next instance is not the
         /// same as the last instance
         /// </summary>
         [Test]
         public void CreateOperations_MultipleTimes() {
-            
+
             const int n = 5;
             ObjectOperations[] OpA = new ObjectOperations[n];
             for (int i = 0; i < n; i++) {
@@ -612,7 +612,7 @@ def f(arg):
                 if (i > 0) Assert.IsTrue(OpA[i] != OpA[i - 1]);
             }
         }
-        
+
         [Test]
         [Negative]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -630,7 +630,7 @@ def f(arg):
             futureScope.SetVariable("division", true);
             sr.Globals.SetVariable("__future__", futureScope);
             ScriptSource source = pyeng.CreateScriptSourceFromString(testSrc, SourceCodeKind.Statements);
-            
+
             object result = source.Execute(futureScope);
             object r2 = futureScope.GetVariable("r");
             Assert.AreEqual((double)r2, 0.5);
@@ -649,7 +649,7 @@ def f(arg):
             //futureScope.SetVariable("division", true);
             globalScope.SetVariable("division", true);
             sr.Globals.SetVariable("__future__", globalScope);
-            
+
             ScriptSource source = pyeng.CreateScriptSourceFromString(testSrc, SourceCodeKind.Statements);
             //ScriptScope globalScope = sr.CreateScope();
 
@@ -658,7 +658,7 @@ def f(arg):
             Assert.AreEqual((double)r2, 0.5);
 
         }
-        
+
         /// <summary>
         /// Make sure this throws the Null Argument Exception
         /// </summary>
@@ -685,12 +685,12 @@ def f(arg):
         /// </summary>
         [Test]
         public void GetScope_NonExistentScriptSourcePath() {
-                    
+
             //As long as the engine's scope is not associated with
             //a scope that has a valid path this should work or
             //If you just give an invalide script path.
 
-            // Probably dont' need each of these tests since 
+            // Probably dont' need each of these tests since
             // they invalid path's are probably tested else where!
 
             string[] wrongPath = {"c:\\lsslsl\\slslslsl\\lslslsa/a/a/ssswww/foo.py",
@@ -718,10 +718,10 @@ def f(arg):
 
         /// <summary>
         /// Test case :
-        ///    In a supported language, the valid path of an existing ScriptSource that has been executed	
+        ///    In a supported language, the valid path of an existing ScriptSource that has been executed
         /// Expected result:
         ///    Return of the ScriptScope in which the given ScriptSource most recently ran
-        ///    
+        ///
         /// </summary>
         [Test]
         public void GetScope_VerifyScriptScopeFromScriptFileCanBeRetrieved(){
@@ -751,7 +751,7 @@ def f(arg):
             // We should have a valid instance of the scope
             Assert.IsNotNull(fileScope);
 
-            // If we get a valid scope check the expected contents. 
+            // If we get a valid scope check the expected contents.
             Assert.AreEqual(expResult, fileScope.GetVariable("x"));
         }
 
@@ -761,7 +761,7 @@ def f(arg):
         /// </summary>
         [Test]
         public void CreateScriptSourceFromFile_ValidPathToJunkFile() {
-            
+
             //Create a temp source with some invalid code
             string testSrc = "Moby-Dick[1] is an 1851 novel by Herman Melville. The story"
                             + " tells the adventures of the wandering sailor Ishmael and his"
@@ -781,7 +781,7 @@ def f(arg):
         }
 
         /// <summary>
-        /// Test to ensure the CreateScriptSource doesnt throw any exception irrespective 
+        /// Test to ensure the CreateScriptSource doesnt throw any exception irrespective
         /// of how bad the input path is...
         /// </summary>
         [Test]
@@ -790,7 +790,7 @@ def f(arg):
             foreach (string path in StandardTestPaths.AllPaths) {
                 _testEng.CreateScriptSourceFromFile(path);
             }
-                        
+
         }
 
         /// <summary>
@@ -813,18 +813,18 @@ def f(arg):
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void CreateScriptSourceFromFile_JunkStringsTest() {
-            
+
 
             int cnt = 0;
             ScriptSource sSrc;
             ScriptCodeParseResult sCodeProp = new ScriptCodeParseResult();
 
             foreach (string junk in StandardTestStrings.AllStrings) {
-            
+
                 // Count the loop sanity check!
                 cnt++;
                 string msg = string.Format("junk string index {0}", cnt);
@@ -844,16 +844,16 @@ def f(arg):
         /// I am not sure why you think the method shouldn't through when the codedom is wrong.
         /// Anyway, we should probably have a very basic sanity test for this and not test too much
         /// Let's discuss about this test
-        /// 
+        ///
         /// CodeObject and id are passed up the chain of function until they hit ScriptSource(...)
         /// </summary>
-        
+
         [Test]
         [Negative]
         [ExpectedException(typeof(ArgumentNullException))]
         //public void CreateScriptSource_NullIdValidCodeObject() {
         public void CreateScriptSource_NullCodeObject() {
-            
+
             //Why is this called 'BuildCountCode'?
             CodeObject cObj = BuildCountCode();
             // If we return just the method from BuildCountCode()

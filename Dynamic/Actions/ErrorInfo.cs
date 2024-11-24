@@ -6,21 +6,21 @@ using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
-    /// Encapsulates information about the result that should be produced when 
+    /// Encapsulates information about the result that should be produced when
     /// a OldDynamicAction cannot be performed.  The ErrorInfo can hold one of:
-    ///     an expression which creates an Exception to be thrown 
-    ///     an expression which produces a value which should be returned 
+    ///     an expression which creates an Exception to be thrown
+    ///     an expression which produces a value which should be returned
     ///         directly to the user and represents an error has occured (for
     ///         example undefined in JavaScript)
     ///     an expression which produces a value which should be returned
     ///         directly to the user but does not actually represent an error.
-    /// 
+    ///
     /// ErrorInfo's are produced by an ActionBinder in response to a failed
-    /// binding.  
+    /// binding.
     /// </summary>
     public sealed class ErrorInfo {
         /// <summary>

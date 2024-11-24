@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     [Serializable]
     public struct TokenInfo : IEquatable<TokenInfo> {

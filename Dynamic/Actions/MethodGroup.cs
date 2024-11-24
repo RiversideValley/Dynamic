@@ -9,15 +9,15 @@ using System.Dynamic;
 using System.Reflection;
 using System.Threading;
 
-using Microsoft.Scripting.Actions.Calls;
+using Riverside.Scripting.Actions.Calls;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// MethodGroup's represent a unique collection of method's.  Typically this
     /// unique set is all the methods which are overloaded by the same name including
     /// methods with different arity.  These methods represent a single logically
     /// overloaded element of a .NET type.
-    /// 
+    ///
     /// The base DLR binders will produce MethodGroup's when provided with a MemberGroup
     /// which contains only methods.  The MethodGroup's will be unique instances per
     /// each unique group of methods.

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     /// <summary>
     /// See also <c>Microsoft.VisualStudio.Package.TokenTriggers</c>.

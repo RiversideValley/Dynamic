@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     internal static class ExceptionUtils {
         public static ArgumentNullException MakeArgumentItemNullException(int index, string arrayName) {
             return new ArgumentNullException($"{arrayName}[{index}]");

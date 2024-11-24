@@ -68,13 +68,13 @@
       <Project>{7F6984B4-EE6D-4E6F-ABB1-E210D7DC4FDD}</Project>
       <Name>Ruby %28Languages\Ruby\Ruby%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Microsoft.Dynamic\Microsoft.Dynamic.csproj">
+    <ProjectReference Include="..\..\..\Riverside.Dynamic\Riverside.Dynamic.csproj">
       <Project>{EB66B766-6354-4208-A3D4-AACBDCB5C3B3}</Project>
-      <Name>Microsoft.Dynamic</Name>
+      <Name>Riverside.Dynamic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Microsoft.Scripting\Microsoft.Scripting.csproj">
+    <ProjectReference Include="..\..\..\Riverside.Scripting\Riverside.Scripting.csproj">
       <Project>{02FF0909-F5AD-48CF-A86A-345E721B7E40}</Project>
-      <Name>Microsoft.Scripting</Name>
+      <Name>Riverside.Scripting</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

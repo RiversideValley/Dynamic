@@ -9,21 +9,21 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
 
 using NUnit.Framework;
 
-namespace Microsoft.Dynamic.Test {
+namespace Riverside.Dynamic.Test {
     [TestFixture]
     internal class LightExceptionTests {
-        private Func<LightExceptionTests, IEnumerable<Expression>>[] StatementBuilders = new[] { 
-            new Func<LightExceptionTests, IEnumerable<Expression>>(TryCatchBuilder), 
-            new Func<LightExceptionTests, IEnumerable<Expression>>(TryFinallyBuilder), 
-            new Func<LightExceptionTests, IEnumerable<Expression>>(ThrowBuilder), 
-            new Func<LightExceptionTests, IEnumerable<Expression>>(CallBuilder), 
-            new Func<LightExceptionTests, IEnumerable<Expression>>(ReturnBuilder), 
+        private Func<LightExceptionTests, IEnumerable<Expression>>[] StatementBuilders = new[] {
+            new Func<LightExceptionTests, IEnumerable<Expression>>(TryCatchBuilder),
+            new Func<LightExceptionTests, IEnumerable<Expression>>(TryFinallyBuilder),
+            new Func<LightExceptionTests, IEnumerable<Expression>>(ThrowBuilder),
+            new Func<LightExceptionTests, IEnumerable<Expression>>(CallBuilder),
+            new Func<LightExceptionTests, IEnumerable<Expression>>(ReturnBuilder),
         };
         private static ParameterExpression _input = Expression.Parameter(typeof(List<string>), "log");
         private static MethodInfo _addLog = typeof(List<string>).GetMethod(nameof(List<string>.Add));

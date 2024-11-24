@@ -9,10 +9,10 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     // TODO: replace this class with calls to Expression.GetDelegateType
     public static class DynamicSiteHelpers {
 
@@ -202,10 +202,10 @@ namespace Microsoft.Scripting.Actions {
                 return true;
             }
 
-            //Filters out methods in Microsoft.Scripting namespaces.
-            if (mb.DeclaringType != null && 
+            //Filters out methods in Riverside.Scripting namespaces.
+            if (mb.DeclaringType != null &&
                 mb.DeclaringType.Namespace != null &&
-                mb.DeclaringType.Namespace.StartsWith("Microsoft.Scripting", StringComparison.Ordinal)) {
+                mb.DeclaringType.Namespace.StartsWith("Riverside.Scripting", StringComparison.Ordinal)) {
                 return true;
             }
 

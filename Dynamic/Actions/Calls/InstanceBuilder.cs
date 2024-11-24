@@ -6,12 +6,12 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Generation;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Generation;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     using Ast = Expression;
-    
+
     public class InstanceBuilder {
         // Index of actual argument expression or -1 if the instance is null.
         private readonly int _index;
@@ -48,8 +48,8 @@ namespace Microsoft.Scripting.Actions.Calls {
             // will call the same thing but is visible. If this fails we still bind anyway - it's
             // the callers responsibility to filter out non-visible methods.
             //
-            // We use limit type of the meta instance so that we can access methods inherited to that type 
-            // as accessible via an interface implemented by the type. The type might be internal and the methods 
+            // We use limit type of the meta instance so that we can access methods inherited to that type
+            // as accessible via an interface implemented by the type. The type might be internal and the methods
             // might not be accessible otherwise.
             method = CompilerHelpers.TryGetCallableMethod(args.GetObject(_index).LimitType, method);
         }

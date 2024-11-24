@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Runtime.Remoting;
 using IronPython.Runtime;
 using IronPython.Runtime.Exceptions;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 namespace HostingTest    {
@@ -46,7 +46,7 @@ namespace HostingTest    {
         /// <summary>
         /// Test     : Obj of a delegate instance
         /// Expected : True
-        /// 
+        ///
         /// Notes    : Look for example in existing code.
         /// </summary>
         [Test]
@@ -57,12 +57,12 @@ namespace HostingTest    {
             ScriptScope scope = _testEng.CreateScope();
             ScriptSource code = _testEng.CreateScriptSourceFromString(_codeSnippets[CodeType.IsOddFunction], SourceCodeKind.Statements);
 
-            // Execute source in scope 
+            // Execute source in scope
             code.Execute(scope);
-            
+
             //Get a Delegate Instance using the Func<> Generic declaration and GetVariable
             Func<int, bool> isodd = scope.GetVariable<Func<int, bool>>("isodd");
-            
+
             Assert.IsTrue(_testEng.Operations.IsCallable(isodd));
 
             // Call the function to validate IsCallable
@@ -78,11 +78,11 @@ namespace HostingTest    {
             Assert.IsTrue(isodd2(1));
             Assert.IsFalse(isodd2(2));
         }
-        
+
         private delegate TRet F1<T1, TRet>(T1 value);
 
         /// <summary>
-        /// Test     : Null object	
+        /// Test     : Null object
         /// Expected : ArgumentNullException
         /// </summary>
         [Test]
@@ -94,7 +94,7 @@ namespace HostingTest    {
         }
 
         /// <summary>
-        /// Test     : Null object[]	
+        /// Test     : Null object[]
         /// Expected : ArgumentNullException
         /// </summary>
         [Test]
@@ -120,7 +120,7 @@ namespace HostingTest    {
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetMember_NullName() {
             string varName = "FooClass";
-            
+
             object FooClass = GetVariableValue(_codeSnippets[CodeType.SimpleFooClassDefinition],
                                                            varName);
             _testEng.Operations.GetMember(FooClass, (string)null);
@@ -189,12 +189,12 @@ namespace HostingTest    {
         public void GetCallSignature_NullArg() {
             int expectedResult = 0;
             string[] result = (string[])_testEng.Operations.GetCallSignatures((object)null);
-            
+
             // Should be empty array of Length zero
             Assert.AreEqual(result.Length, expectedResult);
         }
 
-      
+
         [Test]
         [Negative]
         public void GetMemberNames_NullObject() {
@@ -203,13 +203,13 @@ namespace HostingTest    {
 
         [Test]
         public void GetMemberNames_MemberObjects() {
-            List<string> expectedResult = new List<string>() { "concat", "add", "__doc__", "__module__", "__init__", "f", "someInstanceAttribute" }; 
+            List<string> expectedResult = new List<string>() { "concat", "add", "__doc__", "__module__", "__init__", "f", "someInstanceAttribute" };
             String varName = "FooClass";
             object tmpFoo = GetVariableValue(_codeSnippets[CodeType.SimpleFooClassDefinition],
                                                               varName);
-            
+
             object FooClass = _testEng.Operations.Invoke(tmpFoo); // create new FooClass
-            
+
             // BUG - Not same return value as Spec
             List<string> result = new List<string>(_testEng.Operations.GetMemberNames(FooClass));
 
@@ -222,7 +222,7 @@ namespace HostingTest    {
 
         [Test]
         public void GetCallSignature_PassValidClassObject() {
-            // depending on how the object stores objects 
+            // depending on how the object stores objects
             // internally python stores 4 members maybe?
             string[] expectedResult = new string[4];
             String varName = "FooClass";
@@ -235,7 +235,7 @@ namespace HostingTest    {
             Assert.AreEqual(result.Length, expectedResult.Length);
         }
 
-        
+
         [Test]
         public void GetCallSignature_PassValidMethodObject() {
             string varName = "concat";
@@ -290,7 +290,7 @@ namespace HostingTest    {
 
             // Lookup value in scope
             string lookupObjectName = "x";
-            
+
             // Get object from the scope
             object ScopeObjectValue = GetVariableValue(_codeSnippets[CodeType.OneLineAssignmentStatement],
                                                                      lookupObjectName);
@@ -319,7 +319,7 @@ namespace HostingTest    {
         /// </summary>
         [Test]
         public void GenericTryConvertTo_IntegerToDouble(){
-            
+
             string lookupObjectName = "x";
             double expectedValue = 3;
 
@@ -343,10 +343,10 @@ namespace HostingTest    {
         }
 
         /// <summary>
-        /// Test      : For each Operations language and each source language, 
-        ///             set an existing and settable member	
+        /// Test      : For each Operations language and each source language,
+        ///             set an existing and settable member
         /// Expected  : The member is updated with the new value
-        /// 
+        ///
         /// Note      : This code fails for languages that do not have read/write objects!
         /// </summary>
         [Test]
@@ -364,8 +364,8 @@ namespace HostingTest    {
             object fooClass = _testEng.Operations.Invoke(objectVar); // create new FooClass
             // Verify that the member function exists
             Assert.IsTrue(_testEng.Operations.ContainsMember(fooClass, lookupMemberName));
-            
-            // Set the member 
+
+            // Set the member
             // Get some new code to put in replace/set.
             ScriptScope scope = _testEng.CreateScope();
             ScriptSource code = _testEng.CreateScriptSourceFromString("new_add=1", SourceCodeKind.Statements);
@@ -376,11 +376,11 @@ namespace HostingTest    {
             _testEng.Operations.SetMember(fooClass, lookupMemberName, newObjectValue);
             // Verify that the member does not exists anymore
             Assert.IsFalse(_testEng.Operations.ContainsMember(fooClass, "new_add"));
-       
+
         }
 
         /// <summary>
-        /// Test     : Lookup the a member of an object 
+        /// Test     : Lookup the a member of an object
         /// Expected : validate that ContainsMember returns true for a known member
         /// </summary>
         [Test]
@@ -398,7 +398,7 @@ namespace HostingTest    {
 
 
         /// <summary>
-        /// Test     : Lookup the a member that is not in an object 
+        /// Test     : Lookup the a member that is not in an object
         /// Expected : validate that ContainsMember returns false
         /// </summary>
         [Negative]
@@ -415,9 +415,9 @@ namespace HostingTest    {
             Assert.IsFalse(_testEng.Operations.ContainsMember(fooClass, lookupMemberName));
         }
 
-        
+
         /// <summary>
-        /// Test     : Null object	
+        /// Test     : Null object
         /// Expected : ArgumentNullException
         /// </summary>
         [Negative]
@@ -428,7 +428,7 @@ namespace HostingTest    {
         }
 
         /// <summary>
-        /// Test     : Null object	
+        /// Test     : Null object
         /// Expected : ArgumentNullException
         /// </summary>
         [Negative]
@@ -444,9 +444,9 @@ namespace HostingTest    {
         /// <summary>
         /// Test     : Create a FooClass object in Hosted script language
         /// Expected : Verify that ObjectOperations is removed
-        /// 
+        ///
         /// Notes    : This will not work for every language but it should work for
-        ///            Python. The Object Operations RemoveMember would be equivelent to 
+        ///            Python. The Object Operations RemoveMember would be equivelent to
         ///            this Python:
         ///             class FooClass:
         ///                 def inc(self, x):
@@ -455,7 +455,7 @@ namespace HostingTest    {
         ///             N.inc(4) ==> 5
         ///             del N.inc(4)
         ///             N.inc(4) ==> Error
-        ///            
+        ///
         /// </summary>
         [Test]
         public void RemoveMember_BaiscObjectRemovalFn() {
@@ -472,7 +472,7 @@ namespace HostingTest    {
             _testEng.Operations.RemoveMember(fooClass, lookupMemberName);
             // Verify that the member does not exists anymore
             Assert.IsFalse(_testEng.Operations.ContainsMember(fooClass, lookupMemberName));
-       
+
         }
 
 
@@ -486,14 +486,14 @@ namespace HostingTest    {
         public void RemoveMember_BaiscObjectRemovalVar() {
             // BUG -  investigate/file bug
             string varName = "x";
-            
+
             object objectVar = GetVariableValue(_codeSnippets[CodeType.OneLineAssignmentStatement],
                                                               varName);
 
             _testEng.Operations.RemoveMember(objectVar, varName);
         }
 
-        
+
         /// <summary>
         /// Test     : GetMembers of imported module from script
         /// Expected : check subset of member names exist
@@ -517,7 +517,7 @@ namespace HostingTest    {
             // Setup the date time dot net object
             object dotNetObject = GetVariableValue(_codeSnippets[CodeType.ImportCPythonDateTimeModule],
                                                                   varName);
-            
+
             // Verify that this is the Spec'd signature
             List<string> members = new List<string>(_testEng.Operations.GetMemberNames(dotNetObject));
 
@@ -526,7 +526,7 @@ namespace HostingTest    {
                 Assert.IsTrue(members.Contains(name));
             });
 
-            
+
             //Assert.AreEqual(result.Length, expectedResult.Length);
         }
         /// <summary>
@@ -555,10 +555,10 @@ namespace HostingTest    {
             // Verify values
             Assert.IsTrue( doc.Contains(expectedDocs));
         }
-      
+
         [Test]
         public void GetDocumentation_FromScriptMethod() {
-           
+
             string varName = "doc";
             // Expected value
             string expectedDocs = "This function does nothing";
@@ -568,11 +568,11 @@ namespace HostingTest    {
             string doc = _testEng.Operations.GetDocumentation(objectVar);
             Assert.AreEqual(expectedDocs, doc);
         }
-        
+
         /// <summary>
         /// Test      : Import .Net DateTime assembly
-        /// Expected  : Get the correct doc string attached 
-        /// 
+        /// Expected  : Get the correct doc string attached
+        ///
         /// Note      : Could be a problem if the .Net version changes and this specific doc string is changed
         /// </summary>
         [Test]
@@ -582,7 +582,7 @@ namespace HostingTest    {
             ScriptSource code = _testEng.CreateScriptSourceFromString(_codeSnippets[CodeType.ImportDotNetAssemblyDateTimeModule], SourceCodeKind.Statements);
 
             code.Execute(scope);
-            
+
             // This could break if the Underlining DotNet documentation changes.
             //http://dlr.codeplex.com/WorkItem/View.aspx?WorkItemId=6071
             //string expectedDocs = "Represents an instant in time, typically expressed as a date and time of day";
@@ -613,7 +613,7 @@ namespace HostingTest    {
 
 
         /// <summary>
-        /// Test     : Test env change using engine.CreateOperations with module change in scope 
+        /// Test     : Test env change using engine.CreateOperations with module change in scope
         /// Expected : New env change should give correct __future__ division type.
         /// </summary>
         [Test]
@@ -626,13 +626,13 @@ namespace HostingTest    {
             futureScope.SetVariable("division", true);
             sr.Globals.SetVariable("__future__", futureScope);
 
-            ScriptSource source = _testEng.CreateScriptSourceFromString(_codeSnippets[CodeType.ImportFutureDiv], 
+            ScriptSource source = _testEng.CreateScriptSourceFromString(_codeSnippets[CodeType.ImportFutureDiv],
                                                                      SourceCodeKind.Statements);
             ScriptScope localScope = _testEng.CreateScope();
             source.Execute(localScope);
 
             ObjectOperations operation = _testEng.CreateOperations(localScope);
-            
+
             // now do div operations and check result
             object divResult = operation.Divide(1, 2);
 
@@ -660,7 +660,7 @@ namespace HostingTest    {
             ScriptScope scope = engine.CreateScope();
             ObjectOperations operation = engine.CreateOperations(scope);
 
-         
+
             string pyCode = @"class TC(object):
      i = -1
      def what(self):
@@ -668,7 +668,7 @@ namespace HostingTest    {
 
             ScriptSource src = engine.CreateScriptSourceFromString(pyCode, SourceCodeKind.Statements);
             src.Execute(scope);
-            
+
             object FooClass = scope.GetVariable("TC");
             object[] param = new object[] { };
             object newObjectInstance = engine.Operations.CreateInstance(FooClass, param); // create new FooClass
@@ -694,9 +694,9 @@ namespace HostingTest    {
 
             ScriptSource src = engine.CreateScriptSourceFromString(pyCode, SourceCodeKind.Statements);
             src.Execute(scope);
-            
+
             object FooClass = scope.GetVariable("TC");
-            
+
 
             object[] param = new object[] {  };
             object testClassInstance0 = engine.Operations.CreateInstance(FooClass, param); // create new FooClass

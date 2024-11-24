@@ -5,9 +5,9 @@
 using System;
 using System.Reflection;
 
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class ReflectedPropertyTracker : PropertyTracker {
         private readonly PropertyInfo _propInfo;
 

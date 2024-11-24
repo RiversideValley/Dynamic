@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Metadata;
+using Riverside.Scripting.Metadata;
 
 namespace Metadata {
     public static class MetadataTablesExtensions {
@@ -23,7 +23,7 @@ namespace Metadata {
                 case TypeAttributes.Public:
                 case TypeAttributes.NotPublic:
                     return false;
-            
+
                 default:
                     return true;
             }
@@ -80,7 +80,7 @@ namespace Metadata {
                         if ((mattrs & MethodAttributes.MemberAccessMask) == MethodAttributes.Public && (mattrs & MethodAttributes.Static) != 0) {
                             var declType = mdef.FindDeclaringType();
                             var tattrs = declType.Attributes;
-                            if (((tattrs & TypeAttributes.VisibilityMask) == TypeAttributes.Public || 
+                            if (((tattrs & TypeAttributes.VisibilityMask) == TypeAttributes.Public ||
                                 (tattrs & TypeAttributes.VisibilityMask) == TypeAttributes.NestedPublic) &&
                                 (tattrs & TypeAttributes.Abstract) != 0 &&
                                 (tattrs & TypeAttributes.Sealed) != 0) {

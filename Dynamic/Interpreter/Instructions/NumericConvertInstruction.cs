@@ -4,9 +4,9 @@
 
 using System;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal abstract class NumericConvertInstruction : Instruction {
         internal readonly TypeCode _from, _to;
 

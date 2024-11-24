@@ -10,18 +10,18 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class EventTracker : MemberTracker {
-        // For each instance of the class that declares the event there is a list of pairs in a table 
-        // (like if we added an instance field for each instance event into its declaring class). 
+        // For each instance of the class that declares the event there is a list of pairs in a table
+        // (like if we added an instance field for each instance event into its declaring class).
         // We use _staticTarget for a static event (it is bound to its declaring type).
-        // Each pair in the list holds on the stub handler that was added to the event delegate chain and the callable 
-        // object that is passed to +=/-= operators. 
+        // Each pair in the list holds on the stub handler that was added to the event delegate chain and the callable
+        // object that is passed to +=/-= operators.
         private WeakDictionary<object, NormalHandlerList> _handlerLists;
         private static readonly object _staticTarget = new object();
 
@@ -59,8 +59,8 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Doesn't need to check PrivateBinding setting: no method that is part of the event is public the entire event is private. 
-        /// If the code has already a reference to the event tracker instance for a private event its "static-ness" is not influenced 
+        /// Doesn't need to check PrivateBinding setting: no method that is part of the event is public the entire event is private.
+        /// If the code has already a reference to the event tracker instance for a private event its "static-ness" is not influenced
         /// by private-binding setting.
         /// </summary>
         public bool IsStatic {
@@ -79,7 +79,7 @@ namespace Microsoft.Scripting.Actions {
                     ((m = Event.GetRaiseMethod(true)) == null || m.IsStatic == mi.IsStatic),
                     "Methods are either all static or all instance."
                 );
-                
+
                 return mi.IsStatic;
             }
         }
@@ -209,8 +209,8 @@ namespace Microsoft.Scripting.Actions {
 #endif
 
         /// <summary>
-        /// Holds on a list of delegates hooked to the event. 
-        /// We need the list because we cannot enumerate the delegates hooked to CLR event and we need to do so in 
+        /// Holds on a list of delegates hooked to the event.
+        /// We need the list because we cannot enumerate the delegates hooked to CLR event and we need to do so in
         /// handler removal (we need to do custom delegate comparison there). If BCL enables the enumeration we could remove this.
         /// </summary>
         private abstract class HandlerList {
@@ -249,7 +249,7 @@ namespace Microsoft.Scripting.Actions {
         private sealed class NormalHandlerList : HandlerList {
             /// <summary>
             /// Storage for the handlers - a key value pair of the callable object and the delegate handler.
-            /// 
+            ///
             /// The delegate handler is closed over the callable object.  Therefore as long as the object is alive the
             /// delegate will stay alive and so will the callable object.  That means it's fine to have a weak reference
             /// to both of these objects.

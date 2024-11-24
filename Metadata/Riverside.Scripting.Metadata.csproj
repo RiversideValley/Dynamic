@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Scripting\Microsoft.Scripting.csproj" />
+    <ProjectReference Include="..\Scripting\Riverside.Scripting.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,21 +9,21 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Shell.Remote {
+namespace Riverside.Scripting.Hosting.Shell.Remote {
     /// <summary>
     /// Supports detecting the remote runtime being killed, and starting up a new one.
-    /// 
+    ///
     /// Threading model:
-    /// 
-    /// ConsoleRestartManager creates a separate thread on which to create and execute the consoles. 
+    ///
+    /// ConsoleRestartManager creates a separate thread on which to create and execute the consoles.
     /// There are usually at least three threads involved:
-    /// 
-    /// 1. Main app thread: Instantiates ConsoleRestartManager and accesses its APIs. This thread has to stay 
+    ///
+    /// 1. Main app thread: Instantiates ConsoleRestartManager and accesses its APIs. This thread has to stay
     ///    responsive to user input and so the ConsoleRestartManager APIs cannot be long-running or blocking.
-    ///    Since the remote runtime process can terminate asynchronously, the current RemoteConsoleHost can 
-    ///    change at any time (if auto-restart is enabled). The app should typically not care which instance of 
+    ///    Since the remote runtime process can terminate asynchronously, the current RemoteConsoleHost can
+    ///    change at any time (if auto-restart is enabled). The app should typically not care which instance of
     ///    RemoteConsoleHost is currently being used. The flowchart of this thread is:
     ///        Create ConsoleRestartManager
     ///        ConsoleRestartManager.Start
@@ -44,11 +44,11 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
     ///
     /// 3. CompletionPort async callbacks:
     ///        Process.Exited | Process.OutputDataReceived | Process.ErrorDataReceived
-    /// 
+    ///
     /// 4. Finalizer thread
     ///    Some objects may have a Finalize method (which possibly calls Dispose). Not many (if any) types
     ///    should have a Finalize method.
-    /// 
+    ///
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1012:AbstractTypesShouldNotHaveConstructors")] // TODO: This is public only because the test (RemoteConsole.py) needs it to be so. The test should be rewritten
     public abstract class ConsoleRestartManager {
@@ -115,7 +115,7 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
             while (true) {
                 RemoteConsoleHost remoteConsoleHost = CreateRemoteConsoleHost();
 
-                // Reading _terminating and setting of _remoteConsoleHost should be done atomically. 
+                // Reading _terminating and setting of _remoteConsoleHost should be done atomically.
                 // Terminate() does the reverse operation (setting _terminating reading _remoteConsoleHost) atomically
                 lock (_accessLock) {
                     if (_terminating) {
@@ -143,7 +143,7 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
             }
         }
 
-        // TODO: We have to catch all exceptions as we are executing user code in the remote runtime, and we cannot control what 
+        // TODO: We have to catch all exceptions as we are executing user code in the remote runtime, and we cannot control what
         // exception it may throw. This could be fixed if we built our own remoting channel which returned an error code
         // instead of propagating exceptions back from the remote runtime.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -205,7 +205,7 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
                 _terminating = true;
                 _remoteConsoleHost.Terminate(0);
             }
-            
+
             _consoleThread.Join();
         }
     }

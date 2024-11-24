@@ -12,10 +12,10 @@ using System;
 using System.IO;
 using System.Text;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Provides host-redirectable IO streams used by DLR languages for default IO.
     /// </summary>

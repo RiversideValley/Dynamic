@@ -5,9 +5,9 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     public interface IInstructionProvider {
         void AddInstructions(LightCompiler compiler);
     }

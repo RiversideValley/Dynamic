@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using Microsoft.Win32.SafeHandles;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     [SecurityCritical]
     public unsafe sealed class MemoryMapping : CriticalFinalizerObject {
         [SecurityCritical]

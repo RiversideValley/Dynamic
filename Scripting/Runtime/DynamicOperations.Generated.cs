@@ -11,9 +11,9 @@ using System.Linq.Expressions;
 
 using System;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public sealed partial class DynamicOperations {
         private const int /*$$*/PregeneratedInvokerCount = 14;
 
@@ -68,7 +68,7 @@ namespace Microsoft.Scripting.Runtime {
 
         private static Func<DynamicOperations, CallSiteBinder, object, object[], object> GetPregeneratedInvoker(int paramCount) {
             switch (paramCount) {
-#if GENERATOR 
+#if GENERATOR
                 def generate; $PregeneratedInvokerCount.times { |n| @n = n + 1; super }; end
                 def n; @n; end
                 def objects; "object, " * @n; end

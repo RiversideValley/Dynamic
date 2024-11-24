@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Collections.ObjectModel;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public static partial class Utils {
 
         // Helper to add a variable to a block
@@ -20,7 +20,7 @@ namespace Microsoft.Scripting.Ast {
 
             var exprs = new ReadOnlyCollection<Expression>(new [] { body });
             var parent = body;
-            //Merge blocks if the current block has only one child that is another block, 
+            //Merge blocks if the current block has only one child that is another block,
             //the blocks to merge must have the same type.
             while (exprs.Count == 1 && exprs[0].NodeType == ExpressionType.Block && parent.Type == exprs[0].Type) {
                 BlockExpression scope = (BlockExpression)(exprs[0]);

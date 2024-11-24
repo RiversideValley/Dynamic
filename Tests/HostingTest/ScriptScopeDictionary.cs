@@ -4,8 +4,8 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting;
+using Riverside.Scripting.Runtime;
 using System.Runtime.Serialization;
 
 namespace HostingTest {

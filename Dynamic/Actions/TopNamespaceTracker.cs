@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// Represents the top reflected package which contains extra information such as
     /// all the assemblies loaded and the built-in modules.
@@ -66,7 +66,7 @@ namespace Microsoft.Scripting.Actions {
         /// Ensures that the assembly is loaded
         /// </summary>
         /// <param name="assem"></param>
-        /// <returns>true if the assembly was loaded for the first time. 
+        /// <returns>true if the assembly was loaded for the first time.
         /// false if the assembly had already been loaded before</returns>
         public bool LoadAssembly(Assembly assem) {
             ContractUtils.RequiresNotNull(assem, nameof(assem));
@@ -90,7 +90,7 @@ namespace Microsoft.Scripting.Actions {
         /// <summary>
         /// When an (interop) assembly is loaded, we scan it to discover the GUIDs of COM interfaces so that we can
         /// associate the type definition with COM objects with that GUID.
-        /// Since scanning all loaded assemblies can be expensive, in the future, we might consider a more explicit 
+        /// Since scanning all loaded assemblies can be expensive, in the future, we might consider a more explicit
         /// user binder to trigger scanning of COM types.
         /// </summary>
         public static void PublishComTypes(Assembly interopAssembly) {
@@ -102,7 +102,7 @@ namespace Microsoft.Scripting.Actions {
                         if (_comTypeCache.TryGetValue(type.GUID, out Type existing)) {
                             if (!existing.IsDefined(typeof(CoClassAttribute), false)) {
                                 // prefer the type w/ CoClassAttribute on it.  Example:
-                                //    MS.Office.Interop.Excel.Worksheet 
+                                //    MS.Office.Interop.Excel.Worksheet
                                 //          vs
                                 //    MS.Office.Interop.Excel._Worksheet
                                 //  Worksheet defines all the interfaces that the type supports and has CoClassAttribute.

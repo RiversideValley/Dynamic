@@ -7,16 +7,16 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
-    /// ArgBuilder which provides a value for a keyword argument.  
-    /// 
-    /// The KeywordArgBuilder calculates its position at emit time using it's initial 
-    /// offset within the keyword arguments, the number of keyword arguments, and the 
-    /// total number of arguments provided by the user.  It then delegates to an 
+    /// ArgBuilder which provides a value for a keyword argument.
+    ///
+    /// The KeywordArgBuilder calculates its position at emit time using it's initial
+    /// offset within the keyword arguments, the number of keyword arguments, and the
+    /// total number of arguments provided by the user.  It then delegates to an
     /// underlying ArgBuilder which only receives the single correct argument.
-    /// 
-    /// Delaying the calculation of the position to emit time allows the method binding to be 
+    ///
+    /// Delaying the calculation of the position to emit time allows the method binding to be
     /// done without knowing the exact the number of arguments provided by the user. Hence,
     /// the method binder can be dependent only on the set of method overloads and keyword names,
     /// but not the user arguments. While the number of user arguments could be determined
@@ -26,7 +26,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         private readonly int _kwArgCount, _kwArgIndex;
         private readonly ArgBuilder _builder;
 
-        public KeywordArgBuilder(ArgBuilder builder, int kwArgCount, int kwArgIndex) 
+        public KeywordArgBuilder(ArgBuilder builder, int kwArgCount, int kwArgIndex)
             : base(builder.ParameterInfo) {
 
             Debug.Assert(BuilderExpectsSingleParameter(builder));

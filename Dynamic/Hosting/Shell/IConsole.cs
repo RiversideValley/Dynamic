@@ -4,15 +4,15 @@
 
 using System.IO;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
     /// <summary>
-    /// Handles input and output for the console. It is comparable to System.IO.TextReader, 
+    /// Handles input and output for the console. It is comparable to System.IO.TextReader,
     /// System.IO.TextWriter, System.Console, etc
     /// </summary>
     public interface IConsole {
         /// <summary>
         /// Read a single line of interactive input, or a block of multi-line statements.
-        /// 
+        ///
         /// An event-driven GUI console can implement this method by creating a thread that
         /// blocks and waits for an event indicating that input is available
         /// </summary>

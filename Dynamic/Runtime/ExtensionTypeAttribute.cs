@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Marks a class in the assembly as being an extension type for another type.
     /// </summary>

@@ -10,11 +10,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
     /// When finding a yield return or yield break, this rewriter flattens out
     /// containing blocks, scopes, and expressions with stack state. All
@@ -261,7 +261,7 @@ namespace Microsoft.Scripting.Ast {
             } else {
                 newBlock[newBlock.Count - 1] = MakeAssign(variable, newBlock[newBlock.Count - 1]);
             }
-            
+
             return Expression.Block(node.Variables, newBlock);
         }
 
@@ -361,7 +361,7 @@ namespace Microsoft.Scripting.Ast {
                     handlers[i] = Expression.Catch(
                         exceptionVar,
                         Expression.Block(
-                            Expression.Assign(deferredVar, exceptionVar), 
+                            Expression.Assign(deferredVar, exceptionVar),
                             Expression.Default(node.Body.Type)
                         ),
                         filter
@@ -475,7 +475,7 @@ namespace Microsoft.Scripting.Ast {
             }
 
             protected override Expression VisitLambda<T>(Expression<T> node) {
-                return node; // don't recurse into lambdas 
+                return node; // don't recurse into lambdas
             }
 
             protected override Expression VisitTry(TryExpression node) {
@@ -496,7 +496,7 @@ namespace Microsoft.Scripting.Ast {
             );
         }
 
-        // This is copied from the base implementation. 
+        // This is copied from the base implementation.
         // Just want to make sure we disallow yield in filters
         protected override CatchBlock VisitCatchBlock(CatchBlock node) {
             ParameterExpression v = VisitAndConvert(node.Variable, "VisitCatchBlock");
@@ -601,8 +601,8 @@ namespace Microsoft.Scripting.Ast {
 
         //
         // The rewriter assigns expressions into temporaries. If the expression is a label with a value the resulting tree would be illegal
-        // since we cannot jump into RHS of an assignment. Hence we need to eliminate labels and gotos with value. We just need to rewrite 
-        // those that are used in MakeAssign but it is easier to rewrite all. 
+        // since we cannot jump into RHS of an assignment. Hence we need to eliminate labels and gotos with value. We just need to rewrite
+        // those that are used in MakeAssign but it is easier to rewrite all.
         //
         // var = label[L](value1)
         // ...
@@ -683,7 +683,7 @@ namespace Microsoft.Scripting.Ast {
             return spilledArgs.ToReadOnlyCollection();
         }
 
-        private Expression Rewrite(Expression node, ReadOnlyCollection<Expression> arguments, 
+        private Expression Rewrite(Expression node, ReadOnlyCollection<Expression> arguments,
             Func<ReadOnlyCollection<Expression>, Expression> factory) {
             return Rewrite(node, null, arguments, (e, args) => factory(args));
         }
@@ -717,7 +717,7 @@ namespace Microsoft.Scripting.Ast {
             return Expression.Block(block);
         }
 
-        // We need to rewrite unary expressions as well since ETs don't support jumping into unary expressions. 
+        // We need to rewrite unary expressions as well since ETs don't support jumping into unary expressions.
         private Expression Rewrite(Expression node, Expression expr, Func<Expression, Expression> factory) {
             int yields = _yields.Count;
             Expression newExpr = Visit(expr);
@@ -756,7 +756,7 @@ namespace Microsoft.Scripting.Ast {
             // f({expr|yield}, {yield}) -> { t1 = {expr|yeild}, t2 = {yield}; f(t1, t2) }
 
             newExpr1 = ToTemp(block, newExpr1);
-                
+
             if (yields1 != _yields.Count) {
                 newExpr2 = ToTemp(block, newExpr2);
             }
@@ -781,9 +781,9 @@ namespace Microsoft.Scripting.Ast {
             if (_generator.RewriteAssignments) {
                 // We need to make sure that LHS is evaluated before RHS. For example,
                 //
-                // {expr0}[{expr1},..,{exprN}] = {rhs} 
+                // {expr0}[{expr1},..,{exprN}] = {rhs}
                 // ->
-                // { l0 = {expr0}; l1 = {expr1}; ..; lN = {exprN}; r = {rhs}; l0[l1,..,lN] = r } 
+                // { l0 = {expr0}; l1 = {expr1}; ..; lN = {exprN}; r = {rhs}; l0[l1,..,lN] = r }
                 //
                 if (left == node.Left) {
                     switch (left.NodeType) {

@@ -5,7 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Presents a flat enumerable view of multiple dictionaries
     /// </summary>

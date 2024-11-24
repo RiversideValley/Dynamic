@@ -7,11 +7,11 @@ using System.Linq.Expressions;
 
 using System;
 using System.Reflection;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     internal class LightExceptionConvertingExpression : Expression, ILightExceptionAwareExpression {
         private readonly Expression _expr;
         private readonly bool _supportsLightEx;
@@ -35,7 +35,7 @@ namespace Microsoft.Scripting.Ast {
 
         public override Expression Reduce() {
             return new LightExceptionRewriter().Rewrite(_expr);
-        }        
+        }
 
         #region ILightExceptionAwareExpression Members
 

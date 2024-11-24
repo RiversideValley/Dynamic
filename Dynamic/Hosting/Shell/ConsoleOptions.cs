@@ -3,9 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
 
     [Serializable]
     public class ConsoleOptions {

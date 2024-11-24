@@ -15,16 +15,16 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// A ScriptScope is a unit of execution for code.  It consists of a global Scope which
     /// all code executes in.  A ScriptScope can have an arbitrary initializer and arbitrary
-    /// reloader. 
-    /// 
-    /// ScriptScope is not thread safe. Host should either lock when multiple threads could 
+    /// reloader.
+    ///
+    /// ScriptScope is not thread safe. Host should either lock when multiple threads could
     /// access the same module or should make a copy for each thread.
     ///
     /// Hosting API counterpart for <see cref="Scope"/>.
@@ -108,7 +108,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Tries to get a handle for a value stored in the scope under the given name.
-        /// Returns <c>true</c> if there is such name, <c>false</c> otherwise. 
+        /// Returns <c>true</c> if there is such name, <c>false</c> otherwise.
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is a <c>null</c> reference.</exception>
         public bool TryGetVariableHandle(string name, out ObjectHandle handle) {
@@ -145,7 +145,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Removes the variable of the given name from this scope.
-        /// </summary> 
+        /// </summary>
         /// <returns><c>true</c> if the value existed in the scope before it has been removed.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is a <c>null</c> reference.</exception>
         public bool RemoveVariable(string name) {
@@ -173,7 +173,7 @@ namespace Microsoft.Scripting.Hosting {
         public IEnumerable<KeyValuePair<string, dynamic>> GetItems() {
             // Remoting: we eagerly enumerate all variables to avoid cross domain calls for each item.
             var result = new List<KeyValuePair<string, object>>();
-            
+
             foreach (string name in GetVariableNames()) {
                 result.Add(new KeyValuePair<string, object>(name, (object)Engine.Operations.GetMember((object)Scope.Storage, name)));
             }

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Security;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     public static class MetadataExtensions {
         public static bool IsNested(this TypeAttributes attrs) {
             switch (attrs & TypeAttributes.VisibilityMask) {

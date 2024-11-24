@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     internal class ErrorArgBuilder : SimpleArgBuilder {
         internal ErrorArgBuilder(Type parameterType)
             : base(parameterType) {

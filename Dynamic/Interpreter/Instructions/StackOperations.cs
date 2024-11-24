@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal sealed class LoadObjectInstruction : Instruction {
         private readonly object _value;
 
@@ -42,7 +42,7 @@ namespace Microsoft.Scripting.Interpreter {
         public override string ToDebugString(int instructionIndex, object cookie, Func<int, int> labelIndexer, IList<object> objects) {
             return $"LoadCached({_index}: {objects[(int)_index]})";
         }
-        
+
         public override string ToString() {
             return "LoadCached(" + _index + ")";
         }

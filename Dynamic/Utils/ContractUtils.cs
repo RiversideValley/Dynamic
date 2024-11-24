@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static class ContractUtils {
         [Conditional("DEBUG")]
         public static void Assert(bool precondition) {
@@ -165,7 +165,7 @@ namespace Microsoft.Scripting.Utils {
                 }
             }
         }
-                
+
         /// <summary>
         /// Requires the enumerable collection and all its items to be non-null.
         /// </summary>
@@ -202,17 +202,17 @@ namespace Microsoft.Scripting.Utils {
             // nop
         }
 
-        public static T Result<T>() { 
-            return default(T); 
+        public static T Result<T>() {
+            return default(T);
         }
 
-        public static T Parameter<T>(out T value) { 
-            value = default(T); 
-            return value; 
+        public static T Parameter<T>(out T value) {
+            value = default(T);
+            return value;
         }
 
-        public static T Old<T>(T value) { 
-            return value; 
+        public static T Old<T>(T value) {
+            return value;
         }
     }
 }

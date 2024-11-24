@@ -13,9 +13,9 @@ using System.IO;
 using System.Diagnostics;
 using System.Text;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Hosting counterpart for <see cref="SourceUnit"/>.
     /// </summary>
@@ -25,7 +25,7 @@ namespace Microsoft.Scripting.Hosting {
         internal SourceUnit SourceUnit { get; }
 
         /// <summary>
-        /// Identification of the source unit. Assigned by the host. 
+        /// Identification of the source unit. Assigned by the host.
         /// The format and semantics is host dependent (could be a path on file system or URL).
         /// <c>null</c> for anonymous script source.
         /// Cannot be an empty string.
@@ -47,7 +47,7 @@ namespace Microsoft.Scripting.Hosting {
         #region Compilation and Execution
 
         /// <summary>
-        /// Compile the ScriptSource into CompileCode object that can be executed 
+        /// Compile the ScriptSource into CompileCode object that can be executed
         /// repeatedly in its default scope or in other scopes without having to recompile the code.
         /// </summary>
         /// <exception cref="SyntaxErrorException">Code cannot be compiled.</exception>
@@ -56,7 +56,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <remarks>
-        /// Errors are reported to the specified listener. 
+        /// Errors are reported to the specified listener.
         /// Returns <c>null</c> if the parser cannot compile the code due to errors.
         /// </remarks>
         public CompiledCode Compile(ErrorListener errorListener) {
@@ -66,7 +66,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <remarks>
-        /// Errors are reported to the specified listener. 
+        /// Errors are reported to the specified listener.
         /// Returns <c>null</c> if the parser cannot compile the code due to error(s).
         /// </remarks>
         public CompiledCode Compile(CompilerOptions compilerOptions) {
@@ -76,7 +76,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <remarks>
-        /// Errors are reported to the specified listener. 
+        /// Errors are reported to the specified listener.
         /// Returns <c>null</c> if the parser cannot compile the code due to error(s).
         /// </remarks>
         public CompiledCode Compile(CompilerOptions compilerOptions, ErrorListener errorListener) {
@@ -95,11 +95,11 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Executes the code in the specified scope.
-        /// Returns an object that is the resulting value of running the code.  
-        /// 
-        /// When the ScriptSource is a file or statement, the engine decides what is 
-        /// an appropriate value to return.  Some languages return the value produced 
-        /// by the last expression or statement, but languages that are not expression 
+        /// Returns an object that is the resulting value of running the code.
+        ///
+        /// When the ScriptSource is a file or statement, the engine decides what is
+        /// an appropriate value to return.  Some languages return the value produced
+        /// by the last expression or statement, but languages that are not expression
         /// based may return null.
         /// </summary>
         /// <exception cref="SyntaxErrorException">Code cannot be compiled.</exception>
@@ -113,7 +113,7 @@ namespace Microsoft.Scripting.Hosting {
         /// Executes the source code. The execution is not bound to any particular scope.
         /// </summary>
         public dynamic Execute() {
-            // The host doesn't need the scope so do not create it here. 
+            // The host doesn't need the scope so do not create it here.
             // The language can treat the code as not bound to a DLR scope and change global lookup semantics accordingly.
             return SourceUnit.Execute();
         }
@@ -137,7 +137,7 @@ namespace Microsoft.Scripting.Hosting {
 #if FEATURE_REMOTING
         /// <summary>
         /// Executes the code in an empty scope.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
         /// </summary>
         public ObjectHandle ExecuteAndWrap() {
             return new ObjectHandle((object)Execute());
@@ -145,7 +145,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Executes the code in the specified scope.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
         /// </summary>
         public ObjectHandle ExecuteAndWrap(ScriptScope scope) {
             return new ObjectHandle((object)Execute(scope));
@@ -153,13 +153,13 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Executes the code in an empty scope.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
-        /// 
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
+        ///
         /// If an exception is thrown the exception is caught and an ObjectHandle to
         /// the exception is provided.
         /// </summary>
         /// <remarks>
-        /// Use this API to handle non-serializable exceptions (exceptions might not be serializable due to security restrictions) 
+        /// Use this API to handle non-serializable exceptions (exceptions might not be serializable due to security restrictions)
         /// or if an exception serialization loses information.
         /// </remarks>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -175,13 +175,13 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Executes the expression in the specified scope and return a result.
-        /// Returns an ObjectHandle wrapping the resulting value of running the code.  
-        /// 
+        /// Returns an ObjectHandle wrapping the resulting value of running the code.
+        ///
         /// If an exception is thrown the exception is caught and an ObjectHandle to
         /// the exception is provided.
         /// </summary>
         /// <remarks>
-        /// Use this API to handle non-serializable exceptions (exceptions might not be serializable due to security restrictions) 
+        /// Use this API to handle non-serializable exceptions (exceptions might not be serializable due to security restrictions)
         /// or if an exception serialization loses information.
         /// </remarks>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
@@ -197,13 +197,13 @@ namespace Microsoft.Scripting.Hosting {
 #endif
 
         /// <summary>
-        /// Runs a specified code as if it was a program launched from OS command shell. 
-        /// and returns a process exit code indicating the success or error condition 
+        /// Runs a specified code as if it was a program launched from OS command shell.
+        /// and returns a process exit code indicating the success or error condition
         /// of executing the code.
-        /// 
-        /// Exact behavior depends on the language. Some languages have a dedicated "exit" exception that 
+        ///
+        /// Exact behavior depends on the language. Some languages have a dedicated "exit" exception that
         /// carries the exit code, in which case the exception is cought and the exit code is returned.
-        /// The default behavior returns the result of program's execution converted to an integer 
+        /// The default behavior returns the result of program's execution converted to an integer
         /// using a language specific conversion.
         /// </summary>
         /// <exception cref="SyntaxErrorException">Code cannot be compiled.</exception>
@@ -235,7 +235,7 @@ namespace Microsoft.Scripting.Hosting {
         /// <c>Null</c> if the content is already textual and no transcoding is performed.
         /// </returns>
         /// <remarks>
-        /// Note that the default encoding specified when the script source is created could be overridden by 
+        /// Note that the default encoding specified when the script source is created could be overridden by
         /// an encoding that is found in the content preamble (Unicode BOM or a language specific encoding preamble).
         /// In that case the preamble encoding is returned. Otherwise, the default encoding is returned.
         /// </remarks>
@@ -247,7 +247,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Reads specified range of lines (or less) from the source unit. 
+        /// Reads specified range of lines (or less) from the source unit.
         /// </summary>
         /// <param name="start">1-based number of the first line to fetch.</param>
         /// <param name="count">The number of lines to fetch.</param>
@@ -281,7 +281,7 @@ namespace Microsoft.Scripting.Hosting {
         /// <returns>Entire content.</returns>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         /// <remarks>
-        /// The result includes language specific preambles (e.g. "#coding:UTF-8" encoding preamble recognized by Ruby), 
+        /// The result includes language specific preambles (e.g. "#coding:UTF-8" encoding preamble recognized by Ruby),
         /// but not the preamble defined by the content encoding (e.g. BOM).
         /// The entire content of the source unit is encoded by single encoding (if it is read from binary stream).
         /// </remarks>

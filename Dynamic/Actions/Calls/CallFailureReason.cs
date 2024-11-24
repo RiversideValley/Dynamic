@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     public enum CallFailureReason {
         /// <summary>
         /// Default value, their was no CallFailure.
@@ -20,7 +20,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         UnassignableKeyword,
 
         /// <summary>
-        /// One or more keyword arguments were duplicated or would have taken the spot of a 
+        /// One or more keyword arguments were duplicated or would have taken the spot of a
         /// provided positional argument.
         /// </summary>
         DuplicateKeyword,

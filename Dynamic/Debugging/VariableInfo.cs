@@ -5,13 +5,13 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// Used to provide information about locals/parameters at debug time.
     /// </summary>
     [DebuggerDisplay("{Name}")]
     internal sealed class VariableInfo {
-        
+
         /// <summary>
         /// Index within byref variables list or within strongbox variables list.
         /// </summary>

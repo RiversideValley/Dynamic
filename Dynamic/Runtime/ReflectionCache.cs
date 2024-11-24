@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
-    /// Provides a cache of reflection members.  Only one set of values is ever handed out per a 
+    /// Provides a cache of reflection members.  Only one set of values is ever handed out per a
     /// specific request.
     /// </summary>
     public static class ReflectionCache {
@@ -95,7 +95,7 @@ namespace Microsoft.Scripting.Runtime {
                 if (!PlatformAdaptationLayer.IsNativeModule && xModule == yModule) {
                     return x.MetadataToken - y.MetadataToken;
                 }
-                
+
                 return xModule.ModuleVersionId.CompareTo(yModule.ModuleVersionId);
             }
 

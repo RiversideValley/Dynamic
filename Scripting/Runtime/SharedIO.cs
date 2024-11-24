@@ -6,9 +6,9 @@ using System;
 using System.IO;
 using System.Text;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public sealed class SharedIO {
 
         public enum SupportLevel {

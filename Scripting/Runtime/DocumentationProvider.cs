@@ -4,9 +4,9 @@
 
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Provides language specific documentation for live objects.
     /// </summary>

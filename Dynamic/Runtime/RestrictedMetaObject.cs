@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 using System;
 using System.Dynamic;
 
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public class RestrictedMetaObject : DynamicMetaObject, IRestrictedMetaObject {
         public RestrictedMetaObject(Expression expression, BindingRestrictions restriction, object value)  : base(expression, restriction, value) {
         }

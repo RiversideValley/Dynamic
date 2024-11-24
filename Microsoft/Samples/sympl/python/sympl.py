@@ -7,8 +7,8 @@ else:
     clr.use35 = False
 
 if clr.use35:
-    clr.AddReference("Microsoft.Scripting.Core")
-    import Microsoft.Scripting.Ast as Exprs
+    clr.AddReference("Riverside.Scripting.Core")
+    import Riverside.Scripting.Ast as Exprs
 else:
     clr.AddReference("System.Core")
     import System.Linq.Expressions as Exprs
@@ -80,7 +80,7 @@ class Sympl (object):
                         helpers.SetMember(table, ns, tmp)
                         table = tmp
                 helpers.SetMember(table, names[-1], runtime.TypeModel(typ))
-    
+
     def __setattr__ (self, name, value):
         if name != "_assemblies":
             object.__setattr__(self, name, value)
@@ -91,7 +91,7 @@ class Sympl (object):
     dbgascope = None
     dbgbody = None
     dbgmodfun = None
-    
+
     ### ExecuteFile executes the file in a new module scope and stores the
     ### scope on Globals, using either the provided name, globalVar, or the
     ### file's base name.  This function returns the module scope.
@@ -104,7 +104,7 @@ class Sympl (object):
         runtime.DynamicObjectHelpers.SetMember(self.Globals, globalVar,
                                                moduleEO)
         return moduleEO
-    
+
     ### ExecuteFileInScope executes the file in the given module scope.  This
     ### does NOT store the module scope on Globals.  This function returns
     ### nothing.
@@ -112,7 +112,7 @@ class Sympl (object):
     def ExecuteFileInScope (self, filename, moduleEO):
         try:
             f = StreamReader(filename)
-            runtime.DynamicObjectHelpers.SetMember(moduleEO, "__file__", 
+            runtime.DynamicObjectHelpers.SetMember(moduleEO, "__file__",
                                                    Path.GetFullPath(filename))
             ASTs = parser.ParseFile(f)
             self.dbgASTs = ASTs
@@ -139,7 +139,7 @@ class Sympl (object):
             modulefun.Compile()(self, moduleEO)
         finally:
             f.Close()
-        
+
     def ExecuteExpr (self, expr_str, moduleEO):
         f = StringReader(expr_str)
         ASTs = parser.ParseExpr(f)
@@ -165,7 +165,7 @@ class Sympl (object):
                                       scope.ModuleExpr)
         dbgmodfun = fun
         return fun.Compile()(self, moduleEO)
-    
+
     def CreateScope (self):
         return ExpandoObject()
 
@@ -206,7 +206,7 @@ class Sympl (object):
             b = runtime.SymplGetMemberBinder(name)
             self._getMemberBinders[name] = b
         return b
-    
+
     def GetSetMemberBinder (self, name):
         ## Don't lower the name.  Sympl is case-preserving in the metadata
         ## in case some DynamicMetaObject ignores ignoreCase.  This makes
@@ -226,7 +226,7 @@ class Sympl (object):
             b = runtime.SymplInvokeBinder(info)
             self._invokeBinders[info] = b
         return b
-    
+
     def GetInvokeMemberBinder (self, info):
         with self._lock:
             if self._invokeMemberBinders.ContainsKey(info):
@@ -234,7 +234,7 @@ class Sympl (object):
             b = runtime.SymplInvokeMemberBinder(info.Name, info.Info)
             self._invokeMemberBinders[info] = b
         return b
-        
+
     def GetCreateInstanceBinder (self, info):
         with self._lock:
             if self._createInstanceBinders.ContainsKey(info):
@@ -242,7 +242,7 @@ class Sympl (object):
             b = runtime.SymplCreateInstanceBinder(info)
             self._createInstanceBinders[info] = b
         return b
-    
+
     def GetGetIndexBinder (self, info):
         with self._lock:
             if self._getIndexBinders.ContainsKey(info):
@@ -250,7 +250,7 @@ class Sympl (object):
             b = runtime.SymplGetIndexBinder(info)
             self._getIndexBinders[info] = b
         return b
-    
+
     def GetSetIndexBinder (self, info):
         with self._lock:
             if self._setIndexBinders.ContainsKey(info):
@@ -258,7 +258,7 @@ class Sympl (object):
             b = runtime.SymplSetIndexBinder(info)
             self._setIndexBinders[info] = b
         return b
-    
+
     def GetBinaryOperationBinder (self, op):
         with self._lock:
             if self._binaryOperationBinders.ContainsKey(op):
@@ -266,7 +266,7 @@ class Sympl (object):
             b = runtime.SymplBinaryOperationBinder(op)
             self._binaryOperationBinders[op] = b
         return b
-    
+
     def GetUnaryOperationBinder (self, op):
         with self._lock:
             if self._unaryOperationBinders.ContainsKey(op):
@@ -274,8 +274,8 @@ class Sympl (object):
             b = runtime.SymplUnaryOperationBinder(op)
             self._unaryOperationBinders[op] = b
         return b
-  
-    
+
+
 
 ##################
 ### Dev-time Utils
@@ -287,4 +287,4 @@ def debugprint (*stuff):
         for x in stuff:
             print x,
         print
-    
+

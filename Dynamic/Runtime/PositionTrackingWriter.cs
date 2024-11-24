@@ -9,7 +9,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Efficiently tracks (line,column) information as text is added, and
     /// collects line mappings between the original and generated source code
@@ -28,7 +28,7 @@ namespace Microsoft.Scripting.Runtime {
         /// Marks the current position of the writer as corresponding to the
         /// original location passed in
         /// </summary>
-        /// <param name="linePragma">the line pragma corresponding to the 
+        /// <param name="linePragma">the line pragma corresponding to the
         /// current position in the generated code</param>
         public void MapLocation(CodeLinePragma linePragma) {
             _lineMap.Add(new KeyValuePair<int, int>(_line, linePragma.LineNumber));

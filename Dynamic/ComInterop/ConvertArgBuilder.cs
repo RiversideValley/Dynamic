@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 using System;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     internal class ConvertArgBuilder : SimpleArgBuilder {
         private readonly Type _marshalType;
 

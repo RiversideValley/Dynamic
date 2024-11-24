@@ -8,9 +8,9 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     /// <summary>
     /// Provides optimized and cacheable support for scope storage.
     ///

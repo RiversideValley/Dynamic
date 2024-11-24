@@ -11,9 +11,9 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
 #if !FEATURE_PROCESS
     public class ExitProcessException : Exception {
@@ -302,8 +302,8 @@ namespace Microsoft.Scripting {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2140:TransparentMethodsMustNotReferenceCriticalCodeFxCopRule")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void SetEmptyEnvironmentVariable(string key) {
-            // System.Environment.SetEnvironmentVariable interprets an empty value string as 
-            // deleting the environment variable. So we use the native SetEnvironmentVariable 
+            // System.Environment.SetEnvironmentVariable interprets an empty value string as
+            // deleting the environment variable. So we use the native SetEnvironmentVariable
             // function here which allows setting of the value to an empty string.
             // This will require high trust and will fail in sandboxed environments
             if (!NativeMethods.SetEnvironmentVariable(key, String.Empty)) {

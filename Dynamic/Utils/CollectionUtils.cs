@@ -6,10 +6,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Allows wrapping of proxy types (like COM RCWs) to expose their IEnumerable functionality
-    /// which is supported after casting to IEnumerable, even though Reflection will not indicate 
+    /// which is supported after casting to IEnumerable, even though Reflection will not indicate
     /// IEnumerable as a supported interface
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface")] // TODO

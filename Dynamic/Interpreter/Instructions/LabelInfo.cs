@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
 
     /// <summary>
     /// Contains compiler state corresponding to a LabelTarget
@@ -26,7 +26,7 @@ namespace Microsoft.Scripting.Interpreter {
         // The blocks where this label is defined. If it has more than one item,
         // the blocks can't be jumped to except from a child block
         // If there's only 1 block (the common case) it's stored here, if there's multiple blocks it's stored
-        // as a HashSet<LabelScopeInfo> 
+        // as a HashSet<LabelScopeInfo>
         private object _definitions;
 
         // Blocks that jump to this block
@@ -75,7 +75,7 @@ namespace Microsoft.Scripting.Interpreter {
                 // Was just redefined, if we had any across block jumps, they're
                 // now invalid
                 if (_acrossBlockJump) {
-                    throw new InvalidOperationException("Ambiguous jump");                    
+                    throw new InvalidOperationException("Ambiguous jump");
                 }
                 // For local jumps, we need a new IL label
                 // This is okay because:
@@ -137,7 +137,7 @@ namespace Microsoft.Scripting.Interpreter {
             if (_label == null) {
                 _label = compiler.Instructions.MakeLabel();
             }
-        }        
+        }
 
         private bool DefinedIn(LabelScopeInfo scope) {
             if (_definitions == scope) {

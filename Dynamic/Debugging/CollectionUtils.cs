@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     internal static class CollectionUtils {
         internal static T[] RemoveLast<T>(this T[] array) {
             T[] result = new T[array.Length - 1];

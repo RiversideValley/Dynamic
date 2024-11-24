@@ -11,9 +11,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     using AstExpressions = ReadOnlyCollectionBuilder<Expression>;
 
     public class ExpressionCollectionBuilder<TExpression> : IEnumerable<TExpression>, ICollection<TExpression> {
@@ -133,19 +133,19 @@ namespace Microsoft.Scripting.Ast {
     public class ExpressionCollectionBuilder : ExpressionCollectionBuilder<Expression> {
         public Expression/*!*/ ToMethodCall(Expression instance, MethodInfo/*!*/ method) {
             switch (Count) {
-                case 0: 
+                case 0:
                     return Expression.Call(instance, method);
 
                 case 1:
                     // we have no specialized subclass for instance method call expression with 1 arg:
-                    return instance != null ? 
-                        Expression.Call(instance, method, new AstExpressions { Expression0 }) : 
+                    return instance != null ?
+                        Expression.Call(instance, method, new AstExpressions { Expression0 }) :
                         Expression.Call(method, Expression0);
 
-                case 2: 
+                case 2:
                     return Expression.Call(instance, method, Expression0, Expression1);
 
-                case 3: 
+                case 3:
                     return Expression.Call(instance, method, Expression0, Expression1, Expression2);
 
                 case 4:
@@ -154,7 +154,7 @@ namespace Microsoft.Scripting.Ast {
                         Expression.Call(instance, method, new AstExpressions { Expression0, Expression1, Expression2, Expression3 }) :
                         Expression.Call(method, Expression0, Expression1, Expression2, Expression3);
 
-                default: 
+                default:
                     return Expression.Call(instance, method, Expressions);
             }
         }

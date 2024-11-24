@@ -5,9 +5,9 @@
 using System;
 using System.Linq;
 using System.Diagnostics;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     internal static partial class DelegateHelpers {
 
         #region Generated Maximum Delegate Arity

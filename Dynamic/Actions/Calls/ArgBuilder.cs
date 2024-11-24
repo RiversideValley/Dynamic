@@ -6,11 +6,11 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
     /// ArgBuilder provides an argument value used by the MethodBinder.  One ArgBuilder exists for each
-    /// physical parameter defined on a method.  
-    /// 
+    /// physical parameter defined on a method.
+    ///
     /// Contrast this with ParameterWrapper which represents the logical argument passed to the method.
     /// </summary>
     public abstract class ArgBuilder {

@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
     /// Encapsulates the result of an attempt to bind to one or methods using the OverloadResolver.
-    /// 
+    ///
     /// Users should first check the Result property to see if the binding was successful or
     /// to determine the specific type of failure that occured.  If the binding was successful
     /// MakeExpression can then be called to create an expression which calls the method.
@@ -44,7 +44,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         }
 
         /// <summary>
-        /// Creates a new BindingTarget when the method binding has failued due to 
+        /// Creates a new BindingTarget when the method binding has failued due to
         /// one or more arguments which could not be converted or assigned to corresponding parameters.
         /// </summary>
         internal BindingTarget(string name, int actualArgumentCount, CallFailure[] failures) {
@@ -79,7 +79,7 @@ namespace Microsoft.Scripting.Actions.Calls {
 
         /// <summary>
         /// Gets an Expression which calls the binding target if the method binding succeeded.
-        /// 
+        ///
         /// Throws InvalidOperationException if the binding failed.
         /// </summary>
         public Expression MakeExpression() {
@@ -138,7 +138,7 @@ namespace Microsoft.Scripting.Actions.Calls {
 
         /// <summary>
         /// Gets the MetaObjects which we originally did binding against in their restricted form.
-        /// 
+        ///
         /// The members of the array correspond to each of the arguments.  All members of the array
         /// have a value.
         /// </summary>

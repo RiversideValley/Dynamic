@@ -6,7 +6,7 @@ using System;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Provides fast strongly typed thread local storage.  This is significantly faster than
     /// Thread.GetData/SetData.
@@ -22,7 +22,7 @@ namespace Microsoft.Scripting.Utils {
         /// <summary>
         /// True if the caller will guarantee that all cleanup happens as the thread
         /// unwinds.
-        /// 
+        ///
         /// This is typically used in a case where the thread local is surrounded by
         /// a try/finally block.  The try block pushes some state, the finally block
         /// restores the previous state.  Therefore when the thread exits the thread
@@ -115,8 +115,8 @@ namespace Microsoft.Scripting.Utils {
         }
 
         /// <summary>
-        /// Called when the fast path storage lookup fails. if we encountered the Empty storage 
-        /// during the initial fast check then spin until we hit non-empty storage and try the fast 
+        /// Called when the fast path storage lookup fails. if we encountered the Empty storage
+        /// during the initial fast check then spin until we hit non-empty storage and try the fast
         /// path again.
         /// </summary>
         private StorageInfo RetryOrCreateStorageInfo(StorageInfo[] curStorage) {
@@ -146,7 +146,7 @@ namespace Microsoft.Scripting.Utils {
                 StorageInfo newInfo = new StorageInfo(Thread.CurrentThread);
 
                 // set to updating while potentially resizing/mutating, then we'll
-                // set back to the current value.                                        
+                // set back to the current value.
                 while ((curStorage = Interlocked.Exchange(ref _stores, Updating)) == Updating) {
                     // another thread is already updating...
                     Thread.Sleep(0);

@@ -5,9 +5,9 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Diagnostics;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Implements explicit casts supported by the runtime.
     /// </summary>

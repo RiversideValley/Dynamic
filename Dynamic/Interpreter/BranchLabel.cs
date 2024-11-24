@@ -6,9 +6,9 @@ using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal struct RuntimeLabel {
         public readonly int Index;
         public readonly int StackDepth;
@@ -34,7 +34,7 @@ namespace Microsoft.Scripting.Interpreter {
         internal int _stackDepth = UnknownDepth;
         internal int _continuationStackDepth = UnknownDepth;
 
-        // Offsets of forward branching instructions targetting this label 
+        // Offsets of forward branching instructions targetting this label
         // that need to be updated after we emit the label.
         private List<int> _forwardBranchFixups;
 

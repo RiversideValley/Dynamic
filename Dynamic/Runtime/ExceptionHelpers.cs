@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public static class ExceptionHelpers {
 #if FEATURE_STACK_TRACE
         private const string prevStackTraces = "PreviousStackTraces";
@@ -45,7 +45,7 @@ namespace Microsoft.Scripting.Runtime {
         private static bool TryGetAssociatedStackTraces(Exception e, out List<StackTrace> traces) {
             traces = e.Data[prevStackTraces] as List<StackTrace>;
             return traces != null;
-        }        
+        }
 #else
         public static Exception UpdateForRethrow(Exception rethrow) {
             return rethrow;

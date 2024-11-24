@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Scripting
+namespace Riverside.Scripting
 {
     internal static class StringExtensions
     {

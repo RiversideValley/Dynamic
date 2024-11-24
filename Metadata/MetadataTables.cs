@@ -33,10 +33,10 @@ using System.Security;
 //
 
 #if CCI
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
 #else
 namespace System.Reflection {
-    using Microsoft.Scripting.Metadata;
+    using Riverside.Scripting.Metadata;
 #endif
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1717:OnlyFlagsEnumsShouldHavePluralNames")]
     public enum AssemblyFileAttributes {
@@ -135,12 +135,12 @@ namespace System.Reflection {
     }
 }
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     [DebuggerDisplay("{DebugView}")]
     public partial struct MetadataRecord : IEquatable<MetadataRecord> {
         internal readonly MetadataToken m_token;
         internal readonly MetadataTables m_tables;
-        
+
         internal MetadataRecord(MetadataToken token, MetadataTables tables) {
             Contract.Assert(tables != null);
             m_token = token;
@@ -600,7 +600,7 @@ namespace Microsoft.Scripting.Metadata {
         }
     }
 
-    // Constant (0x0B) - Param, Field, Property 
+    // Constant (0x0B) - Param, Field, Property
 
     /// <summary>
     /// CustomAttribute table entry (0x0C tokens).
@@ -705,7 +705,7 @@ namespace Microsoft.Scripting.Metadata {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public IEnumerable<MethodDef> Others {
             get {
-                // TODO: 
+                // TODO:
                 throw new NotImplementedException();
             }
         }
@@ -768,7 +768,7 @@ namespace Microsoft.Scripting.Metadata {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public IEnumerable<MethodDef> Others {
             get {
-                // TODO: 
+                // TODO:
                 throw new NotImplementedException();
             }
         }
@@ -844,7 +844,7 @@ namespace Microsoft.Scripting.Metadata {
     /// <summary>
     /// Assembly table entry (0x23 tokens).
     /// </summary>
-    public partial struct AssemblyRef {   // TODO: AssemblyRef name is already an internal class 
+    public partial struct AssemblyRef {   // TODO: AssemblyRef name is already an internal class
         private readonly MetadataRecord m_record;
 
         public static implicit operator MetadataRecord(AssemblyRef assemblyRef) {

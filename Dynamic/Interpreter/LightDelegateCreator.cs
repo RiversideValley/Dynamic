@@ -7,11 +7,11 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Ast;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Ast;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
 
     /// <summary>
     /// Manages creation of interpreted delegates. These delegates will get
@@ -122,7 +122,7 @@ namespace Microsoft.Scripting.Interpreter {
                 }
 
                 PerfTrack.NoteEvent(PerfTrack.Categories.Compiler, "Interpreted lambda compiled");
-                
+
                 // Interpreter needs a standard delegate type.
                 // So change the lambda's delegate type to Func<...> or
                 // Action<...> so it can be called from the LightLambda.Run

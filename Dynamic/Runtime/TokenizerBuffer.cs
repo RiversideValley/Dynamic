@@ -8,9 +8,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public sealed class TokenizerBuffer {
 
         //private const char EndOfData = '\uFFFF';
@@ -18,7 +18,7 @@ namespace Microsoft.Scripting.Runtime {
         public const int EndOfFile = -1;
         public const int InvalidCharacter = -2;
 
-        // Whether to allow multiple forms of EOLN. 
+        // Whether to allow multiple forms of EOLN.
         // If false only '\n' is treated as a line separator otherwise '\n', '\r\n' and '\r' are treated as separators.
         private bool _multiEolns;
         private char[] _buffer;
@@ -99,7 +99,7 @@ namespace Microsoft.Scripting.Runtime {
 
             _tokenEndLocation = SourceLocation.Invalid;
             _tokenStartLocation = initialLocation;
-            
+
             _start = _end = 0;
             _position = 0;
 
@@ -128,7 +128,7 @@ namespace Microsoft.Scripting.Runtime {
             CheckInvariants();
 
             int old_pos = _position;
-            
+
             // ensure sufficient data loaded:
             SeekRelative(str.Length - 1);
             if (Read() == EndOfFile) {
@@ -136,7 +136,7 @@ namespace Microsoft.Scripting.Runtime {
                 CheckInvariants();
                 return false;
             }
-            
+
             Debug.Assert(_position + str.Length <= _buffer.Length);
 
             int i = 0;
@@ -157,7 +157,7 @@ namespace Microsoft.Scripting.Runtime {
 
             if (_position >= _end) {
                 RefillBuffer();
-                
+
                 // eof:
                 if (_position >= _end) {
                     CheckInvariants();
@@ -166,7 +166,7 @@ namespace Microsoft.Scripting.Runtime {
             }
 
             Debug.Assert(_position < _end);
-            
+
             int result = _buffer[_position];
             CheckInvariants();
             return result;
@@ -198,7 +198,7 @@ namespace Microsoft.Scripting.Runtime {
         /// </summary>
         public void Seek(int offset) {
             CheckInvariants();
-            Debug.Assert(offset >= 0); 
+            Debug.Assert(offset >= 0);
             // no upper limit, we can seek beyond end in which case we are reading EOFs
 
             _position = _start + offset;
@@ -239,7 +239,7 @@ namespace Microsoft.Scripting.Runtime {
 
             _tokenEnd = System.Math.Min(_position, _end);
             int token_length = _tokenEnd - _start;
-            
+
             _tokenEndLocation = new SourceLocation(
                 _tokenStartLocation.Index + token_length,
                 _tokenStartLocation.Line,
@@ -267,7 +267,7 @@ namespace Microsoft.Scripting.Runtime {
             else
                 MarkSingleLineTokenEnd();
         }
-        
+
         /// <summary>
         /// Marks token start. It means the buffer can drop the current token.
         /// Can be called even if no token has been read yet.
@@ -296,7 +296,7 @@ namespace Microsoft.Scripting.Runtime {
         public char GetCharRelative(int disp) {
             CheckInvariants();
             Debug.Assert(disp >= _start - _position);
-            
+
             return _buffer[_position + disp];
         }
 
@@ -311,7 +311,7 @@ namespace Microsoft.Scripting.Runtime {
         public string GetTokenSubstring(int offset) {
             return GetTokenSubstring(offset, _tokenEnd - _start - offset);
         }
-        
+
         public string GetTokenSubstring(int offset, int length) {
             CheckInvariants();
             Debug.Assert(_tokenEnd != -1, "Token end not marked");
@@ -338,7 +338,7 @@ namespace Microsoft.Scripting.Runtime {
         private SourceLocation GetTokenEndMultiEolns() {
             int end_line = _tokenStartLocation.Line;
             int end_column = _tokenStartLocation.Column;
-            
+
             int i = _start;
             while (i < _tokenEnd - 1) {
                 if (_buffer[i] == '\n') {
@@ -438,10 +438,10 @@ namespace Microsoft.Scripting.Runtime {
             Debug.Assert(_buffer.Length >= 1);
 
             // _start == _end when discarding token and at beginning, when == 0
-            Debug.Assert(_start >= 0 && _start <= _end); 
+            Debug.Assert(_start >= 0 && _start <= _end);
 
             Debug.Assert(_end >= 0 && _end <= _buffer.Length);
-            
+
             // position beyond _end means we are reading EOFs:
             Debug.Assert(_position >= _start);
             Debug.Assert(_tokenEnd >= -1 && _tokenEnd <= _end);

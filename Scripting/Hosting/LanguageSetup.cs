@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Stores information needed to setup a language
     /// </summary>
@@ -109,9 +109,9 @@ namespace Microsoft.Scripting.Hosting {
         [Obsolete("This option is ignored")]
         public bool InterpretedMode {
             get { return GetCachedOption("InterpretedMode", ref _interpretedMode); }
-            set { 
+            set {
                 CheckFrozen();
-                Options["InterpretedMode"] = value; 
+                Options["InterpretedMode"] = value;
             }
         }
 
@@ -166,6 +166,6 @@ namespace Microsoft.Scripting.Hosting {
             if (_frozen) {
                 throw new InvalidOperationException("Cannot modify LanguageSetup after it has been used to create a ScriptRuntime");
             }
-        }        
+        }
     }
 }

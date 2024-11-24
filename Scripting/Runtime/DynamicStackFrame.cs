@@ -5,7 +5,7 @@
 using System;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Helper for storing information about stack frames.
     /// </summary>

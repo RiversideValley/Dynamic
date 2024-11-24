@@ -5,7 +5,7 @@
 using System.Dynamic;
 using System.Linq.Expressions;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// A MetaObject which was produced as the result of a failed binding.
     /// </summary>

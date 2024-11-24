@@ -5,7 +5,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     /// <summary>
     /// Reads data from a memory block. Maintains a position.
     /// </summary>

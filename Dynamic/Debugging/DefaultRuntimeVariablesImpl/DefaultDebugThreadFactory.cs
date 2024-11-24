@@ -5,16 +5,16 @@
 using MSAst = System.Linq.Expressions;
 
 using System.Collections.Generic;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     using Ast = MSAst.Expression;
 
     /// <summary>
     /// Default implementation of IDebugThreadFactory, which uses DLR's RuntimeVariablesExpression for lifting locals.
     /// </summary>
     internal sealed class DefaultDebugThreadFactory : IDebugThreadFactory {
-        public DebugThread CreateDebugThread(Microsoft.Scripting.Debugging.CompilerServices.DebugContext debugContext) {
+        public DebugThread CreateDebugThread(Riverside.Scripting.Debugging.CompilerServices.DebugContext debugContext) {
             return new DefaultDebugThread(debugContext);
         }
 

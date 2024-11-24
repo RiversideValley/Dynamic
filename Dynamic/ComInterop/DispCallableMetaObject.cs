@@ -11,7 +11,7 @@ using System.Dynamic;
 using System.Security;
 using System.Security.Permissions;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     internal class DispCallableMetaObject : DynamicMetaObject {
         private readonly DispCallable _callable;
 

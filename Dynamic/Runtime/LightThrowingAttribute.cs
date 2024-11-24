@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Marks a method which may return a light exception.  Such
     /// methods need to have their return value checked and the exception

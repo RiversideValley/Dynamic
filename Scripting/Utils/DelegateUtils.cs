@@ -13,15 +13,15 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     internal static class DelegateUtils {
         private static AssemblyBuilder _assembly;
         private static ModuleBuilder _modBuilder;
         private static int _typeCount;
         private static readonly Type[] _DelegateCtorSignature = new Type[] { typeof(object), typeof(IntPtr) };
 
-        // Generic type names have the arity (number of generic type paramters) appended at the end. 
-        // For eg. the mangled name of System.List<T> is "List`1". This mangling is done to enable multiple 
+        // Generic type names have the arity (number of generic type paramters) appended at the end.
+        // For eg. the mangled name of System.List<T> is "List`1". This mangling is done to enable multiple
         // generic types to exist as long as they have different arities.
         public const char GenericArityDelimiter = '`';
 
@@ -43,7 +43,7 @@ namespace Microsoft.Scripting.Utils {
 
             return _modBuilder.DefineType(
                 name + Interlocked.Increment(ref _typeCount),
-                TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.AnsiClass | TypeAttributes.AutoClass,                
+                TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.AnsiClass | TypeAttributes.AutoClass,
                 typeof(MulticastDelegate)
             );
         }
@@ -55,7 +55,7 @@ namespace Microsoft.Scripting.Utils {
         internal static Type EmitCallSiteDelegateType(int paramCount) {
             Debug.Assert(paramCount > 14);
             Type[] paramTypes = new Type[paramCount + 2];
-                    
+
             paramTypes[0] = typeof(CallSite);
             paramTypes[1] = typeof(object);
             for (int i = 0; i < paramCount; i++) {

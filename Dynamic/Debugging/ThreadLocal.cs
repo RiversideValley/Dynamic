@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     internal class ThreadLocal<T> {
         private StorageInfo[] _stores;                                         // array of storage indexed by managed thread ID
         private static readonly StorageInfo[] Updating = Array.Empty<StorageInfo>();   // a marker used when updating the array
@@ -78,7 +78,7 @@ namespace Microsoft.Scripting.Debugging {
                 StorageInfo newInfo = new StorageInfo(Thread.CurrentThread);
 
                 // set to updating while potentially resizing/mutating, then we'll
-                // set back to the current value.                                        
+                // set back to the current value.
                 while ((curStorage = Interlocked.Exchange(ref _stores, Updating)) == Updating) {
                     // another thread is already updating...
                     Thread.Sleep(0);

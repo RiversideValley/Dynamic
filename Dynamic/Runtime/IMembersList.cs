@@ -4,10 +4,10 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
 
     /// <summary>
-    /// Provides a list of all the members of an instance.  
+    /// Provides a list of all the members of an instance.
     /// </summary>
     public interface IMembersList {
         IList<string> GetMemberNames();

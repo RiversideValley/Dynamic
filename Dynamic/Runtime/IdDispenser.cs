@@ -5,9 +5,9 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public static class IdDispenser {
         // The one and only comparer instance.
         private static readonly IEqualityComparer<object> _comparer = new WrapperComparer();
@@ -81,7 +81,7 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// Goes over the hashtable and removes empty entries 
+        /// Goes over the hashtable and removes empty entries
         /// </summary>
         private static void Cleanup() {
             int liveCount = 0;
@@ -132,9 +132,9 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         /// <summary>
-        /// WrapperComparer treats Wrapper as transparent envelope 
+        /// WrapperComparer treats Wrapper as transparent envelope
         /// </summary>
-        private sealed class WrapperComparer : IEqualityComparer<object> {            
+        private sealed class WrapperComparer : IEqualityComparer<object> {
             bool IEqualityComparer<object>.Equals(object x, object y) {
                 if (x is Wrapper wx)
                     x = wx.Target;

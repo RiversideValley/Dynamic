@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-namespace Microsoft.Dynamic.Test.Utils
+namespace Riverside.Dynamic.Test.Utils
 {
     [TestFixture]
     public class MathUtilsTest {

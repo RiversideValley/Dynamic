@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// Interceptor prototype. The interceptor is a call site binder that wraps
     /// a real call site binder and can perform arbitrary operations on the expression

@@ -6,7 +6,7 @@ using MSAst = System.Linq.Expressions;
 
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// Used to extract locals information from expressions.
     /// </summary>

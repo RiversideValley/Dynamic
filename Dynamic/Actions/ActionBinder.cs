@@ -9,16 +9,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// Provides binding semantics for a language.  This include conversions as well as support
-    /// for producing rules for actions.  These optimized rules are used for calling methods, 
+    /// for producing rules for actions.  These optimized rules are used for calling methods,
     /// performing operators, and getting members using the ActionBinder's conversion semantics.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
@@ -27,7 +27,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Determines if the binder should allow access to non-public members.
-        /// 
+        ///
         /// By default the binder does not allow access to non-public members.  Base classes
         /// can inherit and override this value to customize whether or not private binding
         /// is available.
@@ -105,7 +105,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Gets the members that are visible from the provided type of the specified name.
-        /// 
+        ///
         /// The default implemetnation first searches the type, then the flattened heirachy of the type, and then
         /// registered extension methods.
         /// </summary>
@@ -186,7 +186,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Called when a set is attempting to assign to a field or property from a derived class through the base class.
-        /// 
+        ///
         /// The default behavior is to allow the assignment.
         /// </summary>
         public virtual ErrorInfo MakeStaticAssignFromDerivedTypeError(Type accessingType, DynamicMetaObject self, MemberTracker assigning, DynamicMetaObject assignedValue, OverloadResolverFactory context) {
@@ -220,7 +220,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Creates an ErrorInfo object when a static property is accessed from an instance member.  The default behavior is throw
-        /// an exception indicating that static members properties be accessed via an instance.  Languages can override this to 
+        /// an exception indicating that static members properties be accessed via an instance.  Languages can override this to
         /// customize the exception, message, or to produce an ErrorInfo object which reads or writes to the property being accessed.
         /// </summary>
         /// <param name="tracker">The static property being accessed through an instance</param>
@@ -270,7 +270,7 @@ namespace Microsoft.Scripting.Actions {
         /// <summary>
         /// Provides a way for the binder to provide a custom error message when lookup fails.  Just
         /// doing this for the time being until we get a more robust error return mechanism.
-        /// 
+        ///
         /// Deprecated, use the non-generic version instead
         /// </summary>
         public virtual ErrorInfo MakeMissingMemberError(Type type, DynamicMetaObject self, string name) {
@@ -295,7 +295,7 @@ namespace Microsoft.Scripting.Actions {
         }
 
         #endregion
-       
+
         public virtual string GetTypeName(Type t) {
             return t.Name;
         }
@@ -376,7 +376,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Provides an opportunity for languages to replace all MemberTracker's with their own type.
-        /// 
+        ///
         /// Alternatlely a language can expose MemberTracker's directly.
         /// </summary>
         /// <param name="memberTracker">The member which is being returned to the user.</param>

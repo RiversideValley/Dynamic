@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     internal static class SymbolGuids {
         internal static readonly Guid LanguageType_ILAssembly =
             new Guid(-1358664493, -12063, 0x11d2, 0x97, 0x7c, 0, 160, 0xc9, 180, 0xd5, 12);

@@ -4,7 +4,7 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Linq;
 
-using Scope = Microsoft.Scripting.Runtime.Scope;
+using Scope = Riverside.Scripting.Runtime.Scope;
 
 using System.Reflection;
 using System.IO;
@@ -18,7 +18,7 @@ namespace SymplSample {
         private IList<Assembly> _assemblies;
         private ExpandoObject _globals = new ExpandoObject();
         private Scope _dlrGlobals;
-        private Dictionary<string, Symbol> Symbols = 
+        private Dictionary<string, Symbol> Symbols =
             new Dictionary<string, Symbol>();
 
         public Sympl(IList<Assembly> assms, Scope dlrGlobals) {
@@ -87,7 +87,7 @@ namespace SymplSample {
             var f = new StreamReader(filename);
             // Simple way to convey script rundir for RuntimeHelpes.SymplImport
             // to load .sympl files.
-            DynamicObjectHelpers.SetMember(moduleEO, "__file__", 
+            DynamicObjectHelpers.SetMember(moduleEO, "__file__",
                                            Path.GetFullPath(filename));
             try {
                 var moduleFun = ParseFileToLambda(filename, f);
@@ -160,7 +160,7 @@ namespace SymplSample {
         public static ExpandoObject CreateScope() {
             return new ExpandoObject();
         }
-        
+
         // Symbol returns the Symbol interned in this runtime if it is already
         // there.  If not, this makes the Symbol and interns it.
         //
@@ -248,7 +248,7 @@ namespace SymplSample {
             }
         }
 
-        private Dictionary<CallInfo, SymplCreateInstanceBinder> 
+        private Dictionary<CallInfo, SymplCreateInstanceBinder>
             _createInstanceBinders =
                 new Dictionary<CallInfo, SymplCreateInstanceBinder>();
         public SymplCreateInstanceBinder GetCreateInstanceBinder(CallInfo info) {
@@ -322,7 +322,7 @@ namespace SymplSample {
     public class InvokeMemberBinderKey {
         string _name;
         CallInfo _info;
-        
+
         public InvokeMemberBinderKey(string name, CallInfo info) {
             _name = name;
             _info = info;
@@ -388,7 +388,7 @@ namespace SymplSample {
         }
 
         public override DynamicMetaObject BindGetMember(GetMemberBinder binder) {
-            var flags = BindingFlags.IgnoreCase | BindingFlags.Static | 
+            var flags = BindingFlags.IgnoreCase | BindingFlags.Static |
                         BindingFlags.Public;
             // consider BindingFlags.Instance if want to return wrapper for
             // inst members that is callable.
@@ -425,7 +425,7 @@ namespace SymplSample {
             var flags = BindingFlags.IgnoreCase | BindingFlags.Static |
                         BindingFlags.Public;
             var members = ReflType.GetMember(binder.Name, flags);
-            if ((members.Length == 1) && (members[0] is PropertyInfo || 
+            if ((members.Length == 1) && (members[0] is PropertyInfo ||
                                           members[0] is FieldInfo)){
                 // NEED TO TEST, should check for delegate value too
                 var mem = members[0];
@@ -446,7 +446,7 @@ namespace SymplSample {
                                ((MethodInfo)m).GetParameters().Length ==
                                    args.Length);
                 // Get MethodInfos with param types that work for args.  This works
-                // for except for value args that need to pass to reftype params. 
+                // for except for value args that need to pass to reftype params.
                 // We could detect that to be smarter and then explicitly StrongBox
                 // the args.
                 List<MethodInfo> res = new List<MethodInfo>();
@@ -470,7 +470,7 @@ namespace SymplSample {
                 var restrictions = RuntimeHelpers.GetTargetArgsRestrictions(
                     this, args, true);
                 // restrictions and conversion must be done consistently.
-                var callArgs = 
+                var callArgs =
                     RuntimeHelpers.ConvertArguments(
                     args, res[0].GetParameters());
                 return new DynamicMetaObject(
@@ -504,7 +504,7 @@ namespace SymplSample {
                                   RuntimeHelpers.GetRuntimeTypeMoFromModel(this),
                                   args);
             }
-            // For create instance of a TypeModel, we can create a instance 
+            // For create instance of a TypeModel, we can create a instance
             // restriction on the MO, hence the true arg.
             var restrictions = RuntimeHelpers.GetTargetArgsRestrictions(
                                 this, args, true);

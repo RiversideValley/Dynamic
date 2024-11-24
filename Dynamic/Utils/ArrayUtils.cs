@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static class ArrayUtils {
         internal sealed class FunctorComparer<T> : IComparer<T> {
             private readonly Comparison<T> _comparison;
@@ -74,8 +74,8 @@ namespace Microsoft.Scripting.Utils {
         }
 
         /// <summary>
-        /// Converts a generic ICollection of T into an array of T.  
-        /// 
+        /// Converts a generic ICollection of T into an array of T.
+        ///
         /// If the collection is already an  array of T the original collection is returned.
         /// </summary>
         public static T[] ToArray<T>(ICollection<T> list) {
@@ -83,8 +83,8 @@ namespace Microsoft.Scripting.Utils {
         }
 
         /// <summary>
-        /// Converts a generic ICollection of T into an array of R using a given conversion.  
-        /// 
+        /// Converts a generic ICollection of T into an array of R using a given conversion.
+        ///
         /// If the collection is already an array of R the original collection is returned.
         /// </summary>
         public static TResult[] ToArray<TElement, TResult>(ICollection<TElement> list, Func<TElement, TResult> convertor) {
@@ -319,7 +319,7 @@ namespace Microsoft.Scripting.Utils {
         public static int GetValueHashCode<T>(this T[] array, int start, int count) {
             ContractUtils.RequiresNotNull(array, nameof(array));
             ContractUtils.RequiresArrayRange(array.Length, start, count, nameof(start), nameof(count));
-            
+
             if (count == 0) {
                 return 0;
             }

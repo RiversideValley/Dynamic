@@ -5,9 +5,9 @@
 using System.Linq.Expressions;
 
 using System.Collections.Generic;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public sealed class IfStatementBuilder {
         private readonly List<IfStatementTest> _clauses = new List<IfStatementTest>();
 

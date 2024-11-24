@@ -75,7 +75,7 @@
     </ItemGroup>
     <Copy DestinationFolder="$(StageDir)" SourceFiles="@(InfoFiles)" />
     <ItemGroup>
-      <AssemblyFiles Include="$(BinDir)\$(Configuration)\**\Microsoft.Scripting.*;$(BinDir)\$(Configuration)\**\Microsoft.Dynamic.*" Exclude="$(BinDir)\$(Configuration)\**\Microsoft.*.Test.*" />
+      <AssemblyFiles Include="$(BinDir)\$(Configuration)\**\Riverside.Scripting.*;$(BinDir)\$(Configuration)\**\Riverside.Dynamic.*" Exclude="$(BinDir)\$(Configuration)\**\Riverside.*.Test.*" />
     </ItemGroup>
     <Copy DestinationFolder="$(StageDir)\%(RecursiveDir)" SourceFiles="@(AssemblyFiles)" />
   </Target>

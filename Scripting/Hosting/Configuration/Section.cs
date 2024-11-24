@@ -10,17 +10,17 @@ using System.Configuration;
 using System.IO;
 using System.Xml;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Configuration {
+namespace Riverside.Scripting.Hosting.Configuration {
 
     //
     // <configSections>
-    //   <section name="microsoft.scripting" type="Microsoft.Scripting.Hosting.Configuration.Section, Microsoft.Scripting" />
+    //   <section name="Riverside.Scripting" type="Riverside.Scripting.Hosting.Configuration.Section, Riverside.Scripting" />
     // </configSections>
     //
-    // <microsoft.scripting [debugMode="{bool}"]? [privateBinding="{bool}"]?>
+    // <Riverside.Scripting [debugMode="{bool}"]? [privateBinding="{bool}"]?>
     //   <languages>  <!-- BasicMap with key (type): inherits language nodes, overwrites previous nodes (last wins) -->
     //     <language names="{(semi)colon-separated}" extensions="{(semi)colon-separated-with-optional-dot}" type="{AQTN}" [displayName="{string}"]? />
     //   </languages>
@@ -31,10 +31,10 @@ namespace Microsoft.Scripting.Hosting.Configuration {
     //     <remove option="{string}" [language="{language-name}"]? />
     //   </options>
     //
-    // </microsoft.scripting>
+    // </Riverside.Scripting>
     //
     public class Section : ConfigurationSection {
-        public static readonly string SectionName = "microsoft.scripting";
+        public static readonly string SectionName = "Riverside.Scripting";
 
         private const string _DebugMode = "debugMode";
         private const string _PrivateBinding = "privateBinding";
@@ -42,10 +42,10 @@ namespace Microsoft.Scripting.Hosting.Configuration {
         private const string _Options = "options";
 
         private static ConfigurationPropertyCollection _Properties = new ConfigurationPropertyCollection() {
-            new ConfigurationProperty(_DebugMode, typeof(bool?), null), 
-            new ConfigurationProperty(_PrivateBinding, typeof(bool?), null), 
-            new ConfigurationProperty(_Languages, typeof(LanguageElementCollection), null, ConfigurationPropertyOptions.IsDefaultCollection), 
-            new ConfigurationProperty(_Options, typeof(OptionElementCollection), null), 
+            new ConfigurationProperty(_DebugMode, typeof(bool?), null),
+            new ConfigurationProperty(_PrivateBinding, typeof(bool?), null),
+            new ConfigurationProperty(_Languages, typeof(LanguageElementCollection), null, ConfigurationPropertyOptions.IsDefaultCollection),
+            new ConfigurationProperty(_Options, typeof(OptionElementCollection), null),
         };
 
         protected override ConfigurationPropertyCollection Properties => _Properties;

@@ -8,17 +8,17 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     internal sealed class ParamsArgBuilder : ArgBuilder {
         private readonly int _start;
         private readonly int _expandedCount;
         private readonly Type _elementType;
 
-        internal ParamsArgBuilder(ParameterInfo info, Type elementType, int start, int expandedCount) 
+        internal ParamsArgBuilder(ParameterInfo info, Type elementType, int start, int expandedCount)
             : base(info) {
 
             Assert.NotNull(elementType);
@@ -30,7 +30,7 @@ namespace Microsoft.Scripting.Actions.Calls {
             _elementType = elementType;
         }
 
-        // Consumes all expanded arguments. 
+        // Consumes all expanded arguments.
         // Collapsed arguments are fetched from resolver provided storage, not from actual argument expressions.
         public override int ConsumedArgumentCount => _expandedCount;
 
@@ -67,11 +67,11 @@ namespace Microsoft.Scripting.Actions.Calls {
                             Expression.ArrayAccess(arrayVariable, Expression.Add(AstUtils.Constant(itemIndex), indexVariable)),
                             resolver.Convert(
                                 new DynamicMetaObject(
-                                    resolver.GetSplattedItemExpression(Expression.Add(AstUtils.Constant(splatIndex - firstSplatted), indexVariable)), 
+                                    resolver.GetSplattedItemExpression(Expression.Add(AstUtils.Constant(splatIndex - firstSplatted), indexVariable)),
                                     BindingRestrictions.Empty
                                 ),
                                 null,
-                                ParameterInfo, 
+                                ParameterInfo,
                                 _elementType
                             )
                         ),
@@ -86,7 +86,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                 }
 
                 Debug.Assert(!hasBeenUsed[i]);
-                hasBeenUsed[i] = true;                
+                hasBeenUsed[i] = true;
 
                 result[e++] = Expression.Assign(
                     Expression.ArrayAccess(arrayVariable, AstUtils.Constant(itemIndex++)),

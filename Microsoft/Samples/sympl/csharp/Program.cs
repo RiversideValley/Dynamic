@@ -3,8 +3,8 @@ using System.Dynamic;
 using System.IO;
 using System.Reflection;
 using System.Linq.Expressions;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 
 namespace SymplSample
 {
@@ -28,12 +28,12 @@ namespace SymplSample
             // Sympl constructor, because the DLR loads mscorlib and System by
             // default.
             //dlrRuntime.LoadAssembly(typeof(object).Assembly);
-            
+
             // Get a Sympl engine and run stuff ...
             var engine = dlrRuntime.GetEngine("sympl");
             string filename = Path.GetFullPath(
                 Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), 
+                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
                     @"..\..\Runtime\Samples\sympl\examples\test.sympl"
                 )
             );
@@ -49,7 +49,7 @@ namespace SymplSample
             pyeng.Execute("def pyfoo(): return 1", feo);
             rbeng.Execute("def rbbar; 2; end", feo);
             // Call those objects from Sympl.
-            Console.WriteLine("pyfoo returns " + 
+            Console.WriteLine("pyfoo returns " +
                               (engine.Execute("(pyfoo)", feo)).ToString());
             Console.WriteLine("rbbar returns " +
                               (engine.Execute("(rbbar)", feo)).ToString());

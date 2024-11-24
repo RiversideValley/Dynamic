@@ -6,9 +6,9 @@ using System.Linq.Expressions;
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Scripting.Interpreter;
+using Riverside.Scripting.Interpreter;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public class LightLambdaExpression : Expression {
         internal LightLambdaExpression(Type retType, Expression body, string name, IList<ParameterExpression> args) {
             Body = body;

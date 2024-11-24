@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Wraps a an IDictionary[object, object] and exposes it as an IDynamicMetaObjectProvider so that
     /// users can access string attributes using member accesses.

@@ -9,9 +9,9 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Debugging.CompilerServices {
+namespace Riverside.Scripting.Debugging.CompilerServices {
 
     /// <summary>
     /// Provides services to compilers for instrumenting code with tracebacks.
@@ -142,7 +142,7 @@ namespace Microsoft.Scripting.Debugging.CompilerServices {
                 scopedVariables,
                 variables,
                 customPayload);
-            
+
             foreach (DebugSourceSpan sourceSpan in (DebugSourceSpan[])locationSpanMap) {
                 lock (sourceSpan.SourceFile.FunctionInfoMap) {
                     sourceSpan.SourceFile.FunctionInfoMap[sourceSpan] = funcInfo;

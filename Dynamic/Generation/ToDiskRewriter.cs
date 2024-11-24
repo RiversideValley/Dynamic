@@ -13,11 +13,11 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
 
     /// <summary>
     /// Serializes constants and dynamic sites so the code can be saved to disk
@@ -30,8 +30,8 @@ namespace Microsoft.Scripting.Generation {
         private Dictionary<Type, Type> _delegateTypes;
         private int _depth;
         private readonly TypeGen _typeGen;
-        
-        internal ToDiskRewriter(TypeGen typeGen) {            
+
+        internal ToDiskRewriter(TypeGen typeGen) {
             _typeGen = typeGen;
         }
 

@@ -8,13 +8,13 @@ using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Threading;
-using Microsoft.Scripting.Generation;
+using Riverside.Scripting.Generation;
 using System.Reflection.Emit;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     public class LegacyScriptCode : SavableScriptCode {
         private DlrMainCallTarget _target;
         private LambdaExpression _code;
@@ -35,7 +35,7 @@ namespace Microsoft.Scripting.Runtime {
         }
 
         public override object Run(Scope scope) {
-            return EnsureTarget(_code)(scope, SourceUnit.LanguageContext);            
+            return EnsureTarget(_code)(scope, SourceUnit.LanguageContext);
         }
 
         public void EnsureCompiled() {

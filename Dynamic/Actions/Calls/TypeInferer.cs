@@ -9,11 +9,11 @@ using System.Dynamic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     public static class TypeInferer {
         private static ArgumentInputs EnsureInputs(Dictionary<Type, ArgumentInputs> dict, Type type) {
             if (!dict.TryGetValue(type, out ArgumentInputs res)) {
@@ -61,7 +61,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                     // not all types we're inferred
                     return null;
                 }
-                
+
                 OverloadInfo newMethod = target.MakeGenericMethod(genArgs);
 
                 List<ParameterWrapper> newWrappers = CreateNewWrappers(candidate.Method, newMethod, target);
@@ -228,9 +228,9 @@ namespace Microsoft.Scripting.Actions.Calls {
         /// Builds a mapping based upon generic parameter constraints between related generic
         /// parameters.  This is then used to sort the generic parameters so that we can process
         /// the least dependent parameters first.  For example given the method:
-        /// 
-        /// void Foo{T0, T1}(T0 x, T1 y) where T0 : T1 
-        /// 
+        ///
+        /// void Foo{T0, T1}(T0 x, T1 y) where T0 : T1
+        ///
         /// We need to first infer the type information for T1 before we infer the type information
         /// for T0 so that we can ensure the constraints are correct.
         /// </summary>
@@ -309,12 +309,12 @@ namespace Microsoft.Scripting.Actions.Calls {
         /// Walks the nested generic hierarchy to construct all of the generic parameters referred
         /// to by this type.  For example if getting the generic parameters for the x parameter on
         /// the method:
-        /// 
+        ///
         /// void Foo{T0, T1}(Dictionary{T0, T1} x);
-        /// 
+        ///
         /// We would add both typeof(T0) and typeof(T1) to the list of generic arguments.
         /// </summary>
-        private static void CollectGenericParameters(Type type, List<Type> containedGenArgs) {            
+        private static void CollectGenericParameters(Type type, List<Type> containedGenArgs) {
             if (type.IsGenericParameter) {
                 if (!containedGenArgs.Contains(type)) {
                     containedGenArgs.Add(type);
@@ -335,9 +335,9 @@ namespace Microsoft.Scripting.Actions.Calls {
         /// <summary>
         /// Maps a single type parameter to the possible parameters and DynamicMetaObjects
         /// we can get inference from.  For example for the signature:
-        /// 
+        ///
         /// void Foo{T0, T1}(T0 x, T1 y, IList{T1} z);
-        /// 
+        ///
         /// We would have one ArgumentInput for T0 which holds onto the DMO providing the argument
         /// value for x.  We would also have one ArgumentInput for T1 which holds onto the 2 DMOs
         /// for y and z.  Associated with y would be a GenericParameterInferer and associated with
@@ -388,7 +388,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         /// Provides generic type inference for a single parameter.
         /// </summary>
         /// <remarks>
-        /// For example: 
+        /// For example:
         ///   M{T}(T x)
         ///   M{T}(IList{T} x)
         ///   M{T}(ref T x)
@@ -425,7 +425,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         /// Provides generic type inference for a single parameter.
         /// </summary>
         /// <remarks>
-        /// For example: 
+        /// For example:
         ///   M{T}(T x)
         ///   M{T}(IList{T} x)
         ///   M{T}(ref T x)
@@ -470,7 +470,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                 }
                 argType = argType.BaseType;
             }
-                
+
             return null;
         }
 
@@ -500,7 +500,7 @@ namespace Microsoft.Scripting.Actions.Calls {
 
         /// <summary>
         /// Checks if the constraints are violated by the given input for the specified generic method parameter.
-        /// 
+        ///
         /// This method must be supplied with a mapping for any dependent generic method type parameters which
         /// this one can be constrained to.  For example for the signature "void Foo{T0, T1}(T0 x, T1 y) where T0 : T1".
         /// we cannot know if the constraints are violated unless we know what we have calculated T1 to be.
@@ -516,7 +516,7 @@ namespace Microsoft.Scripting.Actions.Calls {
 
         /// <summary>
         /// Finds all occurences of <c>genericParameter</c> in <c>openType</c> and the corresponding concrete types in <c>closedType</c>.
-        /// Returns true iff all occurences of the generic parameter in the open type correspond to the same concrete type in the closed type 
+        /// Returns true iff all occurences of the generic parameter in the open type correspond to the same concrete type in the closed type
         /// and this type satisfies given <c>constraints</c>. Returns the concrete type in <c>match</c> if so.
         /// </summary>
         private static bool MatchGenericParameter(Type genericParameter, Type closedType, Type openType, Dictionary<Type, Type> binding, ref Type match) {

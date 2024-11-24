@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Metadata;
+using Riverside.Scripting.Metadata;
 
 namespace Metadata {
     public class RubyContext {
@@ -26,7 +26,7 @@ namespace Metadata {
             }
         }
     }
-    
+
     internal abstract class ClrModuleInfo {
         internal abstract void InitializeConstants(RubyContext context, Dictionary<string, object> constants);
     }

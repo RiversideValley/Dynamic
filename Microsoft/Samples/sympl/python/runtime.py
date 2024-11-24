@@ -2,19 +2,19 @@
 import clr
 
 if clr.use35:
-    clr.AddReference("Microsoft.Scripting")
-    clr.AddReference("Microsoft.Dynamic")
-    clr.AddReference("Microsoft.Scripting.Core")
+    clr.AddReference("Riverside.Scripting")
+    clr.AddReference("Riverside.Dynamic")
+    clr.AddReference("Riverside.Scripting.Core")
 
-    import Microsoft.Scripting.Ast as Exprs
-    from Microsoft.Scripting.ComInterop import ComBinder
-    from Microsoft.Scripting.Utils import (Action, Func)
+    import Riverside.Scripting.Ast as Exprs
+    from Riverside.Scripting.ComInterop import ComBinder
+    from Riverside.Scripting.Utils import (Action, Func)
 else:
     clr.AddReference("System.Core")
-    clr.AddReference("Microsoft.Dynamic")
-    
+    clr.AddReference("Riverside.Dynamic")
+
     import System.Linq.Expressions as Exprs
-    from Microsoft.Scripting.ComInterop import ComBinder
+    from Riverside.Scripting.ComInterop import ComBinder
     from System import (Action, Func)
 
 from System.Runtime.CompilerServices import CallSite
@@ -22,7 +22,7 @@ from System.Dynamic import (ExpandoObject, InvokeBinder, DynamicMetaObject,
                             GetMemberBinder, SetMemberBinder, CallInfo,
                             BindingRestrictions, IDynamicMetaObjectProvider,
                             InvokeMemberBinder, CreateInstanceBinder,
-                            GetIndexBinder, SetIndexBinder, 
+                            GetIndexBinder, SetIndexBinder,
                             BinaryOperationBinder, UnaryOperationBinder)
 
 from System import (MissingMemberException,
@@ -97,7 +97,7 @@ class RuntimeHelpers (object):
     @staticmethod
     def GetConsElt (lst, i):
         return RuntimeHelpers._nthcdr(lst, i).First
-        
+
     @staticmethod
     def SetConsElt (lst, i, value):
         lst = RuntimeHelpers._nthcdr(lst, i)
@@ -222,7 +222,7 @@ def GetTargetArgsRestrictions (targetMO, argMOs, targetInst):
                           BindingRestrictions.GetTypeRestriction(
                               targetMO.Expression,
                               targetMO.LimitType))
-        
+
     for a in argMOs:
         if a.HasValue and a.Value is None:
             r = BindingRestrictions.GetInstanceRestriction(a.Expression,
@@ -346,7 +346,7 @@ def GetIndexExpression (targetMO, indexMOs):
                           Exprs.Expression.Constant(
                              "Can't find matching indexer property.")))
         return Exprs.Expression.MakeIndex(
-                  Exprs.Expression.Convert(targetMO.Expression, 
+                  Exprs.Expression.Convert(targetMO.Expression,
                                            targetMO.LimitType),
                   res[0], indexExprs)
 
@@ -395,7 +395,7 @@ def EnsureObjectResult (expr):
 
 
 ##############################
-### Type model IDynObj wrapper 
+### Type model IDynObj wrapper
 ##############################
 
 ### TypeModel wraps System.Runtimetypes. When Sympl code encounters
@@ -408,7 +408,7 @@ class TypeModel (object, IDynamicMetaObjectProvider):
         ## Note, need to check for initialized members in GetMetaObject so
         ## that creating TypeModel's works without using our custom MO.
         self.ReflType = typ
-    
+
     ### GetMetaObject needs to wrap the base IDO due to Python's objects all
     ### being IDOs.  While this GetMetaObject definition is on the stack IPy
     ### ensures Ipy uses its own MO for TypeModel instances.  However, when
@@ -506,7 +506,7 @@ class TypeModelMetaObject (DynamicMetaObject):
             #        object,
             #        ([Exprs.MakeMemberAccess(self.Expression, mem)] +
             #            (x.Expression for x in args))))
-            
+
             ## Don't test for eventinfos since we do nothing with them now.
         else:
             ## Get MethodInfos with right arg count.
@@ -540,16 +540,16 @@ class TypeModelMetaObject (DynamicMetaObject):
             ## there is more than one applicable method using just
             ## assignablefrom, Expr.Call flames out.  It does not pick a "most
             ## applicable" method.
-            
+
             ## Defer to IPy binding to invoke TypeModel instance members.  IPy
             ## will fallback to the binder as appropriate.
             ##return binder.FallbackInvokeMember(self)
             ##return self.BaseIDOMO.BindInvokeMember(binder, args)
-    
+
     def BindCreateInstance (self, binder, args):
         ctors = self.ReflType.GetConstructors()
         ## Get constructors with right arg count.
-        ctors = [x for x in ctors 
+        ctors = [x for x in ctors
                    if len(x.GetParameters()) == len(args)]
         res = []
         for mem in ctors:
@@ -571,31 +571,31 @@ class TypeModelMetaObject (DynamicMetaObject):
     ###
     ### Bindings I don't care about, so defer to Pythons IDO
     ###
-    
+
     def BindConvert (self, binder):
         return self.BaseIDOMO.BindConvert(binder)
-        
+
     def BindSetMember (self, binder, valueMO):
         return self.BaseIDOMO.BindSetMember(binder, valueMO)
-        
+
     def BindDeleteMember (self, binder):
         return self.BaseIDOMO.BindDeleteMember(binder)
 
     def BindGetIndex (self, binder, indexes):
         return self.BaseIDOMO.BindGetIndex (binder, indexes)
-        
+
     def BindSetIndex (self, binder, indexes, value):
         return self.BaseIDOMO.BindSetIndex (binder, indexes, value)
-        
+
     def BindDeleteIndex (self, binder, indexes):
         return self.BaseIDOMO.BindDeleteIndex (binder, indexes)
-        
+
     def BindInvoke (self, binder, args):
         return self.BaseIDOMO.BindInvoke (binder, args)
-        
+
     def BindUnaryOperation (self, binder):
         return self.BaseIDOMO.BindUnaryOperation (binder)
-        
+
     def BindBinaryOperation (self, binder, arg):
         return self.BaseIDOMO.BindBinaryOperation (binder, arg)
 
@@ -709,12 +709,12 @@ class DOHelpersSetMemberBinder (SetMemberBinder):
         return SetMemberBinder.__new__(cls, name, True)
 
     def FallbackSetMember(self, targetMO, valueMO, errorSuggestionMO):
-        return (errorSuggestionMO or 
+        return (errorSuggestionMO or
                  CreateThrow(
                      targetMO, None, BindingRestrictions.Empty,
                      MissingMemberException,
                      ## General msg: Sympl doesn't override IDOs to set members.
-                     "If IDynObj doesn't support setting members, " + 
+                     "If IDynObj doesn't support setting members, " +
                      "DOHelpers can't do it for the IDO."))
 
     ## Don't need Equals override or GetHashCode because there is no more
@@ -722,7 +722,7 @@ class DOHelpersSetMemberBinder (SetMemberBinder):
     ## already compare.
     #def GetHashCode (self):
     #    pass
-    #    
+    #
     #def Equals (self, obj):
     #    return (isinstance(obj, DOHelpersSetMemberBinder) and
     #            super(DOHelpersSetMemberBinder, self).Equals(obj))
@@ -776,11 +776,11 @@ class SymplGetMemberBinder (GetMemberBinder):
             if errorSuggestionMO is not None:
                 return errorSuggestionMO
             return CreateThrow(
-                     targetMO, None, 
+                     targetMO, None,
                      BindingRestrictions.GetTypeRestriction(
                           targetMO.Expression, targetMO.LimitType),
                      MissingMemberException,
-                     "Object " + str(targetMO.Value) + 
+                     "Object " + str(targetMO.Value) +
                      " does not have member " + self.Name)
 
 
@@ -826,7 +826,7 @@ class SymplSetMemberBinder (SetMemberBinder):
             else:
                 return (errorSuggestionMO or
                         CreateThrow(
-                             targetMO, None, 
+                             targetMO, None,
                              BindingRestrictions.GetTypeRestriction(
                                   targetMO.Expression, targetMO.LimitType),
                              InvalidOperationException,
@@ -850,7 +850,7 @@ class SymplSetMemberBinder (SetMemberBinder):
             if errorSuggestionMO is not None:
                 return errorSuggestionMO
             return CreateThrow(
-                     targetMO, None, 
+                     targetMO, None,
                      BindingRestrictions.GetTypeRestriction(
                           targetMO.Expression, targetMO.LimitType),
                      MissingMemberException,
@@ -889,7 +889,7 @@ class SymplInvokeMemberBinder (InvokeMemberBinder):
             #        object,
             #        ([Exprs.MakeMemberAccess(self.Expression, mem)] +
             #            (x.Expression for x in args))))
-            
+
             ## Don't test for eventinfos since we do nothing with them now.
         else:
             ## Get MethodInfos with right arg count.
@@ -946,17 +946,17 @@ class InvokeMemberBinderKey (object):
     def __init__ (self, name, info):
         self._name = name
         self._info = info
-    
+
     def _getName (self): return self._name
     Name = property(_getName)
 
     def _getInfo (self): return self._info
     Info = property(_getInfo)
-    
+
     def __eq__ (self, obj): #def Equals (self, obj):
         return ((obj is not None) and (obj.Name == self._name) and
                 obj.Info.Equals(self._info))
-    
+
     def __hash__ (self): #def GetHashCode (self):
         return 0x28000000 ^ self._name.GetHashCode() ^ self._info.GetHashCode()
 
@@ -996,7 +996,7 @@ class SymplInvokeBinder (InvokeBinder):
                                 targetMO.Expression, targetMO.LimitType))
         return (errorSuggestionMO or
                  CreateThrow(
-                     targetMO, argMOs, 
+                     targetMO, argMOs,
                      BindingRestrictions.GetTypeRestriction(
                         targetMO.Expression, targetMO.LimitType),
                      InvalidOperationException,
@@ -1025,10 +1025,10 @@ class SymplCreateInstanceBinder (CreateInstanceBinder):
                        ("Type object must be used when creating instance -- " +
                         repr(targetMO))))
         ## Get constructors with right arg count.
-        ctors = [x for x in targetMO.Value.GetConstructors() 
+        ctors = [x for x in targetMO.Value.GetConstructors()
                    if len(x.GetParameters()) == len(argMOs)]
         ## Get ctors with param types that work for args.  This works
-        ## for except for value args that need to pass to reftype params. 
+        ## for except for value args that need to pass to reftype params.
         ## We could detect that to be smarter and then explicitly StrongBox
         ## the args.
         res = []
@@ -1099,11 +1099,11 @@ class SymplSetIndexBinder (SetIndexBinder):
             return com
         ## Find our own binding.  First setup value.
         valueExpr = valueMO.Expression
-        if type(valueMO.Value) is TypeModel:  
+        if type(valueMO.Value) is TypeModel:
             ## Don't use LimitType to compare py type objs, use the value.
             valueExpr = GetRuntimeTypeMoFromModel(valueMO).Expression
         ## Check Cons vs. normal
-        if type(targetMO.Value) is Cons:  
+        if type(targetMO.Value) is Cons:
             ## Don't use LimitType to compare py type objs, use the value.
             if len(argMOs) != 1:
                 return (errorSuggestionMO or
@@ -1131,7 +1131,7 @@ class SymplSetIndexBinder (SetIndexBinder):
         ## False means make type restriction on targetMO.LimitType
         restrictions = GetTargetArgsRestrictions(targetMO, argMOs, False)
         return DynamicMetaObject(setIndexExpr, restrictions)
-        
+
 
 class SymplBinaryOperationBinder (BinaryOperationBinder):
 

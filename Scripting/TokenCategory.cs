@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags")]
     public enum TokenCategory {
@@ -42,7 +42,7 @@ namespace Microsoft.Scripting {
         /// A character literal.
         /// </summary>
         CharacterLiteral,
-        
+
         /// <summary>
         /// A string literal.
         /// </summary>
@@ -57,12 +57,12 @@ namespace Microsoft.Scripting {
         /// A keyword.
         /// </summary>
         Keyword,
-        
+
         /// <summary>
         /// A directive (e.g. #line).
         /// </summary>
         Directive,
-        
+
         /// <summary>
         /// A punctuation character that has a specific meaning in a language.
         /// </summary>
@@ -77,7 +77,7 @@ namespace Microsoft.Scripting {
         /// An identifier (variable, $variable, @variable, @@variable, $variable$, function!, function?, [variable], i'variable', ...)
         /// </summary>
         Identifier,
-        
+
         /// <summary>
         /// Braces, parenthesis, brackets.
         /// </summary>
@@ -111,7 +111,7 @@ namespace Microsoft.Scripting {
         NestableCommentEnd,     // ]]
 
         // DocComments:
-        SingleLineDocComment,   // 
+        SingleLineDocComment,   //
         MultiLineDocComment,    // Ruby: =begin =end PHP: /** */
 
         // Directives:
@@ -122,8 +122,8 @@ namespace Microsoft.Scripting {
 
         // Identifiers:
         Identifier,             // identifier
-        VerbatimIdentifier,     // PHP/CLR: i'...', 
-        Variable,               // Ruby: @identifier, @@identifier; PHP, Ruby: $identifier, 
+        VerbatimIdentifier,     // PHP/CLR: i'...',
+        Variable,               // Ruby: @identifier, @@identifier; PHP, Ruby: $identifier,
 
         // Numbers:
         IntegerLiteral,
@@ -151,9 +151,9 @@ namespace Microsoft.Scripting {
         Dot,                    // .
         Semicolon,              // ;
         Colon,                  // :
-        DoubleColon,            // :: 
-        TripleColon,            // PHP/CLR: ::: 
-        
+        DoubleColon,            // ::
+        TripleColon,            // PHP/CLR: :::
+
         // Operators:
         Plus,                   // +
         PlusPlus,               // ++
@@ -172,7 +172,7 @@ namespace Microsoft.Scripting {
         Power,                  // Python: **
         PowerEqual,             // Python, Ruby: **=
         LeftShift,              // <<
-        LeftShiftEqual,         // <<= 
+        LeftShiftEqual,         // <<=
         RightShift,             // >>
         RightShiftEqual,        // >>=
         BitwiseAnd,             // &
@@ -194,12 +194,12 @@ namespace Microsoft.Scripting {
         Assign,                 // =
         AssignAlias,            // PHP: =&
         AssignColon,            // :=
-        Equal,                  // == 
+        Equal,                  // ==
         StrictEqual,            // ===
         Not,                    // !
         NotEqual,               // !=
         StrictNotEqual,         // !==
-        Unequal,                // <>         
+        Unequal,                // <>
         CompareEqual,           // Ruby: <=>
         Match,                  // =~
         NotMatch,               // !~

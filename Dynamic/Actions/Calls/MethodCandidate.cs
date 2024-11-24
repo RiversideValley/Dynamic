@@ -10,12 +10,12 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     /// <summary>
     /// MethodCandidate represents the different possible ways of calling a method or a set of method overloads.
@@ -128,15 +128,15 @@ namespace Microsoft.Scripting.Actions.Calls {
 
         /// <summary>
         /// Builds a new MethodCandidate which takes count arguments and the provided list of keyword arguments.
-        /// 
+        ///
         /// The basic idea here is to figure out which parameters map to params or a dictionary params and
-        /// fill in those spots w/ extra ParameterWrapper's.  
+        /// fill in those spots w/ extra ParameterWrapper's.
         /// </summary>
         internal MethodCandidate MakeParamsExtended(int count, IList<string> names) {
             Debug.Assert(Overload.IsVariadic);
 
             List<ParameterWrapper> newParameters = new List<ParameterWrapper>(count);
-            
+
             // keep track of which named args map to a real argument, and which ones
             // map to the params dictionary.
             List<string> unusedNames = new List<string>(names);
@@ -235,7 +235,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                     newArgBuilders.Add(ab);
                     curArg++;
                 } else {
-                    // CodeContext, null, default, etc...  we don't consume an 
+                    // CodeContext, null, default, etc...  we don't consume an
                     // actual incoming argument.
                     newArgBuilders.Add(ab);
                 }

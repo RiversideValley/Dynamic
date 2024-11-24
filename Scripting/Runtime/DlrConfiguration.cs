@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Singleton for each language.
     /// </summary>
@@ -45,7 +45,7 @@ namespace Microsoft.Scripting.Runtime {
                     throw new InvalidOperationException(
                         String.Format(
                             "Failed to load language '{0}': assembly '{1}' does not contain type '{2}'",
-                            DisplayName, 
+                            DisplayName,
 #if FEATURE_FILESYSTEM
                             assembly.Location,
 #else
@@ -57,7 +57,7 @@ namespace Microsoft.Scripting.Runtime {
 
                 if (!type.IsSubclassOf(typeof(LanguageContext))) {
                     throw new InvalidOperationException(
-                        $"Failed to load language '{DisplayName}': type '{type}' is not a valid language provider because it does not inherit from LanguageContext"); 
+                        $"Failed to load language '{DisplayName}': type '{type}' is not a valid language provider because it does not inherit from LanguageContext");
                 }
 
                 LanguageContext context;
@@ -65,7 +65,7 @@ namespace Microsoft.Scripting.Runtime {
                     context = (LanguageContext)Activator.CreateInstance(type, new object[] { domainManager, _options });
                 } catch (TargetInvocationException e) {
                     throw new TargetInvocationException(
-                        $"Failed to load language '{DisplayName}': {e.InnerException.Message}", 
+                        $"Failed to load language '{DisplayName}': {e.InnerException.Message}",
                         e.InnerException
                     );
                 } catch (Exception e) {
@@ -111,7 +111,7 @@ namespace Microsoft.Scripting.Runtime {
         /// <summary>
         /// Gets a value indicating whether the application is in debug mode.
         /// This means:
-        /// 
+        ///
         /// 1) Symbols are emitted for debuggable methods (methods associated with SourceUnit).
         /// 2) Debuggable methods are emitted to non-collectable types (this is due to CLR limitations on dynamic method debugging).
         /// 3) JIT optimization is disabled for all methods
@@ -133,7 +133,7 @@ namespace Microsoft.Scripting.Runtime {
             AddLanguage(languageTypeName, displayName, names, fileExtensions, options, null);
         }
 
-        internal void AddLanguage(string languageTypeName, string displayName, IList<string> names, IList<string> fileExtensions, 
+        internal void AddLanguage(string languageTypeName, string displayName, IList<string> names, IList<string> fileExtensions,
             IDictionary<string, object> options, string paramName) {
             ContractUtils.Requires(!_frozen, "Configuration cannot be modified once the runtime is initialized");
             ContractUtils.Requires(
@@ -239,7 +239,7 @@ namespace Microsoft.Scripting.Runtime {
             ContractUtils.RequiresNotNull(context, nameof(context));
 
             List<string> result = new List<string>();
-            
+
             foreach (var entry in _languageNames) {
                 if (entry.Value.LanguageContext == context) {
                     result.Add(entry.Key);

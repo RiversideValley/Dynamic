@@ -10,17 +10,17 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     public partial class DefaultBinder : ActionBinder {
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -36,9 +36,9 @@ namespace Microsoft.Scripting.Actions {
         public DynamicMetaObject SetMember(string name, DynamicMetaObject target, DynamicMetaObject value) {
             return SetMember(name, target, value, new DefaultOverloadResolverFactory(this));
         }
-        
+
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -69,7 +69,7 @@ namespace Microsoft.Scripting.Actions {
         }
 
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -89,9 +89,9 @@ namespace Microsoft.Scripting.Actions {
         public DynamicMetaObject SetMember(string name, DynamicMetaObject target, DynamicMetaObject value, DynamicMetaObject errorSuggestion) {
             return SetMember(name, target, value, errorSuggestion, new DefaultOverloadResolverFactory(this));
         }
-        
+
         /// <summary>
-        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod 
+        /// Builds a MetaObject for performing a member get.  Supports all built-in .NET members, the OperatorMethod
         /// GetBoundMember, and StrongBox instances.
         /// </summary>
         /// <param name="name">
@@ -128,7 +128,7 @@ namespace Microsoft.Scripting.Actions {
         private DynamicMetaObject MakeSetMemberTarget(SetOrDeleteMemberInfo memInfo, DynamicMetaObject target, DynamicMetaObject value, DynamicMetaObject errorSuggestion) {
             Type type = target.GetLimitType();
             DynamicMetaObject self = target;
-            
+
             target = target.Restrict(target.GetLimitType());
 
             memInfo.Body.Restrictions = target.Restrictions;
@@ -252,14 +252,14 @@ namespace Microsoft.Scripting.Actions {
                                 true,
                                 instance,
                                 target
-                            ), 
+                            ),
                             typeof(object)
                         )
                     );
                 } else if (info.IsStatic && info.DeclaringType != targetType) {
                     memInfo.Body.FinishError(
                         errorSuggestion ?? MakeError(
-                            MakeStaticAssignFromDerivedTypeError(targetType, instance, info, target, memInfo.ResolutionFactory), 
+                            MakeStaticAssignFromDerivedTypeError(targetType, instance, info, target, memInfo.ResolutionFactory),
                             typeof(object)
                         )
                     );
@@ -345,14 +345,14 @@ namespace Microsoft.Scripting.Actions {
             } else if (field.IsInitOnly || field.IsLiteral) {
                 memInfo.Body.FinishError(
                     errorSuggestion ?? MakeError(
-                        MakeReadOnlyMemberError(targetType, memInfo.Name), 
+                        MakeReadOnlyMemberError(targetType, memInfo.Name),
                         typeof(object)
                     )
                 );
             } else if (field.IsStatic && targetType != field.DeclaringType) {
                 memInfo.Body.FinishError(
                     errorSuggestion ?? MakeError(
-                        MakeStaticAssignFromDerivedTypeError(targetType, instance, field, target, memInfo.ResolutionFactory), 
+                        MakeStaticAssignFromDerivedTypeError(targetType, instance, field, target, memInfo.ResolutionFactory),
                         typeof(object)
                     )
                 );
@@ -436,8 +436,8 @@ namespace Microsoft.Scripting.Actions {
                     memInfo.Body.AddVariable(tmp);
 
                     var callMo = MakeCallExpression(
-                        memInfo.ResolutionFactory, 
-                        setMem, 
+                        memInfo.ResolutionFactory,
+                        setMem,
                         self.Clone(AstUtils.Convert(self.Expression, type)),
                         new DynamicMetaObject(AstUtils.Constant(memInfo.Name), BindingRestrictions.Empty, memInfo.Name),
                         target.Clone(tmp)

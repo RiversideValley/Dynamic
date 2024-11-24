@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-namespace Microsoft.Scripting.Test.Utils
+namespace Riverside.Scripting.Test.Utils
 {
     [TestFixture]
     public class ArrayUtilsTest {

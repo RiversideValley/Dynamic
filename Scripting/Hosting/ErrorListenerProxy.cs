@@ -2,18 +2,18 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
 
     /// <summary>
-    /// Bridges ErrorSink and ErrorListener. 
+    /// Bridges ErrorSink and ErrorListener.
     /// Errors reported by language compilers to ErrorSink are forwarded to the ErrorListener provided by the host.
     /// </summary>
     /// <remarks>
     /// This proxy is created in the scenario when the compiler is processing a single SourceUnit.
     /// Therefore it could maintain one to one mapping from SourceUnit to ScriptSource.
-    /// In a case, which shouldn't happen, that the compiler reports an error in a different SourceUnit we just create 
-    /// a new instance of the ScriptSource each time. 
-    /// 
+    /// In a case, which shouldn't happen, that the compiler reports an error in a different SourceUnit we just create
+    /// a new instance of the ScriptSource each time.
+    ///
     /// TODO: Consider compilation of multiple source units and creating a hashtable mapping SourceUnits to ScriptSources
     /// within the context of compilation unit.
     /// </remarks>

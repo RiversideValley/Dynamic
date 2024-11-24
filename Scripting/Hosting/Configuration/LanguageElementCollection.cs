@@ -6,7 +6,7 @@
 
 using System.Configuration;
 
-namespace Microsoft.Scripting.Hosting.Configuration {
+namespace Riverside.Scripting.Hosting.Configuration {
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface")]
     public class LanguageElementCollection : ConfigurationElementCollection {

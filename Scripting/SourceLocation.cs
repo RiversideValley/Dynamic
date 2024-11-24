@@ -5,7 +5,7 @@
 using System;
 using System.Globalization;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     /// <summary>
     /// Represents a location in source code.
     /// </summary>
@@ -146,7 +146,7 @@ namespace Microsoft.Scripting {
         /// A minimal valid location.
         /// </summary>
         public static readonly SourceLocation MinValue = new SourceLocation(0, 1, 1);
-        
+
         /// <summary>
         /// Whether the location is a valid location.
         /// </summary>

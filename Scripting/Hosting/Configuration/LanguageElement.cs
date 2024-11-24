@@ -7,9 +7,9 @@
 using System;
 using System.Configuration;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Configuration {
+namespace Riverside.Scripting.Hosting.Configuration {
     // <language names="IronPython;Python;py" extensions=".py" type="AQTN" displayName="IronPython v2">
     //    <option name="foo" value="bar" />
     // </language>

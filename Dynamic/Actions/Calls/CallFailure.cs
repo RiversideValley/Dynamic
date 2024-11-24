@@ -5,16 +5,16 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
     /// Represents the reason why a call to a specific method could not be performed by the OverloadResolver.
-    /// 
+    ///
     /// The reason for the failure is specified by the CallFailureReason property.  Once this property
     /// has been consulted the other properties can be consulted for more detailed information regarding
     /// the failure.
-    /// 
+    ///
     /// If reason is ConversionFailure the ConversionResults property will be non-null.
     /// If reason is UnassignableKeyword the KeywordArguments property will be non-null and include
     ///     the keywords which could not be assigned.
@@ -65,7 +65,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         public MethodCandidate Candidate { get; }
 
         /// <summary>
-        /// Gets the reason for the call failure which determines the other 
+        /// Gets the reason for the call failure which determines the other
         /// properties of the CallFailure which should be consulted.
         /// </summary>
         public CallFailureReason Reason { get; }

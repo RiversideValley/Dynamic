@@ -6,10 +6,10 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
     /// Builds the argument for an out argument when not passed a StrongBox.  The out parameter
     /// is returned as an additional return value.
@@ -19,7 +19,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         private readonly bool _isRef;
         private ParameterExpression _tmp;
 
-        public OutArgBuilder(ParameterInfo info) 
+        public OutArgBuilder(ParameterInfo info)
             : base(info) {
 
             _parameterType = info.ParameterType.IsByRef ? info.ParameterType.GetElementType() : info.ParameterType;

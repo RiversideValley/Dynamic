@@ -7,11 +7,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// These are some generally useful helper methods. Currently the only methods are those to
     /// cached boxed representations of commonly used primitive types so that they can be shared.

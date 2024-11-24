@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     // Compares two ICollection<T>'s using element equality
     internal sealed class ListEqualityComparer<T> : EqualityComparer<ICollection<T>> {
         internal static readonly ListEqualityComparer<T> Instance = new ListEqualityComparer<T>();

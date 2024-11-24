@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// A hybrid dictionary which compares based upon object identity.
     /// </summary>

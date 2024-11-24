@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Debugging.CompilerServices;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// Default implementation of BaseDebugThread, which uses DLR's RuntimeVariablesExpression for lifting locals.
     /// </summary>

@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System;
 using System.Dynamic;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     public sealed class ComTypeLibInfo : IDynamicMetaObjectProvider  {
         private readonly ComTypeLibDesc _typeLibDesc;

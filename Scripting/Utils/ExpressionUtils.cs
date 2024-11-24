@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 using System;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     internal sealed class ExpressionUtils {
         internal static Expression Convert(Expression expression, Type type) {
             return (expression.Type != type) ? Expression.Convert(expression, type) : expression;

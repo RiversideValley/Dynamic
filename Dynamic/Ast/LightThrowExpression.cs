@@ -9,11 +9,11 @@ using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
-using Microsoft.Scripting.Utils;
-using Microsoft.Scripting.Interpreter;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using Riverside.Scripting.Interpreter;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
     /// Expression which produces a light exception value.  This should be constructed
     /// with the expression which creates the exception and this method will then call

@@ -4,10 +4,10 @@
 
 #if FEATURE_COM
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     internal static class ComHresults {
-    
+
         internal const int S_OK = 0;
 
         internal const int CONNECT_E_NOCONNECTION = unchecked((int)0x80040200);

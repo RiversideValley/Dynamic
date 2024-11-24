@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Provides a dictionary-like object used for caches which holds onto a maximum
     /// number of elements specified at construction time.
-    /// 
+    ///
     /// This class is not thread safe.
     /// </summary>
     public class CacheDict<TKey, TValue> {
@@ -63,7 +63,7 @@ namespace Microsoft.Scripting.Utils {
                 bool res = _dict.Remove(node.Value);
                 Debug.Assert(res);
             }
-            
+
             // add the new entry to the head of the list and into the dictionary
             LinkedListNode<TKey> listNode = new LinkedListNode<TKey>(key);
             _list.AddFirst(listNode);

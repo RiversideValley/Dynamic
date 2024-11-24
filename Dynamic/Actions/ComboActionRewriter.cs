@@ -9,7 +9,7 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// A tree rewriter which will find dynamic sites which consume dynamic sites and
     /// turn them into a single combo dynamic site.  The combo dynamic site will then run the
@@ -118,7 +118,7 @@ namespace Microsoft.Scripting.Actions {
                         inputs.Add(rewritten);
                     } else {
                         // this argument is doing something we don't understand - we have to leave
-                        // it as is (an input we consume) and all the remaining arguments need to be 
+                        // it as is (an input we consume) and all the remaining arguments need to be
                         // evaluated normally as this could have side effects on them.
                         foundSideEffectingArgs = true;
                         myInfo.Add(ParameterMappingInfo.Parameter(inputs.Count));

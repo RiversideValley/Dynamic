@@ -8,11 +8,11 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class FieldTracker : MemberTracker {
         private readonly FieldInfo _field;
 
@@ -80,7 +80,7 @@ namespace Microsoft.Scripting.Actions {
         }
 
         public override ErrorInfo GetError(ActionBinder binder, Type instanceType) {
-            // FieldTracker only has one error - accessing a static field from 
+            // FieldTracker only has one error - accessing a static field from
             // a generic type.
             Debug.Assert(Field.DeclaringType.ContainsGenericParameters);
 
@@ -99,7 +99,7 @@ namespace Microsoft.Scripting.Actions {
                             AstUtils.Convert(instance.Expression, Field.DeclaringType),
                             Field
                         ),
-                        typeof(object)                    
+                        typeof(object)
                     ),
                     BindingRestrictions.Empty
                 );

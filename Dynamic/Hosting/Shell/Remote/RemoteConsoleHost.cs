@@ -11,15 +11,15 @@ using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization;
 using System.Threading;
 
-namespace Microsoft.Scripting.Hosting.Shell.Remote {
+namespace Riverside.Scripting.Hosting.Shell.Remote {
     /// <summary>
     /// ConsoleHost where the ScriptRuntime is hosted in a separate process (referred to as the remote runtime server)
-    /// 
+    ///
     /// The RemoteConsoleHost spawns the remote runtime server and specifies an IPC channel name to use to communicate
     /// with each other. The remote runtime server creates and initializes a ScriptRuntime and a ScriptEngine, and publishes
     /// it over the specified IPC channel at a well-known URI. Note that the RemoteConsoleHost cannot easily participate
     /// in the initialization of the ScriptEngine as classes like LanguageContext are not remotable.
-    /// 
+    ///
     /// The RemoteConsoleHost then starts the interactive loop and executes commands on the ScriptEngine over the remoting channel.
     /// The RemoteConsoleHost listens to stdout of the remote runtime server and echos it locally to the user.
     /// </summary>
@@ -73,7 +73,7 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
-            // wire up exited 
+            // wire up exited
             process.EnableRaisingEvents = true;
 
             // Wait for the output marker to know when the startup output is complete
@@ -116,7 +116,7 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
             EventHandler remoteRuntimeExited = RemoteRuntimeExited;
             remoteRuntimeExited?.Invoke(sender, args);
 
-            // StartRemoteRuntimeProcess also blocks on this event. Signal it in case the 
+            // StartRemoteRuntimeProcess also blocks on this event. Signal it in case the
             // remote runtime terminates during startup itself.
             _remoteOutputReceived.Set();
 
@@ -165,7 +165,7 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
         public ScriptScope ScriptScope { get { return CommandLine.ScriptScope; } }
         public Process RemoteRuntimeProcess { get { return _remoteRuntimeProcess; } }
 
-        // TODO: We have to catch all exceptions as we are executing user code in the remote runtime, and we cannot control what 
+        // TODO: We have to catch all exceptions as we are executing user code in the remote runtime, and we cannot control what
         // exception it may throw. This could be fixed if we built our own remoting channel which returned an error code
         // instead of propagating exceptions back from the remote runtime.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]

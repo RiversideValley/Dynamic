@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
-using Microsoft.Scripting.Metadata;
+using Riverside.Scripting.Metadata;
 using System.Security;
 using System.Security.Policy;
 using System.Security.Permissions;
@@ -100,9 +100,9 @@ namespace Metadata {
 
         private static void DumpNamespaceTree(int level, NamespaceTreeNode node) {
             string indent = new String(' ', level * 2);
-            _output.WriteLine("{0}{1}: {2}/{3}", 
-                indent, 
-                node.Name, 
+            _output.WriteLine("{0}{1}: {2}/{3}",
+                indent,
+                node.Name,
                 node.GetTypeDefs().Count(),
                 (from def in node.GetTypeDefs() where (def.Attributes & TypeAttributes.VisibilityMask) == TypeAttributes.Public select def).Count()
             );
@@ -312,14 +312,14 @@ namespace Metadata {
             }
 
             foreach (MethodDef methodDef in typeDef.Methods) {
-                _output.WriteLine("  method     {0}", methodDef.Name); 
-                
+                _output.WriteLine("  method     {0}", methodDef.Name);
+
                 if (Detailed) {
                     _output.WriteLine("    signature: {0}", SignatureToString(methodDef.Signature));
                     _output.WriteLine("    attributes: {0} {1}", methodDef.Attributes, methodDef.ImplAttributes);
                     DumpCustomAttributes(methodDef.CustomAttributes, "    ");
                     DumpGenericParameters(methodDef.GenericParameters, methodDef.Record);
-                    
+
                     foreach (ParamDef p in methodDef.Parameters) {
                         _output.WriteLine("    parameter #{0}: {1}", p.Index, p.Name);
                         Debug.Assert(p.FindDeclaringMethod().Record.Equals(methodDef));
@@ -410,7 +410,7 @@ namespace Metadata {
             ModuleDef md = tables.ModuleDef;
             _output.WriteLine("Module:");
             _output.WriteLine("  {0} {1}", md.Name, md.Mvid);
-            
+
             AssemblyDef adef = tables.AssemblyDef;
             if (!adef.Record.IsNull) {
                 _output.WriteLine("AssemblyDef:");
@@ -545,7 +545,7 @@ namespace Metadata {
                 tree.Add(moduleTables);
                 ModuleEnumerated(moduleTables);
             }
-            
+
             Counter_Types +=
                 (from ns in tree.GetAllNamespaces()
                  from t in ns.GetTypeDefs()
@@ -567,7 +567,7 @@ namespace Metadata {
             foreach (var moduleTables in tables) {
                 Stopwatch swAssociates = new Stopwatch();
                 Stopwatch swMethodsAndFields = new Stopwatch();
-                
+
                 int typesWithAssociates = 0;
                 int methodCount = 0, fieldCount = 0;
                 int propertyCount = 0, eventCount = 0;
@@ -575,7 +575,7 @@ namespace Metadata {
                     int typePropertyCount = 0, typeEventCount = 0;
 
                     swAssociates.Start();
-    
+
                     foreach (PropertyDef prop in type.Properties) {
                         typePropertyCount++;
                     }
@@ -607,7 +607,7 @@ namespace Metadata {
                     Path.GetFileName(moduleTables.Path),
                     swAssociates.ElapsedMilliseconds,
                     swMethodsAndFields.ElapsedMilliseconds,
-                    propertyCount, 
+                    propertyCount,
                     eventCount,
                     methodCount,
                     fieldCount,
@@ -625,7 +625,7 @@ namespace Metadata {
             0x00000000, 1,
             0x00000080, 1,
             0x00000084, 1,
-            0x00000098, 1, 
+            0x00000098, 1,
             0x00000108, 2,
             0x00000168, 2,
             0x00000180, 4,
@@ -653,7 +653,7 @@ namespace Metadata {
         }
 
         private unsafe static void TestCorruptedHeaders(byte[] memory, byte* ptr, MemoryBlock newImage) {
-            foreach (uint data in new uint[] { 0, 0x0000ffff, 0xffff0000, 0x00ff00ff, 0xff0000ff, 0xff00ff00, 0xffffffff, 0x0100ffff, 0x01010101, 
+            foreach (uint data in new uint[] { 0, 0x0000ffff, 0xffff0000, 0x00ff00ff, 0xff0000ff, 0xff00ff00, 0xffffffff, 0x0100ffff, 0x01010101,
                 (uint)PEMagic.PEMagic64, (uint)PEMagic.PEMagic32}) {
 
                 for (int i = 0; i < _Offsets.Length; i += 2) {
@@ -765,12 +765,12 @@ namespace Metadata {
         private static IEnumerable<string> FwAssemblyFiles() {
             return Directory.GetFiles(Path.GetDirectoryName(typeof(object).Assembly.Location), "*.dll");
         }
-        
+
         static void Main(string[] args) {
             //Detailed = true;
             //DumpMembers(typeof(Tests.Class1<,,,,>));
             //DumpMembers(typeof(System.Security.Policy.NetCodeGroup), true);
-            
+
             List<string> argList = new List<string>(args);
             if (argList.Remove("/?")) {
                 Console.WriteLine("Usage: Metadata.exe [options] [assembly list|*]");
@@ -870,7 +870,7 @@ namespace Metadata {
                 argList.Add(typeof(Regex).Assembly.Location);
             }
 
-            // tables: 
+            // tables:
             List<MetadataTables> tables;
             IEnumerable<Assembly> assemblies;
             if (loadAssemblies) {
@@ -951,7 +951,7 @@ namespace Metadata {
                         File.Delete(tempDumpFile);
                     }
                 }
-                
+
                 return;
             }
 

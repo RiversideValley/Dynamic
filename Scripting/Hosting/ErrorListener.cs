@@ -10,7 +10,7 @@ using System.Runtime.Remoting;
 using MarshalByRefObject = System.Object;
 #endif
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
 
     /// <summary>
     /// The host can use this class to track for errors reported during script parsing and compilation.

@@ -7,11 +7,11 @@ using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Dynamic;
 using System.IO;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     /// <summary>
     /// This class is useful for quickly collecting performance counts for expensive
     /// operations.  Usually this means operations involving either reflection or
@@ -24,7 +24,7 @@ namespace Microsoft.Scripting {
         public enum Categories {
             /// <summary>
             /// temporary categories for quick investigation, use a custom key if you
-            /// need to track multiple items, and if you want to keep it then create 
+            /// need to track multiple items, and if you want to keep it then create
             /// a new Categories entry and rename all your temporary entries.
             /// </summary>
             Temporary,
@@ -42,7 +42,7 @@ namespace Microsoft.Scripting {
             RuleEvaluation, // a rule was evaluated
             Binding,        // a rule was bound
             BindingSlow,
-            BindingFast,    
+            BindingFast,
             BindingTarget,  // a rule was bound against a target of a specific type
             Count
         }
@@ -54,8 +54,8 @@ namespace Microsoft.Scripting {
 
         private static Dictionary<Categories, Dictionary<string, int>> MakeEventsDictionary() {
             Dictionary<Categories, Dictionary<string, int>> result = new Dictionary<Categories, Dictionary<string, int>>();
-            
-            // We do not use Enum.GetValues here since it is not available in SILVERLIGHT 
+
+            // We do not use Enum.GetValues here since it is not available in SILVERLIGHT
             for (int i = 0; i <= (int)Categories.Count; i++) {
                 result[(Categories)i] = new Dictionary<string, int>();
             }
@@ -74,9 +74,9 @@ namespace Microsoft.Scripting {
         public static void DumpHistogram<TKey>(IDictionary<TKey, int> histogram, TextWriter output) {
             var keys = ArrayUtils.MakeArray(histogram.Keys);
             var values = ArrayUtils.MakeArray(histogram.Values);
-            
+
             Array.Sort(values, keys);
-   
+
             for (int i = 0; i < keys.Length; i++) {
                 output.WriteLine("{0} {1}", keys[i], values[i]);
             }

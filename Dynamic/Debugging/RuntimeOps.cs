@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Debugging.CompilerServices;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     public static class RuntimeOps {
         [Obsolete("do not call this method", true)]
         public static DebugFrame CreateFrameForGenerator(DebugContext debugContext, FunctionInfo func) {

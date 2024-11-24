@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     [Flags]
     public enum TrackerTypes {
         None = 0x00,
@@ -19,7 +19,7 @@ namespace Microsoft.Scripting.Actions {
         /// <summary> Specifies that the member is a property, representing a PropertyTracker </summary>
         Property = 0x10,
         /// <summary> Specifies that the member is a property, representing a TypeTracker </summary>
-        Type = 0x20,        
+        Type = 0x20,
         /// <summary> Specifies that the member is a namespace, representing a NamespaceTracker </summary>
         Namespace = 0x40,
         /// <summary> Specifies that the member is a group of method overloads, representing a MethodGroup</summary>
@@ -28,7 +28,7 @@ namespace Microsoft.Scripting.Actions {
         TypeGroup = 0x100,
         /// <summary> Specifies that the member is a custom meber, represetning a CustomTracker </summary>
         Custom = 0x200,
-        /// <summary> Specifies that the member is a bound to an instance, representing a BoundMemberTracker</summary>        
+        /// <summary> Specifies that the member is a bound to an instance, representing a BoundMemberTracker</summary>
         Bound = 0x400,
         //
         // Summary:

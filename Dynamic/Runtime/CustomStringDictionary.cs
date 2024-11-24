@@ -7,19 +7,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
 
     /// <summary>
     /// Abstract base class used for optimized thread-safe dictionaries which have a set
     /// of pre-defined string keys.
-    /// 
-    /// Implementers derive from this class and override the GetExtraKeys, TrySetExtraValue, 
-    /// and TryGetExtraValue methods. When looking up a value first the extra keys will be 
+    ///
+    /// Implementers derive from this class and override the GetExtraKeys, TrySetExtraValue,
+    /// and TryGetExtraValue methods. When looking up a value first the extra keys will be
     /// searched using the optimized Try*ExtraValue functions.  If the value isn't found there
     /// then the value is stored in the underlying .NET dictionary.
-    /// 
+    ///
     /// This dictionary can store object values in addition to string values.  It also supports
     /// null keys.
     /// </summary>
@@ -36,7 +36,7 @@ namespace Microsoft.Scripting.Runtime {
         public abstract string[] GetExtraKeys();
 
         /// <summary>
-        /// Try to set the extra value and return true if the specified key was found in the 
+        /// Try to set the extra value and return true if the specified key was found in the
         /// list of extra values.
         /// </summary>
         protected internal abstract bool TrySetExtraValue(string key, object value);
@@ -367,8 +367,8 @@ namespace Microsoft.Scripting.Runtime {
             return true;
         }
 
-        #endregion          
-      
+        #endregion
+
         public void CopyTo(Array array, int index) {
             throw Error.MethodOrOperatorNotImplemented();
         }

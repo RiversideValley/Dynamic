@@ -5,9 +5,9 @@
 using System.Linq.Expressions;
 
 using System;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
     /// Represents either a YieldBreak or YieldReturn in a GeneratorExpression
     /// If Value is non-null, it's a YieldReturn; otherwise it's a YieldBreak

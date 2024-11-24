@@ -11,7 +11,7 @@ using System.Xml;
 using System.Reflection;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Provides services for loading XAML and binding events to dynamic language code definitions.
     /// </summary>
@@ -74,7 +74,7 @@ namespace Microsoft.Scripting.Runtime {
                     operations.SetMember((object)scope, name, value);
                 }
             }
-            
+
             return myWriter.Result;
         }
 
@@ -138,14 +138,14 @@ namespace Microsoft.Scripting.Runtime {
                 }
                 base.WriteValue(value);
             }
-            
+
             public override void WriteEndMember() {
                 _nameStack.Pop();
                 base.WriteEndMember();
             }
 
             public override void WriteStartMember(XamlMember property) {
-                // we don't check the namespace for the property here - it can be x:Name or it can be Name 
+                // we don't check the namespace for the property here - it can be x:Name or it can be Name
                 // on the underlying type.  WPF supports either one and so do we.
                 if (property.Name == "Name" && property.Type.UnderlyingType == typeof(string)) {
                     _nameStack.Push(true);
@@ -158,7 +158,7 @@ namespace Microsoft.Scripting.Runtime {
                 } else {
                     base.WriteStartMember(property);
                 }
-            }            
+            }
         }
     }
 }

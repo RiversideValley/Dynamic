@@ -6,7 +6,7 @@ using System.Text;
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     internal static class ClrStubs {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters")]
         internal unsafe static int GetCharCount(this Encoding encoding, byte* bytes, int byteCount, object nls) {

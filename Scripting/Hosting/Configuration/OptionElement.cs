@@ -7,9 +7,9 @@
 using System;
 using System.Configuration;
 
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Hosting.Configuration {
+namespace Riverside.Scripting.Hosting.Configuration {
 
     public class OptionElement : ConfigurationElement {
         private const string _Option = "option";

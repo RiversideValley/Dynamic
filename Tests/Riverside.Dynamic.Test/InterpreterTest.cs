@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Microsoft.Dynamic.Test {
+namespace Riverside.Dynamic.Test {
     [TestFixture]
     public class InterpreterTest {
         public class TestGc {

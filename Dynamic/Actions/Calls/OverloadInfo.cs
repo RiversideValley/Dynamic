@@ -8,12 +8,12 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
-    /// Defines a method overload abstraction for the purpose of overload resolution. 
+    /// Defines a method overload abstraction for the purpose of overload resolution.
     /// It provides the overload resolver the metadata it needs to perform the resolution.
     /// </summary>
     /// <remarks>
@@ -57,7 +57,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         /// The method arity can vary, i.e. the method has params array or params dict parameters.
         /// </summary>
         public abstract bool IsVariadic { get; }
-        
+
         public abstract bool IsGenericMethodDefinition { get; }
         public abstract bool IsGenericMethod { get; }
         public abstract bool ContainsGenericParameters { get; }
@@ -101,7 +101,7 @@ namespace Microsoft.Scripting.Actions.Calls {
     /// </summary>
     /// <remarks>
     /// Not thread safe.
-    /// WARNING: This is a temporary API that will undergo breaking changes in future versions. 
+    /// WARNING: This is a temporary API that will undergo breaking changes in future versions.
     /// </remarks>
     public class ReflectionOverloadInfo : OverloadInfo {
         [Flags]
@@ -136,7 +136,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                 return method != null ? method.ReturnParameter : null;
             }
         }
-        
+
         public override IList<Type> GenericArguments => _genericArguments ?? (_genericArguments = new ReadOnlyCollection<Type>(_method.GetGenericArguments()));
 
         public override Type DeclaringType => _method.DeclaringType;
@@ -161,7 +161,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         }
 
         public override bool IsVariadic {
-            get { 
+            get {
                 if ((_flags & _Flags.KnownVariadic) == 0) {
                     _flags |= _Flags.KnownVariadic | (IsVariadicInternal() ? _Flags.IsVariadic : 0);
                 }
@@ -184,7 +184,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         public override bool IsGenericMethodDefinition => _method.IsGenericMethodDefinition;
 
         public override bool ContainsGenericParameters {
-            get { 
+            get {
                 if ((_flags & _Flags.KnownContainsGenericParameters) == 0) {
                     _flags |= _Flags.KnownContainsGenericParameters | (_method.ContainsGenericParameters ? _Flags.ContainsGenericParameters : 0);
                 }

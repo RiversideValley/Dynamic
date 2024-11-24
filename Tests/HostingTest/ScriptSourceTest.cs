@@ -5,8 +5,8 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 #if SILVERLIGHT
@@ -15,10 +15,10 @@ using Microsoft.Silverlight.TestHostCritical;
 
 namespace HostingTest {
     using Assert = NUnit.Framework.Assert;
- 
+
     [TestFixture]
     public partial class ScriptSourceTest : HAPITestBase {
-        
+
         [Test]
         public void ScriptEngine_CreateScriptSource1() {
         }
@@ -48,8 +48,8 @@ namespace HostingTest {
             ValidateGetCodeProperties( _codeSnippets[CodeType.WhiteSpace1], ScriptCodeParseResult.Invalid);
         }
 
-        
-        
+
+
         [Test]
         public void ScriptSource_Engine() {
             foreach (CodeSnippet cs in _codeSnippets.AllSnippets) {
@@ -71,12 +71,12 @@ namespace HostingTest {
         [ExpectedException(typeof(ArgumentException))]
         public void GetCodeLine_NegativeOutOfBoundsOfActualLineNumbers()
         {
-            ScriptSource sSrc = _testEng.CreateScriptSourceFromString(_codeSnippets[CodeType.OneLineAssignmentStatement], 
+            ScriptSource sSrc = _testEng.CreateScriptSourceFromString(_codeSnippets[CodeType.OneLineAssignmentStatement],
                                                                 SourceCodeKind.SingleStatement);
             //throws
             sSrc.GetCodeLine(-1);
         }
-        
+
         [Test]
         [Negative]
         [ExpectedException(typeof(ArgumentException))]
@@ -107,7 +107,7 @@ namespace HostingTest {
             string codeLine = sSrc.GetCodeLine(actualCode);
             Assert.AreEqual(codeLine, _codeSnippets[CodeType.OneLineAssignmentStatement]);
         }
-        
+
         /// <summary>
         /// Verify that the \r is valid LinefeedTerminator in a string.
         /// </summary>
@@ -117,13 +117,13 @@ namespace HostingTest {
             //Source example using \r
             string strTestSrc = "x =  1+2\ry= 3+4";
             string strExpectedTestLine = "y= 3+4";
-            // The second line of code input during CreateScriptSourceFromString 
+            // The second line of code input during CreateScriptSourceFromString
             // if '\r' is a valid LinefeedTerminator
             int expectedCodeLine = 2;
-            
+
             ScriptSource sSrc = _testEng.CreateScriptSourceFromString(strTestSrc,
                                                                 SourceCodeKind.Statements);
-            // Get the second line 
+            // Get the second line
             string codeLine = sSrc.GetCodeLine(expectedCodeLine);
             // Check the expected value
             Assert.AreEqual(codeLine, strExpectedTestLine);
@@ -205,7 +205,7 @@ namespace HostingTest {
         public void GetCodeLines_GetCodeLinesInRangeFromFile()
         {
             string sourceInput = _codeSnippets[CodeType.SevenLinesOfAssignemtStatements];
-            
+
 
             string scriptName = TestHelpers.CreateTempSourceFile(sourceInput, ".py");
             ScriptSource source = _testEng.CreateScriptSourceFromFile(scriptName);
@@ -223,13 +223,13 @@ namespace HostingTest {
         }
 
         [Test]
-        [Ignore()]//Bug 464777 - the test actually succeeds, but we want to check for the path->scope mapping 
+        [Ignore()]//Bug 464777 - the test actually succeeds, but we want to check for the path->scope mapping
         //and that is blocked by this bug
         public void Path_ExplicitSetDuringConstruction()
         {
             string path = "UniquePath1";
             ScriptSource src = _testEng.CreateScriptSourceFromString(
-                                    _codeSnippets[CodeType.SimpleExpressionOnePlusOne], 
+                                    _codeSnippets[CodeType.SimpleExpressionOnePlusOne],
                                     path);
             Assert.AreEqual(path, src.Path);
 
@@ -281,7 +281,7 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public void Compile_Invoke()
@@ -347,17 +347,17 @@ namespace HostingTest {
                                                                       SourceCodeKind.Expression);
             // This is only a stub - I think.
             CompilerOptions options = new CompilerOptions();
-            
+
             CompiledCode ccode = source.Compile(options);
             object results = ccode.Execute();
             Assert.Fail("This test is block by the missing CompiledCode class");
         }
 
         /// <summary>
-        /// Test Case:	
-        /// Multiple invocation of the same call	
+        /// Test Case:
+        /// Multiple invocation of the same call
         /// Verification:
-        /// Same correct value is returned 
+        /// Same correct value is returned
         /// </summary>
         [Test]
         public void Execute_MultipleInvocation()
@@ -378,7 +378,7 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// Test Case:	
+        /// Test Case:
         ///   Multiple invocation of the same call doesn't return reference to the same object
         ///   We need a method that would return a reference type. Simple ints and strings wont cut it.
         /// Verification:
@@ -401,8 +401,8 @@ namespace HostingTest {
         {
             ScriptScope scope = _testEng.CreateScope();
 
-            // Execute source in scope 
-            ScriptSource source = scope.Engine.CreateScriptSourceFromString(_codeSnippets[CodeType.IsOddFunction], Microsoft.Scripting.SourceCodeKind.Statements);
+            // Execute source in scope
+            ScriptSource source = scope.Engine.CreateScriptSourceFromString(_codeSnippets[CodeType.IsOddFunction], Riverside.Scripting.SourceCodeKind.Statements);
             source.Execute(scope);
 
             //Get a Delegate Instance using the Func<> Generic declaration and GetVariable
@@ -413,13 +413,13 @@ namespace HostingTest {
             Assert.IsFalse(isodd(2));
 
         }
-        
+
         /// <summary>
-        /// Test Case:	
+        /// Test Case:
         ///   Python defines a method and we call it from C# multiple times
         /// Verification:
         ///   Validate that a defined method is called.
-        ///   
+        ///
         /// This example is more of a ScriptScope example
         /// </summary>
         [Ignore]// Bug #466321
@@ -429,8 +429,8 @@ namespace HostingTest {
             // Setup tests simple result of rot13 on string and it's result
             //string testInput = "shone";
             //string expResult = "";
-//            int testRuns = 1; 
-            
+//            int testRuns = 1;
+
             // load script
             ScriptSource source = _testEng.CreateScriptSourceFromString(_codeSnippets[CodeType.Rot13Function],
                                                                      SourceCodeKind.Statements);
@@ -439,7 +439,7 @@ namespace HostingTest {
 
             // Execute for this scope (return val is null since code is statement)
             source.Execute(scope);
-            
+
             // From scope GetVariables<T> using predefined generic delegate
             Func<string, string> rot13 = scope.GetVariable<Func<string, string>>("rot13");
 
@@ -448,24 +448,24 @@ namespace HostingTest {
 ////            string newTestInput, newExpResult;
 //            for (int i = 0; i < testRuns; i++)
 //            {
-//                // call function defined by python script over and over and 
+//                // call function defined by python script over and over and
                 // verify that the new result is different.
                 //newTestInput = string.Format(testInput + "{0}", i);
                 //newExpResult = string.Format(expResult + "{0}", i);
-                
+
                 string fnResult = rot13("newTestInput");
-                
+
                 // check the results.
                 //Assert.AreEqual(fnResult, newExpResult);
             //}
         }
 
         /// <summary>
-        /// Test Case:	
+        /// Test Case:
         ///   Multiple invocation of the same call
         /// Verification:
         ///   Validate that a defined method is called.
-        ///   
+        ///
         /// </summary>
         //with a different python code (or removed altogether)
         [Test]
@@ -476,12 +476,12 @@ namespace HostingTest {
                 ValidateExecute("abs(-1)", 1);
         }
 
-        
+
         /// <summary>
         /// Load a python script that has a valid class and methods.
         /// This tests that we can get access to these function and call them
-        /// from within C#. 
-        /// 
+        /// from within C#.
+        ///
         /// Case 1 : calling a function defined in C#
         /// </summary>
         [Test]
@@ -490,7 +490,7 @@ namespace HostingTest {
             ScriptSource source = _testEng.CreateScriptSourceFromString(
                             _codeSnippets[CodeType.SimpleFooClassDefinition],
                             SourceCodeKind.Statements);
-            
+
             ScriptScope scope = _testEng.CreateScope();
             source.Execute(scope);
 
@@ -501,13 +501,13 @@ namespace HostingTest {
         /// <summary>
         /// Load a python script that has a valid class and methods.
         /// This tests that we can get access to these function and call them
-        /// from within C#. 
-        /// 
+        /// from within C#.
+        ///
         /// Case 2 : calling an object that has been created of type FooClass and
-        ///          calling it's member function. 
+        ///          calling it's member function.
         /// </summary>
         [Test]
-        public void Execute_CallingInstanceMethodDefinedInAPythonObject() 
+        public void Execute_CallingInstanceMethodDefinedInAPythonObject()
         {
             // Setup tests
             string testSrc = _codeSnippets[CodeType.SimpleFooClassDefinition];
@@ -526,13 +526,13 @@ namespace HostingTest {
             // Now call fooTest's object member function 'f'
             string result = sayHello();
             Assert.AreEqual(result, expResult);
-            
+
         }
         /// <summary>
         /// Test   : Load a python script that has a valid class and method(s).
         ///          This tests that we can get access to these function and call them
-        ///          from within C#. 
-        /// 
+        ///          from within C#.
+        ///
         /// Result : Successfully, calling the FooClass member from C#.
         /// </summary>
         [Test]
@@ -543,12 +543,12 @@ namespace HostingTest {
             string expResult = "Hello World";
             ScriptSource source = _testEng.CreateScriptSourceFromString(testSrc,
                                                                      SourceCodeKind.Statements);
-            
+
             ScriptScope scope = _testEng.CreateScope();
 
             // Execute for this scope (return val is null since code is statement)
             source.Execute(scope);
-            
+
             object FooClass = scope.GetVariable("FooClass");
             object fooTest = _testEng.Operations.Invoke(FooClass); // create new FooClass
             Func<object, string> sayHello = _testEng.Operations.GetMember<Func<object, string>>(FooClass, "f");
@@ -558,7 +558,7 @@ namespace HostingTest {
         }
 
         /// <summary>
-        /// Test Case:	
+        /// Test Case:
         /// Verification:
         /// </summary>
         [Test]
@@ -567,16 +567,16 @@ namespace HostingTest {
             // Setup tests data
             ScriptScopeDictionary env = new ScriptScopeDictionary();
             env["test1"] = -10;
-            
+
             ValidateExecute(env, "abs(test1)", 10);
         }
 
-        
+
         /// <summary>
-        /// Test Case:	
-        ///     Script invokes a variable pre defined in the scope  
+        /// Test Case:
+        ///     Script invokes a variable pre defined in the scope
         /// Verification:
-        ///     Script executes against the preset value of the var 
+        ///     Script executes against the preset value of the var
         /// </summary>
         [Test]
         public void Execute_UseVarDefinedInScope()
@@ -588,10 +588,10 @@ namespace HostingTest {
         }
 
         // <summary>
-        /// Test Case:	
+        /// Test Case:
         ///     Execute
         /// Verification:
-        ///     Script executes against the preset value of the var 
+        ///     Script executes against the preset value of the var
         /// </summary>
         [Test]
         public void Execute_ResultAvailableInScope()
@@ -600,17 +600,17 @@ namespace HostingTest {
             // Python abs method on var defined in default script scope
             string testInput = @"
 test1 = -10
-test1 = abs(test1)"; 
-            
+test1 = abs(test1)";
+
             // Exp result is the absolute value of test1
             ScriptSource source = _testEng.CreateScriptSourceFromString(testInput,
                                                                      SourceCodeKind.Statements);
             // Create scope
             ScriptScope scope = _testEng.CreateScope();
-            
-            // Setup var to hold result and execute for this scope 
+
+            // Setup var to hold result and execute for this scope
             source.Execute(scope);
-            
+
             // Check affect of Execution
             object testResult = scope.GetVariable("test1");
             Assert.AreEqual(testResult, 10);
@@ -632,7 +632,7 @@ test1 = abs(test1)";
             source.Execute((ScriptScope)null);
         }
 
-        
+
         [Test]
         public void ExecuteAndGetAsHandle_CheckExpectedReturnValue()
         {
@@ -669,7 +669,7 @@ test1 = abs(test1)";
             // Create first reader
             SourceCodeReader srcFirstUnitReader = source.GetReader();
 
-            // This could be a little fragile. Might be better just to hard code 
+            // This could be a little fragile. Might be better just to hard code
             // expected value. - Save first line with first reader.
             Assert.IsTrue(srcFirstUnitReader.SeekLine(1));
             string expValue = srcFirstUnitReader.ReadLine();
@@ -683,7 +683,7 @@ test1 = abs(test1)";
         }
 
         /// <summary>
-        ///Test: Create 2 reader objects and read from them independently 
+        ///Test: Create 2 reader objects and read from them independently
         ///(ex ): Read 20% using the first reader, 40% using the second reader
         ///Expected Result: The readers are unaffected and don’t interfere in the other’s instance
         /// </summary>
@@ -706,7 +706,7 @@ test1 = abs(test1)";
             int cnt = 0;
             // Read first half of stream with first stream reader
             while (((chrnbr = srcFirstUnitReader.Read()) > 0) && (cnt < codeMidPoint)){
-               
+
                 strBuffer.Append((char)chrnbr);
                 cnt++; // inc cnt
                 // Increment Second Reader

@@ -8,10 +8,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Stores information needed to setup a ScriptRuntime
     /// </summary>
@@ -45,7 +45,7 @@ namespace Microsoft.Scripting.Hosting {
         /// <summary>
         /// Indicates that the script runtime is in debug mode.
         /// This means:
-        /// 
+        ///
         /// 1) Symbols are emitted for debuggable methods (methods associated with SourceUnit).
         /// 2) Debuggable methods are emitted to non-collectable types (this is due to CLR limitations on dynamic method debugging).
         /// 3) JIT optimization is disabled for all methods
@@ -55,7 +55,7 @@ namespace Microsoft.Scripting.Hosting {
             get => _debugMode;
             set {
                 CheckFrozen();
-                _debugMode = value; 
+                _debugMode = value;
             }
         }
 
@@ -66,7 +66,7 @@ namespace Microsoft.Scripting.Hosting {
             get => _privateBinding;
             set {
                 CheckFrozen();
-                _privateBinding = value; 
+                _privateBinding = value;
             }
         }
 
@@ -108,7 +108,7 @@ namespace Microsoft.Scripting.Hosting {
             // prepare
             ReadOnlyCollection<LanguageSetup> setups = new ReadOnlyCollection<LanguageSetup>(ArrayUtils.MakeArray(LanguageSetups));
             var hostArguments = new ReadOnlyCollection<object>(ArrayUtils.MakeArray(_hostArguments));
-            var options = new ReadOnlyDictionary<string, object>(new Dictionary<string, object>(Options));            
+            var options = new ReadOnlyDictionary<string, object>(new Dictionary<string, object>(Options));
             var config = new DlrConfiguration(_debugMode, _privateBinding, options);
 
             // validate
@@ -143,9 +143,9 @@ namespace Microsoft.Scripting.Hosting {
         private void CheckFrozen() {
             if (_frozen) {
                 throw new InvalidOperationException("Cannot modify ScriptRuntimeSetup after it has been used to create a ScriptRuntime");
-            }            
+            }
         }
-        
+
         /// <summary>
         /// Reads setup from .NET configuration system (.config files).
         /// If there is no configuration available returns an empty setup.

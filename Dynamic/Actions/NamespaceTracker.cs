@@ -9,10 +9,10 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     /// <summary>
     /// NamespaceTracker represent a CLS namespace.

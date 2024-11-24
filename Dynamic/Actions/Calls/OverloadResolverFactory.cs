@@ -4,9 +4,9 @@
 
 using System.Collections.Generic;
 using System.Dynamic;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     public abstract class OverloadResolverFactory {
         public abstract DefaultOverloadResolver CreateOverloadResolver(IList<DynamicMetaObject> args, CallSignature signature, CallTypes callType);
     }

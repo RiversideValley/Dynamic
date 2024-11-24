@@ -5,11 +5,11 @@ using System.Security;
 using System.Security.Policy;
 using System.Text;
 using IronPython.Runtime;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 using System.Reflection;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
 namespace HostingTest{
     [TestFixture]
@@ -28,7 +28,7 @@ namespace HostingTest{
 
             Assert.IsTrue(secondSR.IsValid());
         }
-        
+
         [Test]
         [Negative]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -40,7 +40,7 @@ namespace HostingTest{
         [Negative]
         [ExpectedException(typeof(AppDomainUnloadedException))]
         public void Create_PassUnloadedAppDomain(){
-            AppDomain otherAD = TestHelpers.CreateAppDomain("SecondAppDomain"); 
+            AppDomain otherAD = TestHelpers.CreateAppDomain("SecondAppDomain");
 
             //this call is not really needed, but let's have it and use it to check if the domain was
             //created properly and we were able to execute a create call successfully
@@ -62,7 +62,7 @@ namespace HostingTest{
 
             // This throws exception 'System.IO.FileNotFoundException'
             ScriptRuntime scpRunTimeOne = CreateRemoteRuntime(appDomainOne);
-            
+
             // This should NOT throw an exception
             ScriptRuntime scpRunTimeTwo = CreateRemoteRuntime(appDomainTwo);
 
@@ -71,9 +71,9 @@ namespace HostingTest{
 
             // This should work fine
             ScriptScope sScpOne = scpRunTimeOne.CreateScope();
-            
+
             // *** USABILITY *** can be simpler then test plan
-            // indicates - perhaps could gather test from other code 
+            // indicates - perhaps could gather test from other code
             // into one place to do light weight end to end tests.
 
             // Usability tests - Never Get Here because of earlier exception.
@@ -88,7 +88,7 @@ namespace HostingTest{
             ScriptScope sScpEng = pEng.CreateScope();
             object fooObj = sScpEng.GetVariable("foo");
             Assert.IsTrue(fooObj.Equals(exptRtnVal), "Did the operation work");
-           
+
             // This should throw AppDomainUnloadedException
             ScriptScope sScpTwo = scpRunTimeTwo.CreateScope();
         }
@@ -113,7 +113,7 @@ namespace HostingTest{
 
             AppDomain.Unload(newDomain);
         }
-        
+
         [Test]
         [Negative]
         [ExpectedException(typeof(ArgumentException))]
@@ -121,12 +121,12 @@ namespace HostingTest{
         public void ExecuteFile_InvalidPath(){
             ScriptRuntime runTime = CreateRuntime();
 
-            // BUG : An invalid path throws an 'Microsoft.Scripting.SyntaxErrorException'
+            // BUG : An invalid path throws an 'Riverside.Scripting.SyntaxErrorException'
             string[] paths = StandardTestPaths.CreateBadPathCombinations(Path.GetTempPath());
             foreach(string p in paths)
                 runTime.ExecuteFile(p + "foo.py");
         }
-        
+
         [Test]
         [Negative]
         [ExpectedException(typeof(SyntaxErrorException))]
@@ -143,7 +143,7 @@ namespace HostingTest{
             String tmpFile = TestHelpers.CreateTempFile(_codeSnippets[CodeType.Valid1]);
             _runtime.ExecuteFile(tmpFile);
         }
-        
+
         [Test]
         [Negative]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -249,7 +249,7 @@ namespace HostingTest{
             v.Close();
 
             File.WriteAllText(tmpFile, _codeSnippets[CodeType.IsEvenFunction]);
-            
+
             scope = _runtime.UseFile(tmpFile);
             isodd = scope.GetVariable<Func<int, bool>>("isodd");
             Assert.IsFalse(isodd(12));
@@ -266,7 +266,7 @@ namespace HostingTest{
         }
 
         /// <summary>
-        /// Ensure multiple sets result in the latest 'set' having the effect 
+        /// Ensure multiple sets result in the latest 'set' having the effect
         /// (this test is pretty obvious. but doesnt hurt to have here)
         /// </summary>
         [Test]
@@ -274,7 +274,7 @@ namespace HostingTest{
             ScriptScopeDictionary dict = new ScriptScopeDictionary();
             string key = "foo";
             dict[key] = 1;
-            
+
             _runtime.Globals = _testEng.CreateScope(new ObjectDictionaryExpando(dict));
             Assert.AreEqual(1, _runtime.Globals.GetVariable( key));
 
@@ -315,7 +315,7 @@ namespace HostingTest{
             ScriptScope curScope, prevScope = null;
 
             // Create a 'numberOfScopeTests' and make
-            // each scope is unique - 
+            // each scope is unique -
             for (int i = 0; i < 10; i++)
             {
                 curScope = _runtime.CreateScope();
@@ -360,13 +360,13 @@ namespace HostingTest{
         }
 
         /// <summary>
-        /// Pass a valid global IAttributesCollection object and validate 
+        /// Pass a valid global IAttributesCollection object and validate
         /// all lookups in the scope go through the provided IAttributesCollection
         /// </summary>
         [Test]
         public void CreateScope_PassValidScope(){
             ScriptScopeDictionary dict = new ScriptScopeDictionary();
-           
+
             dict["foo_1"] = 1000;
             dict["foo_2"] = 2000;
 
@@ -386,7 +386,7 @@ namespace HostingTest{
 
         /// <summary>
         /// Invoke the method twice with the same 'globals'
-        /// 
+        ///
         /// 2 different ScriptScopes with no side effect created.
         /// Verify the first returned value has no changes after
         /// the second call.
@@ -549,13 +549,13 @@ namespace HostingTest{
 
         [Test, Negative, ExpectedException(typeof(ArgumentException))]
         public void Setup_EmptySetup() {
-            
+
             new ScriptRuntime(new ScriptRuntimeSetup());
         }
 
         [Test]
         public void Setup_EmptyDisplayName() {
-            
+
             var setup = ScriptRuntimeTest.CreateSetup();
             setup.LanguageSetups[0].DisplayName = "";
             var runtime = new ScriptRuntime(setup);
@@ -563,7 +563,7 @@ namespace HostingTest{
         }
 
         [Test, Negative, ExpectedException(typeof(InvalidOperationException))]
-        public void Setup_InvalidTypeName() {            
+        public void Setup_InvalidTypeName() {
             // Dev10 bug 502234
             var setup = ScriptRuntimeTest.CreateSetup();
             setup.LanguageSetups[0].TypeName = setup.LanguageSetups[0].TypeName.Replace("PythonContext", "PythonBuffer");

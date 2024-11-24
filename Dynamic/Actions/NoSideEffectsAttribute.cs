@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// Marks a method as not having side effects.  used by the combo binder
     /// to allow calls to methods.

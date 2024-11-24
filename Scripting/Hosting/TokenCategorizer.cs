@@ -11,10 +11,10 @@ using MarshalByRefObject = System.Object;
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     public sealed class TokenCategorizer : MarshalByRefObject {
         private readonly TokenizerService _tokenizer;
 

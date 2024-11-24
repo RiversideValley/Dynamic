@@ -8,7 +8,7 @@ using System.Diagnostics.Contracts;
 using System.Security;
 using System.Text;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     /// <summary>
     /// Zero terminated, UTF8 encoded sequence of bytes representing a name in metadata (a type name, a member name, etc).
     /// The name is bound to the module it was retrieved from. The module is kept alive until all its metadata names are collected.
@@ -211,7 +211,7 @@ namespace Microsoft.Scripting.Metadata {
             }
             return -1;
         }
-        
+
         internal static byte* FindPrevious(byte* start, byte* last, byte b) {
             Contract.Assert(start != null && last != null);
             byte* ptr = start - 1;

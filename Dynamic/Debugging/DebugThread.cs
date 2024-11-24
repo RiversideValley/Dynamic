@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using Microsoft.Scripting.Debugging.CompilerServices;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     [DebuggerDisplay("ThreadId = {_threadId}")]
     public abstract class DebugThread {
         private readonly int _threadId;
@@ -24,9 +24,9 @@ namespace Microsoft.Scripting.Debugging {
         internal Exception ThrownException { get; set; }
 
         internal bool IsCurrentThread {
-            get 
+            get
             {
-                return _threadId == ThreadingUtils.GetCurrentThreadId(); 
+                return _threadId == ThreadingUtils.GetCurrentThreadId();
             }
         }
 

@@ -5,7 +5,7 @@
 using System;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     internal sealed class ModuleTable {
         internal const int TableIndex = 0;
         internal readonly int NumberOfRows;
@@ -427,7 +427,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int startRowNumber = foundRowNumber;
             while (
-                startRowNumber > 0 && 
+                startRowNumber > 0 &&
                 Table.ReadReference((startRowNumber - 1) * RowSize + ClassOffset, IsTypeDefOrRefRefSizeSmall) == typeDefRowId
             ) {
                 startRowNumber--;
@@ -597,7 +597,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int startRowNumber = foundRowNumber;
             while (
-                startRowNumber > 0 && 
+                startRowNumber > 0 &&
                 Table.ReadReference((startRowNumber - 1) * RowSize + ParentOffset, IsHasCustomAttributeRefSizeSmall) == searchCodedTag
             ) {
                 startRowNumber--;
@@ -692,7 +692,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int startRowNumber = foundRowNumber;
             while (
-                startRowNumber > 0 && 
+                startRowNumber > 0 &&
                 Table.ReadReference((startRowNumber - 1) * RowSize + ParentOffset, IsHasDeclSecurityRefSizeSmall) == searchCodedTag
             ) {
                 startRowNumber--;
@@ -700,12 +700,12 @@ namespace Microsoft.Scripting.Metadata {
 
             int endRowNumber = foundRowNumber;
             while (
-                endRowNumber + 1 < NumberOfRows && 
+                endRowNumber + 1 < NumberOfRows &&
                 Table.ReadReference((endRowNumber + 1) * RowSize + ParentOffset, IsHasDeclSecurityRefSizeSmall) == searchCodedTag
             ) {
                 endRowNumber++;
             }
-            
+
             securityAttributeCount = endRowNumber - startRowNumber + 1;
             return startRowNumber + 1;
         }
@@ -1120,7 +1120,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int startRowNumber = foundRowNumber;
             while (
-                startRowNumber > 0 && 
+                startRowNumber > 0 &&
                 Table.ReadReference((startRowNumber - 1) * RowSize + AssociationOffset, IsHasSemanticRefSizeSmall) == searchCodedTag
             ) {
                 startRowNumber--;
@@ -1177,7 +1177,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int startRowNumber = foundRowNumber;
             while (
-                startRowNumber > 0 && 
+                startRowNumber > 0 &&
                 Table.ReadReference((startRowNumber - 1) * RowSize + ClassOffset, IsTypeDefTableRowRefSizeSmall) == typeDefRowId
             ) {
                 startRowNumber--;
@@ -1185,7 +1185,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int endRowNumber = foundRowNumber;
             while (
-                endRowNumber + 1 < NumberOfRows && 
+                endRowNumber + 1 < NumberOfRows &&
                 Table.ReadReference((endRowNumber + 1) * RowSize + ClassOffset, IsTypeDefTableRowRefSizeSmall) == typeDefRowId
             ) {
                 endRowNumber++;
@@ -1815,7 +1815,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int startRowNumber = foundRowNumber;
             while (
-                startRowNumber > 0 && 
+                startRowNumber > 0 &&
                 Table.ReadReference((startRowNumber - 1) * RowSize + OwnerOffset, IsTypeOrMethodDefRefSizeSmall) == searchCodedTag
             ) {
                 startRowNumber--;
@@ -1823,7 +1823,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int endRowNumber = foundRowNumber;
             while (
-                endRowNumber + 1 < NumberOfRows && 
+                endRowNumber + 1 < NumberOfRows &&
                 Table.ReadReference((endRowNumber + 1) * RowSize + OwnerOffset, IsTypeOrMethodDefRefSizeSmall) == searchCodedTag
             ) {
                 endRowNumber++;
@@ -1912,7 +1912,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int startRowNumber = foundRowNumber;
             while (
-                startRowNumber > 0 && 
+                startRowNumber > 0 &&
                 Table.ReadReference((startRowNumber - 1) * RowSize + OwnerOffset, IsGenericParamTableRowRefSizeSmall) == genericParamRowId
             ) {
                 startRowNumber--;
@@ -1920,7 +1920,7 @@ namespace Microsoft.Scripting.Metadata {
 
             int endRowNumber = foundRowNumber;
             while (
-                endRowNumber + 1 < NumberOfRows && 
+                endRowNumber + 1 < NumberOfRows &&
                 Table.ReadReference((endRowNumber + 1) * RowSize + OwnerOffset, IsGenericParamTableRowRefSizeSmall) == genericParamRowId
             ) {
                 endRowNumber++;

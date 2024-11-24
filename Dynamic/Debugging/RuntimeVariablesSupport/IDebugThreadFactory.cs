@@ -5,9 +5,9 @@
 using MSAst = System.Linq.Expressions;
 
 using System.Collections.Generic;
-using Microsoft.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Debugging.CompilerServices;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     /// <summary>
     /// IDebugThreadFactory is used to abstract how frames and local variables are maintained at run/debug time.
     /// </summary>

@@ -7,9 +7,9 @@
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     internal static class DelegateHelpers {
         private static ModuleBuilder _moduleBuilder;
         private const MethodAttributes CtorAttributes = MethodAttributes.RTSpecialName | MethodAttributes.HideBySig | MethodAttributes.Public;
@@ -40,9 +40,9 @@ namespace Microsoft.Scripting.Debugging {
             lock (_DelegateCtorSignature) {
                 if (_moduleBuilder == null) {
                     AssemblyBuilder assemblyBuilder = ReflectionUtils.DefineDynamicAssembly(
-                        new AssemblyName("Snippets.Microsoft.Scripting.Debugging"), AssemblyBuilderAccess.Run);
-                    
-                    _moduleBuilder = assemblyBuilder.DefineDynamicModule("Snippets.Microsoft.Scripting.Debugging", true);
+                        new AssemblyName("Snippets.Riverside.Scripting.Debugging"), AssemblyBuilderAccess.Run);
+
+                    _moduleBuilder = assemblyBuilder.DefineDynamicModule("Snippets.Riverside.Scripting.Debugging", true);
                 }
             }
             return _moduleBuilder;

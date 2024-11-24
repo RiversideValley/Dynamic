@@ -5,7 +5,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     [Serializable]
     public class InvalidImplementationException : Exception {
         public InvalidImplementationException()

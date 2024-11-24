@@ -11,10 +11,10 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes")]
     [DebuggerTypeProxy(typeof(InstructionArray.DebugView))]
     public struct InstructionArray {
@@ -27,7 +27,7 @@ namespace Microsoft.Scripting.Interpreter {
         // list of (instruction index, cookie) sorted by instruction index:
         internal readonly List<KeyValuePair<int, object>> DebugCookies;
 
-        internal InstructionArray(int maxStackDepth, int maxContinuationDepth, Instruction[] instructions, 
+        internal InstructionArray(int maxStackDepth, int maxContinuationDepth, Instruction[] instructions,
             object[] objects, RuntimeLabel[] labels, List<KeyValuePair<int, object>> debugCookies) {
 
             MaxStackDepth = maxStackDepth;
@@ -54,9 +54,9 @@ namespace Microsoft.Scripting.Interpreter {
             public InstructionList.DebugView.InstructionView[]/*!*/ A0 {
                 get {
                     return InstructionList.DebugView.GetInstructionViews(
-                        _array.Instructions, 
-                        _array.Objects, 
-                        (index) => _array.Labels[index].Index, 
+                        _array.Instructions,
+                        _array.Objects,
+                        (index) => _array.Labels[index].Index,
                         _array.DebugCookies
                     );
                 }
@@ -78,7 +78,7 @@ namespace Microsoft.Scripting.Interpreter {
         private int _maxContinuationDepth;
         private int _runtimeLabelCount;
         private List<BranchLabel> _labels;
-        
+
         // list of (instruction index, cookie) sorted by instruction index:
         private List<KeyValuePair<int, object>> _debugCookies = null;
 
@@ -95,9 +95,9 @@ namespace Microsoft.Scripting.Interpreter {
             public InstructionView[]/*!*/ A0 {
                 get {
                     return GetInstructionViews(
-                        _list._instructions, 
-                        _list._objects, 
-                        (index) => _list._labels[index].TargetIndex, 
+                        _list._instructions,
+                        _list._objects,
+                        (index) => _list._labels[index].TargetIndex,
                         _list._debugCookies
                     );
                 }
@@ -263,7 +263,7 @@ namespace Microsoft.Scripting.Interpreter {
             return new InstructionArray(
                 _maxStackDepth,
                 _maxContinuationDepth,
-                _instructions.ToArray(),                
+                _instructions.ToArray(),
                 _objects?.ToArray(),
                 BuildRuntimeLabels(),
                 _debugCookies
@@ -306,8 +306,8 @@ namespace Microsoft.Scripting.Interpreter {
                 if (value is bool b) {
                     EmitLoad(b);
                     return;
-                } 
-                
+                }
+
                 if (value is int i) {
                     if (i >= PushIntMinCachedValue && i <= PushIntMaxCachedValue) {
                         if (_ints == null) {
@@ -726,7 +726,7 @@ namespace Microsoft.Scripting.Interpreter {
                 return instruction;
             }
         }
-        
+
         public void EmitStoreField(FieldInfo field) {
             if (field.IsStatic) {
                 Emit(new StoreStaticFieldInstruction(field));

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     /// <summary>
     /// Represents a block in memory.
     /// </summary>
@@ -133,7 +133,7 @@ namespace Microsoft.Scripting.Metadata {
             if (offset < 0 || offset > _length - maxByteCount) {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
-            
+
             sbyte* pStart = (sbyte*)_pointer + offset;
             sbyte* pEnd = pStart + maxByteCount;
             sbyte* pIter = pStart;
@@ -219,8 +219,8 @@ namespace Microsoft.Scripting.Metadata {
 
         //  Returns RowNumber
         internal int BinarySearchForSlot(int numberOfRows, int numberOfChildren, int rowSize, int referenceOffset, uint childRid, bool isReferenceSmall) {
-            int startRowNumber = 0;          // inclusive     
-            int endRowNumber = numberOfRows; // exclusive  
+            int startRowNumber = 0;          // inclusive
+            int endRowNumber = numberOfRows; // exclusive
 
             uint startRid = ReadReference(startRowNumber * rowSize + referenceOffset, isReferenceSmall);
             uint endRid = (uint)numberOfChildren + 1;

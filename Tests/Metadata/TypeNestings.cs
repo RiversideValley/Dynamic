@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using Microsoft.Scripting.Metadata;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Metadata;
+using Riverside.Scripting.Utils;
 
 namespace Metadata {
     public sealed class TypeNestings {

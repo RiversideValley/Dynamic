@@ -2,12 +2,12 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
-    /// Provides hosting to DLR. Forwards DLR requests to the ScriptHost. 
+    /// Provides hosting to DLR. Forwards DLR requests to the ScriptHost.
     /// </summary>
     internal sealed class ScriptHostProxy : DynamicRuntimeHostingProvider {
         private readonly ScriptHost _host;

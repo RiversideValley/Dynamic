@@ -6,9 +6,9 @@ using System;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class OperationMetaObject : DynamicMetaObject {
         public OperationMetaObject(Expression expression, BindingRestrictions restrictions)
             : base(expression, restrictions) {

@@ -5,9 +5,9 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal partial class DynamicInstructionN {
         internal static Type GetDynamicInstructionType(Type delegateType) {
             Type[] argTypes = delegateType.GetGenericArguments();
@@ -43,7 +43,7 @@ namespace Microsoft.Scripting.Interpreter {
                 default:
                     throw Assert.Unreachable;
             }
-            
+
             return genericType.MakeGenericType(newArgTypes);
         }
 
@@ -74,7 +74,7 @@ namespace Microsoft.Scripting.Interpreter {
                 // *** END GENERATED CODE ***
 
                 #endregion
-                
+
                 default: return null;
             }
         }

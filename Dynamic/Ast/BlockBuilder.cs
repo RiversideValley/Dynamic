@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Collections.ObjectModel;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public sealed class BlockBuilder : ExpressionCollectionBuilder<Expression> {
         public BlockBuilder() {
         }

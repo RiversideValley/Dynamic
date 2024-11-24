@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     /// <summary>
     /// Invokes the object. If it falls back, just produce an error.
     /// </summary>
@@ -48,7 +48,7 @@ namespace Microsoft.Scripting.ComInterop {
 
     /// <summary>
     /// Splats the arguments to another nested dynamic site, which does the
-    /// real invocation of the IDynamicMetaObjectProvider. 
+    /// real invocation of the IDynamicMetaObjectProvider.
     /// </summary>
     internal sealed class SplatInvokeBinder : CallSiteBinder {
         internal static readonly SplatInvokeBinder Instance = new SplatInvokeBinder();

@@ -4,8 +4,8 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Generation {
-    
+namespace Riverside.Scripting.Generation {
+
     /// <summary>
     /// A simple dictionary of queues, keyed off a particular type
     /// This is useful for storing free lists of variables

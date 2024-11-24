@@ -5,7 +5,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     /// <summary>
     /// Builds a parameter for a reference argument when a StrongBox has not been provided.  The

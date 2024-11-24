@@ -3,9 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Threading;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     public class ErrorSink {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
@@ -65,7 +65,7 @@ namespace Microsoft.Scripting {
             }
         }
 
-        public ErrorCounter() 
+        public ErrorCounter()
             : this(ErrorSink.Null) {
         }
 
@@ -73,7 +73,7 @@ namespace Microsoft.Scripting {
             ContractUtils.RequiresNotNull(sink, nameof(sink));
             _sink = sink;
         }
-        
+
         protected virtual void CountError(Severity severity) {
             if (severity == Severity.FatalError) Interlocked.Increment(ref _fatalErrorCount);
             else if (severity == Severity.Error) Interlocked.Increment(ref _errorCount);

@@ -5,7 +5,7 @@
 using System;
 using System.Reflection;
 
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting.Hosting;
 
 namespace HostingTest {
     public class TestHost : ScriptHost {

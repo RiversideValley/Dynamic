@@ -7,7 +7,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     [Conditional("STUB")]
     internal class SerializableAttribute : Attribute {
     }

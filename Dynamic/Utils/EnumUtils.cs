@@ -5,8 +5,8 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Scripting.Utils {
-    public static class EnumUtils {        
+namespace Riverside.Scripting.Utils {
+    public static class EnumUtils {
         public static object BitwiseOr(object self, object other) {
             if (self is Enum && other is Enum) {
                 Type selfType = self.GetType();

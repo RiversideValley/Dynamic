@@ -8,9 +8,9 @@ using System.Linq.Expressions;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     internal sealed class SplatCallSite {
         // Stored callable Delegate or IDynamicMetaObjectProvider.

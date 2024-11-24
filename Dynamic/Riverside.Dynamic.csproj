@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0;net6.0;net8.0</TargetFrameworks>
-    <RootNamespace>Microsoft.Scripting</RootNamespace>
+    <RootNamespace>Riverside.Scripting</RootNamespace>
     <BaseAddress>859832320</BaseAddress>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Scripting.Metadata\Microsoft.Scripting.Metadata.csproj" Condition=" $(Features.Contains('FEATURE_METADATA_READER')) " />
-    <ProjectReference Include="..\Microsoft.Scripting\Microsoft.Scripting.csproj" />
+    <ProjectReference Include="..\Metadata\Riverside.Scripting.Metadata.csproj" Condition=" $(Features.Contains('FEATURE_METADATA_READER')) " />
+    <ProjectReference Include="..\Scripting\Riverside.Scripting.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(IsFullFramework)' == 'true' ">

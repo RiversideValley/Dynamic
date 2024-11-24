@@ -2,14 +2,14 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     /// <summary>
-    /// Narrowing conversions are conversions that cannot be proved to always succeed, conversions that are 
-    /// known to possibly lose information, and conversions across domains of types sufficiently different 
-    /// to merit narrowing notation like casts. 
-    /// 
+    /// Narrowing conversions are conversions that cannot be proved to always succeed, conversions that are
+    /// known to possibly lose information, and conversions across domains of types sufficiently different
+    /// to merit narrowing notation like casts.
+    ///
     /// Its upto every language to define the levels for conversions. The narrowling levels can be used by
-    /// for method overload resolution, where the overload is based on the parameter types (and not the number 
+    /// for method overload resolution, where the overload is based on the parameter types (and not the number
     /// of parameters).
     /// </summary>
     public enum NarrowingLevel {

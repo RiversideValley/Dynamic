@@ -7,10 +7,10 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
-    using AstUtils = Microsoft.Scripting.Ast.Utils;
+namespace Riverside.Scripting.Runtime {
+    using AstUtils = Riverside.Scripting.Ast.Utils;
 
     /// <summary>
     /// Wraps all arguments passed to a dynamic site with more arguments than can be accepted by a Func/Action delegate.
@@ -42,7 +42,7 @@ namespace Microsoft.Scripting.Runtime {
             return DynamicMetaObject.Create(
                 GetArgument(index),
                 Expression.Call(
-                    _GetArgMethod, 
+                    _GetArgMethod,
                     AstUtils.Convert(parameter, typeof(ArgumentArray)),
                     AstUtils.Constant(index)
                 )

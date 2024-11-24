@@ -4,10 +4,10 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
-    /// Provides a mechanism for providing documentation stored in an assembly as metadata.  
-    /// 
+    /// Provides a mechanism for providing documentation stored in an assembly as metadata.
+    ///
     /// Applying this attribute will enable documentation to be provided to the user at run-time
     /// even if XML Documentation files are unavailable.
     /// </summary>

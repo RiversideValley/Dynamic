@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 using System.Dynamic;
 using System.Diagnostics;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     //
     // ComFallbackMetaObject just delegates everything to the binder.
     //

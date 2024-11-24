@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Caches type member lookup.
     /// </summary>
@@ -25,7 +25,7 @@ namespace Microsoft.Scripting.Utils {
 
         // TODO: some memory can be saved here
         // { queried-type -> immutable { member-name, members } }
-        private readonly ConditionalWeakTable<Type, Dictionary<string, List<T>>> _typeMembersByName = 
+        private readonly ConditionalWeakTable<Type, Dictionary<string, List<T>>> _typeMembersByName =
             new ConditionalWeakTable<Type, Dictionary<string, List<T>>>();
 
         private Dictionary<string, List<T>> GetMembers(Type type) {
@@ -63,7 +63,7 @@ namespace Microsoft.Scripting.Utils {
 
         private Dictionary<string, List<T>> ReflectMembers(Type type) {
             var result = new Dictionary<string, List<T>>();
-            
+
             foreach (T member in _reflector(type)) {
                 if (!result.TryGetValue(member.Name, out List<T> overloads)) {
                     result.Add(member.Name, overloads = new List<T>());

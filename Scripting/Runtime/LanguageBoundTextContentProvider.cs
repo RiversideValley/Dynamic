@@ -5,9 +5,9 @@
 using System.IO;
 using System.Text;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Internal class which binds a LanguageContext, StreamContentProvider, and Encoding together to produce
     /// a TextContentProvider which reads binary data with the correct language semantics.

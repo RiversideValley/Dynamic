@@ -6,9 +6,9 @@ using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal sealed class CreateDelegateInstruction : Instruction {
         private readonly LightDelegateCreator _creator;
 
@@ -99,7 +99,7 @@ namespace Microsoft.Scripting.Interpreter {
         }
 
         public override string ToString() {
-            return "TypeIs " + typeof(T).Name; 
+            return "TypeIs " + typeof(T).Name;
         }
     }
 

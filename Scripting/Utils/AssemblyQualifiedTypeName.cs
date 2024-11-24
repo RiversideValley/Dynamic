@@ -5,7 +5,7 @@
 using System;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     [Serializable]
     internal readonly struct AssemblyQualifiedTypeName : IEquatable<AssemblyQualifiedTypeName> {
         public readonly string TypeName;
@@ -47,7 +47,7 @@ namespace Microsoft.Scripting.Utils {
         }
 
         internal static AssemblyQualifiedTypeName ParseArgument(string str, string argumentName) {
-            Assert.NotEmpty(argumentName);           
+            Assert.NotEmpty(argumentName);
             try {
                 return new AssemblyQualifiedTypeName(str);
             } catch (ArgumentException e) {

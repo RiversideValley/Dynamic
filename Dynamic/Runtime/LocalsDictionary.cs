@@ -5,9 +5,9 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
 
     /// <summary>
     /// Creates a dictionary of locals in this scope

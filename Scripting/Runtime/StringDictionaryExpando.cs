@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Exposes a IDictionary[string, object] as a dynamic object.  Gets/sets/deletes turn
     /// into accesses on the underlying dictionary.

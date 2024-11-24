@@ -12,7 +12,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
     internal sealed class DateTimeArgBuilder : SimpleArgBuilder {
         internal DateTimeArgBuilder(Type parameterType)
             : base(parameterType) {

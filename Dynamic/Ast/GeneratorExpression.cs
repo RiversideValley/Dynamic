@@ -8,9 +8,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
     /// A parameterless generator, that is of type IEnumerable, IEnumerable{T},
     /// IEnumerator, or IEnumerator{T}. Its body can contain a series of
@@ -228,7 +228,7 @@ namespace Microsoft.Scripting.Ast {
             }
             block[count] = new LambdaParameterRewriter(map).Visit(body);
             return Expression.Block(
-                new ReadOnlyCollection<ParameterExpression>(vars), 
+                new ReadOnlyCollection<ParameterExpression>(vars),
                 new ReadOnlyCollection<Expression>(block)
             );
         }

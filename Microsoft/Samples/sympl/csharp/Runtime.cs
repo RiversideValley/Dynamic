@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Reflection;
 using System.Linq.Expressions;
-using Microsoft.Scripting.ComInterop;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.ComInterop;
+using Riverside.Scripting.Utils;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Path = System.IO.Path;
@@ -172,8 +172,8 @@ namespace SymplSample {
             System.Array.Resize(ref array, array.Length - 1);
             return array;
         }
-      
-  
+
+
         ///////////////////////////////////////
         // Utilities used by binders at runtime
         ///////////////////////////////////////
@@ -254,7 +254,7 @@ namespace SymplSample {
             Expression[] callArgs = new Expression[args.Length];
             for (int i = 0; i < args.Length; i++) {
                 Expression argExpr = args[i].Expression;
-                if (args[i].LimitType == typeof(TypeModel) && 
+                if (args[i].LimitType == typeof(TypeModel) &&
                     ps[i].ParameterType == typeof(Type)) {
                     // Get arg.ReflType
                     argExpr = GetRuntimeTypeMoFromModel(args[i]).Expression;
@@ -330,7 +330,7 @@ namespace SymplSample {
                 // The first argument is the list
                 args.Add(
                     Expression.Convert(
-                        target.Expression, 
+                        target.Expression,
                         target.LimitType)
                 );
                 args.AddRange(indexExpressions);
@@ -352,7 +352,7 @@ namespace SymplSample {
                 var indexers = props.
                     Where(p => p.GetIndexParameters().Length > 0).ToArray();
                 indexers = indexers.
-                    Where(idx => idx.GetIndexParameters().Length == 
+                    Where(idx => idx.GetIndexParameters().Length ==
                                  indexes.Length).ToArray();
 
                 var res = new List<PropertyInfo>();
@@ -384,12 +384,12 @@ namespace SymplSample {
         // that throws.  Binders never just throw due to the protocol since
         // a binder or MO down the line may provide an implementation.
         //
-        // It returns a DynamicMetaObject whose expr throws the exception, and 
+        // It returns a DynamicMetaObject whose expr throws the exception, and
         // ensures the expr's type is object to satisfy the CallSite return type
         // constraint.
         //
         // A couple of calls to CreateThrow already have the args and target
-        // restrictions merged in, but BindingRestrictions.Merge doesn't add 
+        // restrictions merged in, but BindingRestrictions.Merge doesn't add
         // duplicates.
         //
         public static DynamicMetaObject CreateThrow
@@ -512,7 +512,7 @@ namespace SymplSample {
 
         public override DynamicMetaObject FallbackGetMember(
                 DynamicMetaObject target, DynamicMetaObject errorSuggestion) {
-            return errorSuggestion ?? 
+            return errorSuggestion ??
                    new DynamicMetaObject(
                            Expression.Constant(DynamicObjectHelpers.Sentinel),
                            target.Restrictions.Merge(
@@ -532,13 +532,13 @@ namespace SymplSample {
                    RuntimeHelpers.CreateThrow(
                        target, null, BindingRestrictions.Empty,
                        typeof(MissingMemberException),
-                              "If IDynObj doesn't support setting members, " + 
+                              "If IDynObj doesn't support setting members, " +
                               "DOHelpers can't do it for the IDO.");
         }
     }
 
 
-    
+
     //########################
     // General Runtime Binders
     //########################
@@ -561,7 +561,7 @@ namespace SymplSample {
             // Expressions and nest a CallSite for the InvokeMember.
             if (!targetMO.HasValue) return Defer(targetMO);
             // Find our own binding.
-            var flags = BindingFlags.IgnoreCase | BindingFlags.Static | 
+            var flags = BindingFlags.IgnoreCase | BindingFlags.Static |
                         BindingFlags.Instance | BindingFlags.Public;
             var members = targetMO.LimitType.GetMember(this.Name, flags);
             if (members.Length == 1) {
@@ -579,7 +579,7 @@ namespace SymplSample {
             } else {
                 return errorSuggestion ??
                     RuntimeHelpers.CreateThrow(
-                        targetMO, null, 
+                        targetMO, null,
                         BindingRestrictions.GetTypeRestriction(targetMO.Expression,
                                                                targetMO.LimitType),
                         typeof(MissingMemberException),
@@ -609,7 +609,7 @@ namespace SymplSample {
             // Expressions and nest a CallSite for the InvokeMember.
             if (!targetMO.HasValue) return Defer(targetMO);
             // Find our own binding.
-            var flags = BindingFlags.IgnoreCase | BindingFlags.Static | 
+            var flags = BindingFlags.IgnoreCase | BindingFlags.Static |
                         BindingFlags.Instance | BindingFlags.Public;
             var members = targetMO.LimitType.GetMember(this.Name, flags);
             if (members.Length == 1) {
@@ -645,13 +645,13 @@ namespace SymplSample {
                         val)),
                     // Don't need restriction test for name since this
                     // rule is only used where binder is used, which is
-                    // only used in sites with this binder.Name.                    
+                    // only used in sites with this binder.Name.
                     BindingRestrictions.GetTypeRestriction(targetMO.Expression,
                                                            targetMO.LimitType));
             } else {
                 return errorSuggestion ??
                     RuntimeHelpers.CreateThrow(
-                        targetMO, null, 
+                        targetMO, null,
                         BindingRestrictions.GetTypeRestriction(targetMO.Expression,
                                                                targetMO.LimitType),
                         typeof(MissingMemberException),
@@ -664,7 +664,7 @@ namespace SymplSample {
 	// calls for invoking members.
 	//
     public class SymplInvokeMemberBinder : InvokeMemberBinder {
-        public SymplInvokeMemberBinder(string name, CallInfo callinfo) 
+        public SymplInvokeMemberBinder(string name, CallInfo callinfo)
             : base(name, true, callinfo) { // true = ignoreCase
         }
 
@@ -710,7 +710,7 @@ namespace SymplSample {
                     Where(m => m.MemberType == MemberTypes.Method && ((MethodInfo)m).GetParameters().Length == args.Length);
 
                 // Get MethodInfos with param types that work for args.  This works
-                // except for value args that need to pass to reftype params. 
+                // except for value args that need to pass to reftype params.
                 // We could detect that to be smarter and then explicitly StrongBox
                 // the args.
                 List<MethodInfo> res = new List<MethodInfo>();
@@ -737,8 +737,8 @@ namespace SymplSample {
                 return new DynamicMetaObject(
                    RuntimeHelpers.EnsureObjectResult(
                      Expression.Call(
-                        Expression.Convert(targetMO.Expression, 
-                                           targetMO.LimitType), 
+                        Expression.Convert(targetMO.Expression,
+                                           targetMO.LimitType),
                         res[0], callArgs)),
                    restrictions);
                 // Could hve tried just letting Expr.Call factory do the work,
@@ -813,7 +813,7 @@ namespace SymplSample {
             }
             return errorSuggestion ??
                 RuntimeHelpers.CreateThrow(
-                    targetMO, argMOs, 
+                    targetMO, argMOs,
                     BindingRestrictions.GetTypeRestriction(targetMO.Expression,
                                                            targetMO.LimitType),
                     typeof(InvalidOperationException),
@@ -849,7 +849,7 @@ namespace SymplSample {
                         RuntimeHelpers.CreateThrow(
                            target, args, BindingRestrictions.Empty,
                            typeof(InvalidOperationException),
-                                  "Type object must be used when creating instance -- " + 
+                                  "Type object must be used when creating instance -- " +
                                    args.ToString());
             }
             var type = target.Value as Type;
@@ -917,7 +917,7 @@ namespace SymplSample {
                         RuntimeHelpers.CreateThrow(
                              target, indexes, BindingRestrictions.Empty,
                              typeof(InvalidOperationException),
-                             "Indexing list takes single index.  " + "Got " + 
+                             "Indexing list takes single index.  " + "Got " +
                              indexes.Length.ToString());
             }
             // Find our own binding.
@@ -1009,7 +1009,7 @@ namespace SymplSample {
 
         }
     }
-    
+
     public class SymplBinaryOperationBinder : BinaryOperationBinder {
         public SymplBinaryOperationBinder(ExpressionType operation)
             : base(operation) {
@@ -1090,7 +1090,7 @@ namespace SymplSample {
         public string Name
         {
             get { return _name; }
-            // C# forces property set and assignments to return void, 
+            // C# forces property set and assignments to return void,
             // so need to code gen explicit value return.
             set { _name = value; }
         }
@@ -1098,7 +1098,7 @@ namespace SymplSample {
         public object Value
         {
             get { return _value; }
-            // C# forces property set and assignments to return void, 
+            // C# forces property set and assignments to return void,
             // so need to code gen explicit value return.
             set { _value = value; }
         }
@@ -1146,14 +1146,14 @@ namespace SymplSample {
 
         public object First {
             get { return _first; }
-            // C# forces property set and assignments to return void, 
+            // C# forces property set and assignments to return void,
             // so need to code gen explicit value return.
             set { _first = value; }
         }
 
         public object Rest {
             get { return _rest; }
-            // C# forces property set and assignments to return void, 
+            // C# forces property set and assignments to return void,
             // so need to code gen explicit value return.
             set { _rest = value; }
         }

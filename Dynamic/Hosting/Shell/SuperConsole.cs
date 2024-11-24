@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
     public sealed class SuperConsole : BasicConsole {
 
         #region Nested types: EditMode, History, SuperConsoleOptions, Cursor
@@ -299,7 +299,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
             }
 
             // Calculate the previous indentation level
-            //!!! int newLength = ((input.Length - 1) / ConsoleOptions.AutoIndentSize) * ConsoleOptions.AutoIndentSize;            
+            //!!! int newLength = ((input.Length - 1) / ConsoleOptions.AutoIndentSize) * ConsoleOptions.AutoIndentSize;
             int newLength = _input.Length - 4;
 
             int backspaceSize = _input.Length - newLength;

@@ -13,11 +13,11 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
     /// <summary>
     /// Core functionality to implement an interactive console. This should be derived for concrete implementations
     /// </summary>
@@ -46,7 +46,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
         protected virtual string ExeName {
             get {
                 Assembly entryAssembly = Assembly.GetEntryAssembly();
-                
+
                 // Can be null if called from unmanaged code (VS integration scenario)
                 return entryAssembly != null ? entryAssembly.GetName().Name : "ConsoleHost";
             }
@@ -90,7 +90,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
             if (providerType != null) {
                 return providerType.AssemblyQualifiedName;
             }
-            
+
             if (Options.HasLanguageProvider) {
                 return Options.LanguageProvider;
             }
@@ -125,7 +125,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
             return new BasicConsole(options);
         }
 
-        // The advanced console functions are in a special non-inlined function so that 
+        // The advanced console functions are in a special non-inlined function so that
         // dependencies are pulled in only if necessary.
         [MethodImplAttribute(MethodImplOptions.NoInlining)]
         private static IConsole CreateSuperConsole(CommandLine commandLine, ConsoleOptions options) {
@@ -206,7 +206,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
                 return null;
             }
 
-            return languageOptionsParser.CommonConsoleOptions;            
+            return languageOptionsParser.CommonConsoleOptions;
         }
 
         protected virtual void ReportInvalidOption(InvalidOptionException e) {
@@ -346,7 +346,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
             int result = 0;
             try {
                 return _engine.CreateScriptSourceFromFile(Options.RunFile).ExecuteProgram();
-#if !FEATURE_PROCESS 
+#if !FEATURE_PROCESS
             } catch (ExitProcessException e) {
                 result = e.ExitCode;
 #endif

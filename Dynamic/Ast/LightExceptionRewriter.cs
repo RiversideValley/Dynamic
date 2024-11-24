@@ -10,12 +10,12 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-using Microsoft.Scripting.Actions;
-using Microsoft.Scripting.Interpreter;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Actions;
+using Riverside.Scripting.Interpreter;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
     /// Internal re-writer class which creates code which is light exception aware.
     /// </summary>
@@ -55,7 +55,7 @@ namespace Microsoft.Scripting.Ast {
         }
 
         /// <summary>
-        /// Class used to be avoid overhead of creating expression trees when we're usually 
+        /// Class used to be avoid overhead of creating expression trees when we're usually
         /// </summary>
         class LightExceptionRewrittenCode : Expression, IInstructionProvider {
             private readonly LabelTarget _returnLabel;
@@ -112,7 +112,7 @@ namespace Microsoft.Scripting.Ast {
                 var newNode = lightAware.ReduceForLightExceptions();
                 if (newNode != node) {
                     return CheckExpression(Visit(newNode), node.Type);
-                }                
+                }
             }
 
             return base.VisitExtension(node);
@@ -174,7 +174,7 @@ namespace Microsoft.Scripting.Ast {
             //        )
             //    )
             //);
-                        
+
             return Expression.TryFinally(tryBody, finallyBody);
         }
 
@@ -198,7 +198,7 @@ namespace Microsoft.Scripting.Ast {
 
             return base.VisitUnary(node);
         }
-        
+
         private Expression RewriteTryBody(TryExpression node, LabelTarget ehLabel) {
             Expression body;
             LabelTarget prevHandler = _currentHandler;
@@ -241,7 +241,7 @@ namespace Microsoft.Scripting.Ast {
                 } finally {
                     _rethrow = oldRethrow;
                 }
-            }            
+            }
 
             return handlers;
         }
@@ -265,7 +265,7 @@ namespace Microsoft.Scripting.Ast {
         private Expression RewriteTryCatch(TryExpression node) {
             // we inline the catch handlers after the catch blocks and use labels
             // to branch around and propagate the result out.
-            // 
+            //
             // goto tryDone(
             //    try {
             //      if (LightExceptions.IsLightException(_lastValue = someCall)) {
@@ -326,7 +326,7 @@ namespace Microsoft.Scripting.Ast {
             // walk backwards and add each handler as a test in a cascading
             // conditional.  If all tests fail, we make it back to the return value.
             Expression rethrow = PropagateException(typeof(object));
-            
+
             for (int i = handlers.Length - 1; i >= 0; i--) {
                 var curHandler = handlers[i];
 
@@ -354,11 +354,11 @@ namespace Microsoft.Scripting.Ast {
                     )
                 );
             }
-            
+
             return rethrow;
         }
 
-       
+
         /// <summary>
         /// Adds light exception handling to the provided expression which
         /// is light exception aware.
@@ -367,13 +367,13 @@ namespace Microsoft.Scripting.Ast {
             if (expr.Type == typeof(object)) {
                 // if we're not object then we can't be a light exception
                 expr = new LightExceptionCheckExpression(
-                    expr, 
-                    retType, 
-                    _currentHandler ?? _returnLabel, 
+                    expr,
+                    retType,
+                    _currentHandler ?? _returnLabel,
                     _currentHandler == null ? _lastValue : null
                 );
             }
-           
+
             return expr;
         }
 
@@ -425,7 +425,7 @@ namespace Microsoft.Scripting.Ast {
 
                 // true - an exception occured
                 compiler.Instructions.EmitBranchFalse(endOfTrue);
-                
+
                 if (_lastValue != null) {
                     compiler.CompileParameterExpression(_lastValue);
                 }
@@ -437,7 +437,7 @@ namespace Microsoft.Scripting.Ast {
                 );
                 compiler.Instructions.EmitBranch(endOfFalse, false, true);
 
-                // false - no exception                
+                // false - no exception
                 compiler.Instructions.MarkLabel(endOfTrue);
                 compiler.CompileParameterExpression(LightExceptionRewriter._lastValue);
                 compiler.Instructions.MarkLabel(endOfFalse);

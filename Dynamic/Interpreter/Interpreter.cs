@@ -9,16 +9,16 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     /// <summary>
     /// A simple forth-style stack machine for executing Expression trees
     /// without the need to compile to IL and then invoke the JIT.  This trades
     /// off much faster compilation time for a slower execution performance.
-    /// For code that is only run a small number of times this can be a 
+    /// For code that is only run a small number of times this can be a
     /// sweet spot.
-    /// 
+    ///
     /// The core loop in the interpreter is the RunInstructions method.
     /// </summary>
     internal sealed class Interpreter {
@@ -76,8 +76,8 @@ namespace Microsoft.Scripting.Interpreter {
         /// Runs instructions within the given frame.
         /// </summary>
         /// <remarks>
-        /// Interpreted stack frames are linked via Parent reference so that each CLR frame of this method corresponds 
-        /// to an interpreted stack frame in the chain. It is therefore possible to combine CLR stack traces with 
+        /// Interpreted stack frames are linked via Parent reference so that each CLR frame of this method corresponds
+        /// to an interpreted stack frame in the chain. It is therefore possible to combine CLR stack traces with
         /// interpreted stack traces by aligning interpreted frames to the frames of this method.
         /// Each group of subsequent frames of Run method corresponds to a single interpreted frame.
         /// </remarks>
@@ -116,7 +116,7 @@ namespace Microsoft.Scripting.Interpreter {
                 }
                 return ExceptionHandlingResult.Return;
             }
-            
+
 #if FEATURE_THREAD
             // stay in the current catch so that ThreadAbortException is not rethrown by CLR:
             if (exception is ThreadAbortException abort) {
@@ -134,7 +134,7 @@ namespace Microsoft.Scripting.Interpreter {
 
                         index += curInstr.Run(frame);
                         frame.InstructionIndex = index;
-                        
+
                         if (curInstr is LeaveExceptionHandlerInstruction) {
                             // we've completed handling of this exception
                             return ExceptionHandlingResult.Continue;
@@ -164,7 +164,7 @@ namespace Microsoft.Scripting.Interpreter {
         }
 
 #if FEATURE_THREAD
-        // To get to the current AbortReason object on Thread.CurrentThread 
+        // To get to the current AbortReason object on Thread.CurrentThread
         // we need to use ExceptionState property of any ThreadAbortException instance.
         [ThreadStatic]
         private static ThreadAbortException _anyAbortException;

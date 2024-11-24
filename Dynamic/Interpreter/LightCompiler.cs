@@ -12,12 +12,12 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Security;
 
-using Microsoft.Scripting.Ast;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Ast;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     public sealed class ExceptionHandler {
         public readonly Type ExceptionType;
         public readonly int StartIndex;
@@ -91,7 +91,7 @@ namespace Microsoft.Scripting.Interpreter {
                 return -1;
             }
         }
-        
+
         public static DebugInfo GetMatchingDebugInfo(DebugInfo[] debugInfos, int index) {
             //Create a faked DebugInfo to do the search
             DebugInfo d = new DebugInfo { Index = index };
@@ -124,7 +124,7 @@ namespace Microsoft.Scripting.Interpreter {
     [Serializable]
     public struct InterpretedFrameInfo {
         public readonly string MethodName;
-        
+
         // TODO:
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public readonly DebugInfo DebugInfo;
@@ -149,7 +149,7 @@ namespace Microsoft.Scripting.Interpreter {
         private readonly LocalVariables _locals = new LocalVariables();
 
         private readonly List<ExceptionHandler> _handlers = new List<ExceptionHandler>();
-        
+
         private readonly List<DebugInfo> _debugInfos = new List<DebugInfo>();
         private readonly HybridReferenceDictionary<LabelTarget, LabelInfo> _treeLabels = new HybridReferenceDictionary<LabelTarget, LabelInfo>();
         private LabelScopeInfo _labelBlock = new LabelScopeInfo(null, LabelScopeKind.Lambda);
@@ -191,7 +191,7 @@ namespace Microsoft.Scripting.Interpreter {
             }
 
             Compile(node.Body);
-            
+
             // pop the result of the last expression:
             if (node.Body.Type != typeof(void) && node.ReturnType == typeof(void)) {
                 Instructions.EmitPop();
@@ -353,7 +353,7 @@ namespace Microsoft.Scripting.Interpreter {
 
         private LocalDefinition[] CompileBlockStart(BlockExpression node) {
             var start = Instructions.Count;
-            
+
             LocalDefinition[] locals;
             var variables = node.Variables;
             if (variables.Count != 0) {
@@ -492,14 +492,14 @@ namespace Microsoft.Scripting.Interpreter {
 
             switch (node.Left.NodeType) {
                 case ExpressionType.Index:
-                    CompileIndexAssignment(node, asVoid); 
+                    CompileIndexAssignment(node, asVoid);
                     break;
                 case ExpressionType.MemberAccess:
-                    CompileMemberAssignment(node, asVoid); 
+                    CompileMemberAssignment(node, asVoid);
                     break;
                 case ExpressionType.Parameter:
                 case ExpressionType.Extension:
-                    CompileVariableAssignment(node, asVoid); 
+                    CompileVariableAssignment(node, asVoid);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid lvalue for assignment: " + node.Left.NodeType);
@@ -575,7 +575,7 @@ namespace Microsoft.Scripting.Interpreter {
 
             Compile(left);
             Compile(right);
-            
+
             switch (nodeType) {
                 case ExpressionType.LessThan: Instructions.EmitLessThan(left.Type); break;
                 case ExpressionType.LessThanOrEqual: Instructions.EmitLessThanOrEqual(left.Type); break;
@@ -636,7 +636,7 @@ namespace Microsoft.Scripting.Interpreter {
                 return;
             }
 
-            // TODO: Conversions to a super-class or implemented interfaces are no-op. 
+            // TODO: Conversions to a super-class or implemented interfaces are no-op.
             // A conversion to a non-implemented interface or an unrelated class, etc. should fail.
             return;
         }
@@ -652,7 +652,7 @@ namespace Microsoft.Scripting.Interpreter {
 
         private void CompileUnaryExpression(Expression expr) {
             var node = (UnaryExpression)expr;
-            
+
             if (node.Method != null) {
                 Compile(node.Operand);
                 EmitCall(node.Method);
@@ -892,7 +892,7 @@ namespace Microsoft.Scripting.Interpreter {
             // Anything that is "statement-like" -- e.g. has no associated
             // stack state can be jumped into, with the exception of try-blocks
             // We indicate this by a "Block"
-            // 
+            //
             // Otherwise, we push an "Expression" to indicate that it can't be
             // jumped into
             switch (node.NodeType) {
@@ -1054,8 +1054,8 @@ namespace Microsoft.Scripting.Interpreter {
             // handlers jump here:
             Instructions.MarkLabel(gotoEnd);
             Instructions.EmitGoto(end, hasValue, hasValue);
-            
-            // keep the result on the stack:     
+
+            // keep the result on the stack:
             if (node.Handlers.Count > 0) {
                 // TODO: emulates faults (replace by true fault support)
                 if (node.Finally == null && node.Handlers.Count == 1) {
@@ -1120,7 +1120,7 @@ namespace Microsoft.Scripting.Interpreter {
                     _handlers.Add(new ExceptionHandler(tryStart, tryEnd, handlerLabel, handlerStart, handler.Test));
 
                     PopLabelBlock(LabelScopeKind.Catch);
-                
+
                     _locals.UndefineLocal(local, Instructions.Count);
                 }
 
@@ -1128,7 +1128,7 @@ namespace Microsoft.Scripting.Interpreter {
                     throw new NotImplementedException();
                 }
             }
-            
+
             if (node.Finally != null) {
                 PushLabelBlock(LabelScopeKind.Finally);
 
@@ -1195,7 +1195,7 @@ namespace Microsoft.Scripting.Interpreter {
                 instruction = CallInstruction.Create(method, parameters);
             } catch (SecurityException) {
                 _forceCompile = true;
-                
+
                 Instructions.Emit(new PopNInstruction((method.IsStatic ? 0 : 1) + parameters.Length));
                 if (method.ReturnType != typeof(void)) {
                     Instructions.EmitLoad(null);

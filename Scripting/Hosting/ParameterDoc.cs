@@ -4,9 +4,9 @@
 
 using System;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Provides documentation for a single parameter.
     /// </summary>

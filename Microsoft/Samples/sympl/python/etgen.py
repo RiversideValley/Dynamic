@@ -1,8 +1,8 @@
 
 import clr
 if clr.use35:
-    clr.AddReference("Microsoft.Scripting.Core")
-    import Microsoft.Scripting.Ast as Exprs
+    clr.AddReference("Riverside.Scripting.Core")
+    import Riverside.Scripting.Ast as Exprs
 else:
     clr.AddReference("System.Core")
     import System.Linq.Expressions as Exprs
@@ -96,9 +96,9 @@ def AnalyzeDefunExpr (expr, scope):
         raise Exception("Use Defmethod or Lambda when not defining " +
                         "top-level function.")
     return Exprs.Expression.Dynamic(
-               scope.GetRuntime().GetSetMemberBinder(expr.Name.Name), 
+               scope.GetRuntime().GetSetMemberBinder(expr.Name.Name),
                object,
-               [scope.ModuleExpr, 
+               [scope.ModuleExpr,
                 AnalyzeLambdaDef(expr, scope, "defun " + expr.Name.Name)])
 
 def AnalyzeLambdaExpr (expr, scope):
@@ -217,7 +217,7 @@ def AnalyzeAssignExpr (expr, scope):
                            Exprs.Expression.Convert(val, object)),
                        Exprs.Expression.Dynamic(
                            scope.GetRuntime().GetSetMemberBinder(
-                               expr.Location.IdToken.Name), 
+                               expr.Location.IdToken.Name),
                            object,
                            [scope.GetModuleExpr(), tmp]),
                        tmp])
@@ -227,7 +227,7 @@ def AnalyzeAssignExpr (expr, scope):
         args.append(AnalyzeExpr(expr.Value, scope))
         return Exprs.Expression.Dynamic(
                    scope.GetRuntime().GetSetIndexBinder(
-                              CallInfo(len(expr.Location.Indexes))), 
+                              CallInfo(len(expr.Location.Indexes))),
                    object,
                    [obj] + args)
     elif loctype is parser.SymplDottedExpr:
@@ -269,7 +269,7 @@ def AnalyzeIdExpr (expr, scope):
             return param
         else:
             return Exprs.Expression.Dynamic(
-               scope.GetRuntime().GetGetMemberBinder(expr.IdToken.Name), 
+               scope.GetRuntime().GetGetMemberBinder(expr.IdToken.Name),
                object,
                scope.GetModuleExpr())
 
@@ -305,7 +305,7 @@ def AnalyzeLetStarExpr (expr, scope):
         var = Exprs.Expression.Parameter(object, b[0].Name)
         varsInOrder.append(var)
         inits.append(Exprs.Expression.Assign(
-                        var, 
+                        var,
                         Exprs.Expression.Convert(AnalyzeExpr(b[1], letscope),
                                                  var.Type)))
         ## Add var to scope after analyzing init value so that init value
@@ -363,14 +363,14 @@ def AnalyzeEqExpr (expr, scope):
         raise Exception("Internal: need eq expr to analyze.")
     return runtime.MakeSymplEqCall(AnalyzeExpr(expr.Left, scope),
                                    AnalyzeExpr(expr.Right, scope))
-    
+
 def AnalyzeConsExpr (expr, scope):
     debugprint("analyze cons ...")
     if type(expr) is not parser.SymplConsExpr:
         raise Exception("Internal: need cons expr to analyze.")
     return runtime.MakeSymplConsCall(AnalyzeExpr(expr.Left, scope),
                                      AnalyzeExpr(expr.Right, scope))
-    
+
 def AnalyzeListCallExpr (expr, scope):
     debugprint("analyze List call ...")
     if type(expr) is not parser.SymplListCallExpr:
@@ -391,14 +391,14 @@ def AnalyzeIfExpr (expr, scope):
                Exprs.Expression.Convert(AnalyzeExpr(expr.Consequent, scope),
                                         object),
                Exprs.Expression.Convert(alt, object))
-    
+
 def WrapBooleanTest (expr):
     tmp = Exprs.Expression.Parameter(object, "testtmp")
     return Exprs.Expression.Block(
         [tmp],
         [Exprs.Expression.Assign(tmp, Exprs.Expression.Convert(expr, object)),
          Exprs.Expression.Condition(
-             Exprs.Expression.TypeIs(tmp, bool), 
+             Exprs.Expression.TypeIs(tmp, bool),
              Exprs.Expression.Convert(tmp, bool),
              Exprs.Expression.NotEqual(tmp, Exprs.Expression.Constant(None)))])
 
@@ -417,7 +417,7 @@ def AnalyzeLoopExpr (expr, scope):
     ## with Type and IEnumerable<Expr>, so pick it explicitly.
     return Exprs.Expression.Loop(Exprs.Expression.Block.Overloads
                                     [System.Type, IEnumerable[Exprs.Expression]]
-                                    (object, body), 
+                                    (object, body),
                                   loopscope.LoopBreak)
 
 def AnalyzeBreakExpr (expr, scope):
@@ -509,7 +509,7 @@ def AnalyzeBinaryExpr (expr, scope):
                    object,
                    AnalyzeExpr(expr.Left, scope),
                    AnalyzeExpr(expr.Right, scope))
-        
+
 
 def AnalyzeUnaryExpr (expr, scope):
     if type(expr) is not parser.SymplUnaryExpr:
@@ -525,7 +525,7 @@ def AnalyzeUnaryExpr (expr, scope):
                    scope.GetRuntime().GetUnaryOperationBinder(expr.Op),
                    object,
                    AnalyzeExpr(expr.Operand, scope))
-    
+
 
 
 
@@ -552,7 +552,7 @@ class AnalysisScope (object):
         self.IsLoop = False
         self.LoopBreak = None
         self.LoopContinue = None
-    
+
     def IsModule (self):
         return self.ModuleExpr is not None
 

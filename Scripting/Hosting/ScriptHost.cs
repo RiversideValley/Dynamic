@@ -10,20 +10,20 @@ using MarshalByRefObject = System.Object;
 
 using System;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
 
     /// <summary>
-    /// ScriptHost is collocated with ScriptRuntime in the same app-domain. 
-    /// The host can implement a derived class to consume some notifications and/or 
+    /// ScriptHost is collocated with ScriptRuntime in the same app-domain.
+    /// The host can implement a derived class to consume some notifications and/or
     /// customize operations like TryGetSourceUnit,ResolveSourceUnit, etc.
     ///
-    /// The areguments to the the constructor of the derived class are specified in ScriptRuntimeSetup 
+    /// The areguments to the the constructor of the derived class are specified in ScriptRuntimeSetup
     /// instance that enters ScriptRuntime initialization.
-    /// 
+    ///
     /// If the host is remote with respect to DLR (i.e. also with respect to ScriptHost)
-    /// and needs to access objects living in its app-domain it can pass MarshalByRefObject 
+    /// and needs to access objects living in its app-domain it can pass MarshalByRefObject
     /// as an argument to its ScriptHost subclass constructor.
     /// </summary>
     public class ScriptHost : MarshalByRefObject {
@@ -31,8 +31,8 @@ namespace Microsoft.Scripting.Hosting {
         /// The runtime the host is attached to.
         /// </summary>
         private ScriptRuntime _runtime;
-        
-        // Called by ScriptRuntime when it is completely initialized. 
+
+        // Called by ScriptRuntime when it is completely initialized.
         // Notifies the host implementation that the runtime is available now.
         internal void SetRuntime(ScriptRuntime runtime) {
             Assert.NotNull(runtime);

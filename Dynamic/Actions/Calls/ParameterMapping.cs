@@ -10,9 +10,9 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     public sealed class ParameterMapping {
         private readonly OverloadResolver _resolver;
         private readonly IList<string> _argNames;
@@ -109,20 +109,20 @@ namespace Microsoft.Scripting.Actions.Calls {
                 indexForArgBuilder = ArgIndex++;
             } else {
                 // keyword argument, we just tell the simple arg builder to consume arg 0.
-                // KeywordArgBuilder will then pass in the correct single argument based 
+                // KeywordArgBuilder will then pass in the correct single argument based
                 // upon the actual argument number provided by the user.
                 indexForArgBuilder = 0;
             }
 
             // if the parameter is default we need to build a default arg builder and then
-            // build a reduced method at the end.  
+            // build a reduced method at the end.
             if (!pi.IsMandatory()) {
                 // We need to build the default builder even if we have a parameter for it already to
-                // get good consistency of our error messages.  But consider a method like 
+                // get good consistency of our error messages.  But consider a method like
                 // def foo(a=1, b=2) and the user calls it as foo(b=3). Then adding the default
                 // value breaks an otherwise valid call.  This is because we only generate MethodCandidates
                 // filling in the defaults from right to left (so the method - 1 arg requires a,
-                // and the method minus 2 args requires b).  So we only add the default if it's 
+                // and the method minus 2 args requires b).  So we only add the default if it's
                 // a positional arg or we don't already have a default value.
                 if (nameIndex == -1 || !_hasDefaults) {
                     _defaultArguments.Add(new DefaultArgBuilder(pi));
@@ -164,10 +164,10 @@ namespace Microsoft.Scripting.Actions.Calls {
             Debug.Assert(_returnArgs != null);
 
             // TODO:
-            // Is this reduction necessary? What if 
-            // 1) we had an implicit conversion StrongBox<T> -> T& and 
+            // Is this reduction necessary? What if
+            // 1) we had an implicit conversion StrongBox<T> -> T& and
             // 2) all out parameters were treated as optional StrongBox<T> parameters? (if not present we return the result in a return value)
-            
+
             int indexForArgBuilder = 0;
 
             int nameIndex = -1;
@@ -295,7 +295,7 @@ namespace Microsoft.Scripting.Actions.Calls {
             ReturnBuilder returnBuilder = (_returnArgs != null) ?
                 new ByRefReturnBuilder(_returnArgs) :
                 new ReturnBuilder(Overload.ReturnType);
-            
+
             if (_argNames.Count > 0 && _resolver.AllowMemberInitialization(Overload)) {
                 List<string> unusedNames = GetUnusedArgNames(specialParameters);
                 List<MemberInfo> bindableMembers = GetBindableMembers(returnBuilder.ReturnType, unusedNames);
@@ -305,7 +305,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                     foreach (MemberInfo mi in bindableMembers) {
                         PropertyInfo pi = mi as PropertyInfo;
                         var type = (pi != null) ? pi.PropertyType : ((FieldInfo)mi).FieldType;
-                        
+
                         _parameters.Add(new ParameterWrapper(null, type, mi.Name, ParameterBindingFlags.None));
                         nameIndices.Add(_argNames.IndexOf(mi.Name));
                     }

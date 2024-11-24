@@ -5,9 +5,9 @@
 using System.Diagnostics;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal sealed class LoadStaticFieldInstruction : Instruction {
         private readonly FieldInfo _field;
 

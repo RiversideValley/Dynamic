@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     public class AssemblyLoadedEventArgs : EventArgs {
         public AssemblyLoadedEventArgs(Assembly assembly) {
             Assembly = assembly;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     public static class MetadataServices {
         // Stores metadata tables for each loaded non-dynamic assemblies.
         // The first module in the array is always a manifest module.
@@ -31,7 +31,7 @@ namespace Microsoft.Scripting.Metadata {
                             metadata[0] = tables;
                         }
                     }
-                    
+
                     _metadataCache.Add(assembly, metadata);
                 }
                 return metadata;
@@ -109,7 +109,7 @@ namespace Microsoft.Scripting.Metadata {
 
         public static List<MethodInfo> GetVisibleExtensionMethodInfos(Assembly assembly) {
             var tokens = GetVisibleExtensionMethods(assembly);
-            
+
             List<MethodInfo> result = new List<MethodInfo>(tokens.Count);
             foreach (var moduleAndToken in tokens) {
                 result.Add((MethodInfo)moduleAndToken.Key.ResolveMethod(moduleAndToken.Value));

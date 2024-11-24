@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
     /// <summary>
     /// Indications extra information about a parameter such as if it's a parameter array.
     /// </summary>

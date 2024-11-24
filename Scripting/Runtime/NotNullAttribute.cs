@@ -4,10 +4,10 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// This attribute marks a parameter that is not allowed to be null.
-    /// It is used by the method binding infrastructure to generate better error 
+    /// It is used by the method binding infrastructure to generate better error
     /// messages and method selection.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
@@ -16,7 +16,7 @@ namespace Microsoft.Scripting.Runtime {
 
     /// <summary>
     /// This attribute marks a parameter whose type is an array that is not allowed to have null items.
-    /// It is used by the method binding infrastructure to generate better error 
+    /// It is used by the method binding infrastructure to generate better error
     /// messages and method selection.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// DLR requires any Hosting API provider to implement this class and provide its instance upon Runtime initialization.
     /// DLR calls on it to perform basic host/system dependent operations.

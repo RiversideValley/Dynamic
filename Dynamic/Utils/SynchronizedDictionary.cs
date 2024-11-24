@@ -5,7 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
 
     /// <summary>
     /// Dictionary[TKey, TValue] is not thread-safe in the face of concurrent reads and writes. SynchronizedDictionary
@@ -28,7 +28,7 @@ namespace Microsoft.Scripting.Utils {
             get { return _dictionary; }
         }
 
-        public SynchronizedDictionary() 
+        public SynchronizedDictionary()
             : this(new Dictionary<TKey, TValue>()) {
         }
 

@@ -9,9 +9,9 @@ using System.Diagnostics;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     internal sealed class ReturnFixer {
         private readonly LocalBuilder _refSlot;
         private readonly int _argIndex;

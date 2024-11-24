@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
-using Microsoft.Scripting.Hosting.Providers;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Hosting.Providers;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
     /// <summary>
     /// Command line hosting service.
     /// </summary>
@@ -34,18 +34,18 @@ namespace Microsoft.Scripting.Hosting.Shell {
         /// <summary>
         /// Scope is not remotable, and this only works in the same AppDomain.
         /// </summary>
-        protected Scope Scope { 
+        protected Scope Scope {
             get {
                 if (_scope == null) {
                     return null;
                 }
-                return HostingHelpers.GetScope(_scope); 
+                return HostingHelpers.GetScope(_scope);
             }
             set {
                 _scope = HostingHelpers.CreateScriptScope(_engine, value);
             }
         }
-        
+
         protected LanguageContext Language {
             get {
                 // LanguageContext is not remotable, and this only works in the same AppDomain.
@@ -189,7 +189,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
         /// <summary>
         /// Starts the interactive loop.  Performs any initialization necessary before
         /// starting the loop and then calls RunInteractiveLoop to start the loop.
-        /// 
+        ///
         /// Returns the exit code when the interactive loop is completed.
         /// </summary>
         protected virtual int RunInteractive() {
@@ -268,7 +268,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
         /// Attempts to run a single interaction and handle any language-specific
         /// exceptions.  Base classes can override this and call the base implementation
         /// surrounded with their own exception handling.
-        /// 
+        ///
         /// Returns null if successful and execution should continue, or an exit code.
         /// </summary>
         protected virtual int? TryInteractiveAction() {
@@ -296,9 +296,9 @@ namespace Microsoft.Scripting.Hosting.Shell {
 
         /// <summary>
         /// Parses a single interactive command or a set of statements and executes it.
-        /// 
+        ///
         /// Returns null if successful and execution should continue, or the appropiate exit code.
-        /// 
+        ///
         /// We check if the code read is an interactive command or statements is by checking for NewLine
         /// If the code contains NewLine, it's a set of statements (most probably from SendToConsole)
         /// If the code does not contain a NewLine, it's an interactive command typed by the user at the prompt
@@ -336,7 +336,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
 
         /// <summary>
         /// Private helper function to see if we should treat the current input as a blank link.
-        /// 
+        ///
         /// We do this if we only have auto-indent text.
         /// </summary>
         private static bool TreatAsBlankLine(string line, int autoIndentSize) {
@@ -351,7 +351,7 @@ namespace Microsoft.Scripting.Hosting.Shell {
         /// <summary>
         /// Read a statement, which can potentially be a multiple-line statement suite (like a class declaration).
         /// </summary>
-        /// <param name="continueInteraction">Should the console session continue, or did the user indicate 
+        /// <param name="continueInteraction">Should the console session continue, or did the user indicate
         /// that it should be terminated?</param>
         /// <returns>Expression to evaluate. null for empty input</returns>
         protected string ReadStatement(out bool continueInteraction) {

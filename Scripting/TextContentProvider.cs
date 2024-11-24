@@ -6,14 +6,14 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     /// <summary>
     /// Provides a factory to create TextReader's over one source of textual content.
-    /// 
+    ///
     /// TextContentProvider's are used when reading from a source which is already decoded
-    /// or has a known specific decoding.  
-    /// 
+    /// or has a known specific decoding.
+    ///
     /// For example a text editor might provide a TextContentProvider whose backing is
     /// an in-memory text buffer that the user can actively edit.
     /// </summary>
@@ -22,7 +22,7 @@ namespace Microsoft.Scripting {
 
         /// <summary>
         /// Creates a new TextReader which is backed by the content the TextContentProvider was created for.
-        /// 
+        ///
         /// This method may be called multiple times.  For example once to compile the code and again to get
         /// the source code to display error messages.
         /// </summary>

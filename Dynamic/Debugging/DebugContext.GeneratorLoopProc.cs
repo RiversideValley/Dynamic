@@ -7,7 +7,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Threading;
 
-namespace Microsoft.Scripting.Debugging.CompilerServices {
+namespace Riverside.Scripting.Debugging.CompilerServices {
     public sealed partial class DebugContext {
         private static object _debugYieldValue;
 
@@ -15,7 +15,7 @@ namespace Microsoft.Scripting.Debugging.CompilerServices {
             get {
                 if (_debugYieldValue == null)
                     _debugYieldValue = new object();
-                return _debugYieldValue; 
+                return _debugYieldValue;
             }
         }
 

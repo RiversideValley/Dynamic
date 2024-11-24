@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     internal enum PEMagic : ushort {
         PEMagic32 = 0x010B,
         PEMagic64 = 0x020B,
@@ -275,32 +275,32 @@ namespace Microsoft.Scripting.Metadata {
         Single = 0x0c,
         Double = 0x0d,
         String = 0x0e,
-        
+
         Pointer = 0x0f,
         ByReference = 0x10,
-        
+
         ValueType = 0x11,
         Class = 0x12,
         GenericTypeParameter = 0x13,
         Array = 0x14,
         GenericTypeInstance = 0x15,
         TypedReference = 0x16,
-        
+
         IntPtr = 0x18,
         UIntPtr = 0x19,
         FunctionPointer = 0x1b,
         Object = 0x1c,
         Vector = 0x1d,
-        
+
         GenericMethodParameter = 0x1e,
-        
+
         RequiredModifier = 0x1f,
         OptionalModifier = 0x20,
-        
+
         Internal = 0x21,
-        
+
         Max = 0x22,
-        
+
         Modifier = 0x40,
         Sentinel = 0x41,
         Pinned = 0x45,
@@ -361,7 +361,7 @@ namespace Microsoft.Scripting.Metadata {
             return (signatureHeader & SignatureHeader.Generic) == SignatureHeader.Generic;
         }
     }
-    
+
     #region PEFile specific data
 
     internal static class PEFileConstants {
@@ -822,7 +822,7 @@ namespace Microsoft.Scripting.Metadata {
         internal const uint AssemblyRef = 0x00000001;
         internal const uint ExportedType = 0x00000002;
         internal const uint TagMask = 0x00000003;
-        
+
         internal const TableMask TablesReferenced = TableMask.File | TableMask.AssemblyRef | TableMask.ExportedType;
 
         internal static MetadataToken ConvertToToken(uint implementation) {
@@ -906,5 +906,5 @@ namespace Microsoft.Scripting.Metadata {
         }
     }
 
-    #endregion 
+    #endregion
 }

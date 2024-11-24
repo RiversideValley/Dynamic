@@ -9,7 +9,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     using Math = System.Math;
 
     public static class MathUtils {
@@ -42,7 +42,7 @@ namespace Microsoft.Scripting.Utils {
                 }
 
                 return q - 1;
-            } 
+            }
 
             return q;
         }
@@ -65,7 +65,7 @@ namespace Microsoft.Scripting.Utils {
 
                 if (x % y == 0) {
                     return q;
-                } 
+                }
 
                 return q - 1;
             }
@@ -164,7 +164,7 @@ namespace Microsoft.Scripting.Utils {
         /// Behaves like Math.Round(value, precision, MidpointRounding.AwayFromZero)
         /// However, it works correctly on negative precisions and cases where precision is
         /// outside of the [-15, 15] range.
-        /// 
+        ///
         /// (This function is also needed because CoreCLR lacks this overload.)
         /// </summary>
         [Obsolete("The method has been deprecated. Call MathUtils.Round(value, precision, MidpointRounding.AwayFromZero) instead.")]
@@ -211,7 +211,7 @@ namespace Microsoft.Scripting.Utils {
             if (v0 >= 10.0) {
                 return 1.0;
             }
-            
+
             if (v0 <= -10.0) {
                 return -1.0;
             }
@@ -692,7 +692,7 @@ namespace Microsoft.Scripting.Utils {
                 ulong b = GetWord(bytes, 32, bits);
                 return (a | (b << 32));
             }
-            
+
             return new BigInteger(bytes);
         }
 
@@ -760,7 +760,7 @@ namespace Microsoft.Scripting.Utils {
             }
             throw new OverflowException("Value was either too large or too small for a Double.");
         }
-        
+
         public static int BitLength(BigInteger x) {
             if (x.IsZero) {
                 return 0;
@@ -957,7 +957,7 @@ namespace Microsoft.Scripting.Utils {
             if (self == BigInteger.MinusOne) {
                 if (exp % 2 == 0) {
                     return BigInteger.One;
-                } 
+                }
 
                 return BigInteger.MinusOne;
             }

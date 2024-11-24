@@ -14,12 +14,12 @@ using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using ComTypes = System.Runtime.InteropServices.ComTypes;
-using Microsoft.Scripting.Generation;
+using Riverside.Scripting.Generation;
 using System.Linq;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     internal static class ComRuntimeHelpers {
 

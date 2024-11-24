@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     internal static partial class DelegateHelpers {
 
         private static Dictionary<ICollection<Type>, Type> _DelegateTypes;

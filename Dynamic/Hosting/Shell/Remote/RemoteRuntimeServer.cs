@@ -11,9 +11,9 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Remoting.Lifetime;
 
-namespace Microsoft.Scripting.Hosting.Shell.Remote {
+namespace Riverside.Scripting.Hosting.Shell.Remote {
     /// <summary>
-    /// The remote runtime server uses this class to publish an initialized ScriptEngine and ScriptRuntime 
+    /// The remote runtime server uses this class to publish an initialized ScriptEngine and ScriptRuntime
     /// over a remoting channel.
     /// </summary>
     public static class RemoteRuntimeServer {
@@ -21,10 +21,10 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
         internal const string RemoteRuntimeArg = "RemoteRuntimeChannel";
 
         private static TimeSpan GetSevenDays() {
-            return new TimeSpan(7, 0, 0, 0); // days,hours,mins,secs 
+            return new TimeSpan(7, 0, 0, 0); // days,hours,mins,secs
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2116:AptcaMethodsShouldOnlyCallAptcaMethods")] // TODO: Microsoft.Scripting does not need to be APTCA
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2116:AptcaMethodsShouldOnlyCallAptcaMethods")] // TODO: Riverside.Scripting does not need to be APTCA
         internal static IpcChannel CreateChannel(string channelName, string portName) {
             // The Hosting API classes require TypeFilterLevel.Full to be remoted
             BinaryServerFormatterSinkProvider serverProv = new BinaryServerFormatterSinkProvider();
@@ -32,19 +32,19 @@ namespace Microsoft.Scripting.Hosting.Shell.Remote {
             System.Collections.IDictionary properties = new System.Collections.Hashtable();
             properties["name"] = channelName;
             properties["portName"] = portName;
-            // exclusiveAddressUse corresponds to the FILE_FLAG_FIRST_PIPE_INSTANCE flag of CreateNamedPipe. 
+            // exclusiveAddressUse corresponds to the FILE_FLAG_FIRST_PIPE_INSTANCE flag of CreateNamedPipe.
             // Setting it to true seems to cause "Failed to create an IPC Port: Access is denied." occasionally.
             // TODO: Setting this to false is secure only if we use ACLs as well.
             properties["exclusiveAddressUse"] = false;
 
-            // Create the channel.  
+            // Create the channel.
             IpcChannel channel = new IpcChannel(properties, null, serverProv);
             return channel;
         }
 
         /// <summary>
         /// Publish objects so that the host can use it, and then block indefinitely (until the input stream is open).
-        /// 
+        ///
         /// Note that we should publish only one object, and then have other objects be accessible from it. Publishing
         /// multiple objects can cause problems if the client does a call like "remoteProxy1(remoteProxy2)" as remoting
         /// will not be able to know if the server object for both the proxies is on the same server.

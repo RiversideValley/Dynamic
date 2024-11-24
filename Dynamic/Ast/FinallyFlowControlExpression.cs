@@ -8,17 +8,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Microsoft.Scripting.Utils;
-using Microsoft.Scripting.Interpreter;
+using Riverside.Scripting.Utils;
+using Riverside.Scripting.Interpreter;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
     /// Wrapping a tree in this node enables jumps from finally blocks
     /// It does this by generating control-flow logic in the tree
-    /// 
+    ///
     /// Reducing this node requires a full tree walk of its body
     /// (but not nested lambdas)
-    /// 
+    ///
     /// WARNING: this node cannot contain jumps across blocks, because it
     /// assumes any unknown jumps are jumps to an outer scope.
     /// </summary>

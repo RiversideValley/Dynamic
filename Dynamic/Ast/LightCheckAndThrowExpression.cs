@@ -7,16 +7,16 @@ using System.Linq.Expressions;
 
 using System;
 using System.Reflection;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
-using Microsoft.Scripting.Interpreter;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Interpreter;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
-    /// Provides a method call to a method which may return light exceptions. 
-    /// 
+    /// Provides a method call to a method which may return light exceptions.
+    ///
     /// The call is to a method which supports light exceptions.  When reducing
     /// an additional check and throw is added.  When a block code of is re-written
     /// for light exceptions this instead reduces to not throw a .NET exception.

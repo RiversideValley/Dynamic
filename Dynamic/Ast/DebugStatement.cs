@@ -5,10 +5,10 @@
 using System.Linq.Expressions;
 
 using System.Diagnostics;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public partial class Utils {
         public static Expression DebugMarker(string marker) {
             ContractUtils.RequiresNotNull(marker, nameof(marker));
@@ -68,7 +68,7 @@ namespace Microsoft.Scripting.Ast {
                     clearance
                 );
             }
-            
+
             //save the expression to a variable
             var p = Expression.Parameter(expression.Type, null);
             return Expression.Block(

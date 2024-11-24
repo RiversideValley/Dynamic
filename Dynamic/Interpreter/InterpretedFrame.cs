@@ -8,11 +8,11 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Utils;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Interpreter {
-    using InterpretedFrameThreadLocal = Microsoft.Scripting.Utils.ThreadLocal<InterpretedFrame>;
+namespace Riverside.Scripting.Interpreter {
+    using InterpretedFrameThreadLocal = Riverside.Scripting.Utils.ThreadLocal<InterpretedFrame>;
 
     public sealed class InterpretedFrame {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]

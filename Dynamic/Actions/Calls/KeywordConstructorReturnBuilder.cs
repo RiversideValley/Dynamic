@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Runtime;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Runtime;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     /// <summary>
     /// Updates fields/properties of the returned value with unused keyword parameters.
@@ -42,7 +42,7 @@ namespace Microsoft.Scripting.Actions.Calls {
 
             for (int i = 0; i < _indexesUsed.Length; i++) {
                 Expression value = args.GetObject(args.Length - _kwArgCount + _indexesUsed[i]).Expression;
-                
+
                 PropertyInfo pi;
                 FieldInfo fi;
                 if ((fi = _membersSet[i] as FieldInfo) != null) {
@@ -65,7 +65,7 @@ namespace Microsoft.Scripting.Actions.Calls {
                                 fi.FieldType
                             )
                         );
-                    }                        
+                    }
                 } else if ((pi = _membersSet[i] as PropertyInfo) != null) {
                     if (pi.GetSetMethod(_privateBinding) != null) {
                             sets.Add(

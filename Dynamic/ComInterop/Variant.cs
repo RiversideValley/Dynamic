@@ -16,10 +16,10 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     /// <summary>
     /// Variant is the basic COM type for late-binding. It can contain any other COM data type.

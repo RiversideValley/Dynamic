@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 
 #if SILVERLIGHT
@@ -16,8 +16,8 @@ using Microsoft.Silverlight.TestHostCritical;
 
 namespace HostingTest
 {
-    
-    
+
+
     /// <summary>
     /// This is a test a sub class for ScriptHostTest and is intended
     /// to contain many of the ScriptHost overridden members
@@ -26,7 +26,7 @@ namespace HostingTest
 
         private TestContext testContextInstance;
 
-        
+
         /// <summary>
         /// This gets or sets the test context which provides
         /// information about and functionality for the current test run.
@@ -57,13 +57,13 @@ namespace HostingTest
        }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="HostType">The type of host we have derived</param>
         /// <param name="testPath">Host Search Path</param>
         /// <returns></returns>
         private ScriptRuntimeSetup/*!*/ CreateHostTypeScriptRuntimeSetup(Type HostType, string/*!*/ testPath) {
-           ScriptRuntimeSetup setup = CreateSetup();            
+           ScriptRuntimeSetup setup = CreateSetup();
             setup.HostType = HostType;
             setup.HostArguments = new object[] { testPath };
             return setup;
@@ -72,7 +72,7 @@ namespace HostingTest
 
         /// <summary>
         ///  BUG - This helper function is blocked by the lack of HostConfig documentation/implementation
-        ///        for example "4.16	ScriptRuntimeSetup" is undefined in DLR Hosting Spec 
+        ///        for example "4.16	ScriptRuntimeSetup" is undefined in DLR Hosting Spec
         ///        from DLR Hosting doc "Design expected 19 MAY 08. XXX"
         /// </summary>
         /// <param name="HostType"></param>

@@ -10,9 +10,9 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     using LoopFunc = Func<object[], StrongBox<object>[], InterpretedFrame, int>;
 
     internal abstract class OffsetInstruction : Instruction {
@@ -160,27 +160,27 @@ namespace Microsoft.Scripting.Interpreter {
     }
 
     /// <summary>
-    /// This instruction implements a goto expression that can jump out of any expression. 
-    /// It pops values (arguments) from the evaluation stack that the expression tree nodes in between 
-    /// the goto expression and the target label node pushed and not consumed yet. 
-    /// A goto expression can jump into a node that evaluates arguments only if it carries 
-    /// a value and jumps right after the first argument (the carried value will be used as the first argument). 
-    /// Goto can jump into an arbitrary child of a BlockExpression since the block doesn’t accumulate values 
+    /// This instruction implements a goto expression that can jump out of any expression.
+    /// It pops values (arguments) from the evaluation stack that the expression tree nodes in between
+    /// the goto expression and the target label node pushed and not consumed yet.
+    /// A goto expression can jump into a node that evaluates arguments only if it carries
+    /// a value and jumps right after the first argument (the carried value will be used as the first argument).
+    /// Goto can jump into an arbitrary child of a BlockExpression since the block doesnï¿½t accumulate values
     /// on evaluation stack as its child expressions are being evaluated.
-    /// 
+    ///
     /// Goto needs to execute any finally blocks on the way to the target label.
     /// <example>
-    /// { 
+    /// {
     ///     f(1, 2, try { g(3, 4, try { goto L } finally { ... }, 6) } finally { ... }, 7, 8)
-    ///     L: ... 
+    ///     L: ...
     /// }
     /// </example>
-    /// The goto expression here jumps to label L while having 4 items on evaluation stack (1, 2, 3 and 4). 
-    /// The jump needs to execute both finally blocks, the first one on stack level 4 the 
-    /// second one on stack level 2. So, it needs to jump the first finally block, pop 2 items from the stack, 
+    /// The goto expression here jumps to label L while having 4 items on evaluation stack (1, 2, 3 and 4).
+    /// The jump needs to execute both finally blocks, the first one on stack level 4 the
+    /// second one on stack level 2. So, it needs to jump the first finally block, pop 2 items from the stack,
     /// run second finally block and pop another 2 items from the stack and set instruction pointer to label L.
-    /// 
-    /// Goto also needs to rethrow ThreadAbortException iff it jumps out of a catch handler and 
+    ///
+    /// Goto also needs to rethrow ThreadAbortException iff it jumps out of a catch handler and
     /// the current thread is in "abort requested" state.
     /// </summary>
     internal sealed class GotoInstruction : IndexedBranchInstruction {
@@ -192,8 +192,8 @@ namespace Microsoft.Scripting.Interpreter {
         // TODO: We can remember hasValue in label and look it up when calculating stack balance. That would save some cache.
         private readonly bool _hasValue;
 
-        // The values should technically be Consumed = 1, Produced = 1 for gotos that target a label whose continuation depth 
-        // is different from the current continuation depth. However, in case of forward gotos, we don't not know that is the 
+        // The values should technically be Consumed = 1, Produced = 1 for gotos that target a label whose continuation depth
+        // is different from the current continuation depth. However, in case of forward gotos, we don't not know that is the
         // case until the label is emitted. By then the consumed and produced stack information is useless.
         // The important thing here is that the stack balance is 0.
         public override int ConsumedContinuations => 0;
@@ -243,7 +243,7 @@ namespace Microsoft.Scripting.Interpreter {
         }
 
         public override int Run(InterpretedFrame frame) {
-            // Push finally. 
+            // Push finally.
             frame.PushContinuation(_labelIndex);
             return 1;
         }
@@ -299,10 +299,10 @@ namespace Microsoft.Scripting.Interpreter {
             _hasValue = hasValue;
         }
 
-        // If an exception is throws in try-body the expression result of try-body is not evaluated and loaded to the stack. 
+        // If an exception is throws in try-body the expression result of try-body is not evaluated and loaded to the stack.
         // So the stack doesn't contain the try-body's value when we start executing the handler.
-        // However, while emitting instructions try block falls thru the catch block with a value on stack. 
-        // We need to declare it consumed so that the stack state upon entry to the handler corresponds to the real 
+        // However, while emitting instructions try block falls thru the catch block with a value on stack.
+        // We need to declare it consumed so that the stack state upon entry to the handler corresponds to the real
         // stack depth after throw jumped to this catch block.
         public override int ConsumedStack => _hasValue ? 1 : 0;
 
@@ -325,7 +325,7 @@ namespace Microsoft.Scripting.Interpreter {
 
         private readonly bool _hasValue;
 
-        // The catch block yields a value if the body is non-void. This value is left on the stack. 
+        // The catch block yields a value if the body is non-void. This value is left on the stack.
         public override int ConsumedStack => _hasValue ? 1 : 0;
 
         public override int ProducedStack => _hasValue ? 1 : 0;
@@ -365,7 +365,7 @@ namespace Microsoft.Scripting.Interpreter {
         // and pop it at the end.
         public override int ConsumedStack => 1;
 
-        // While emitting instructions a non-void try-fault expression is expected to produce a value. 
+        // While emitting instructions a non-void try-fault expression is expected to produce a value.
         public override int ProducedStack => _hasValue ? 1 : 0;
 
         private LeaveFaultInstruction(bool hasValue) {
@@ -452,7 +452,7 @@ namespace Microsoft.Scripting.Interpreter {
             //
             // The first is okay, it just means we take longer to compile.
             // The second we explicitly guard against inside of Compile().
-            // 
+            //
             // We can't miss 0. The first thread that writes -1 must have read 0 and hence start compilation.
             if (unchecked(_compilationThreshold--) == 0) {
                 if (frame.Interpreter.CompileSynchronously) {

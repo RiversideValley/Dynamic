@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     internal static class ContractUtils {
         public static void RequiresNotNull(object value, string paramName) {
             Assert.NotEmpty(paramName);

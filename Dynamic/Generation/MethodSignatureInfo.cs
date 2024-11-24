@@ -4,7 +4,7 @@
 
 using System.Reflection;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     /// <summary>
     /// Helper class to remove methods w/ identical signatures.  Used for GetDefaultMembers
     /// which returns members from all types in the hierarchy.
@@ -14,7 +14,7 @@ namespace Microsoft.Scripting.Generation {
         private readonly bool _isStatic;
         private readonly int _genericArity;
 
-        public MethodSignatureInfo(MethodInfo info) 
+        public MethodSignatureInfo(MethodInfo info)
             : this(info.IsStatic, info.GetParameters(), info.IsGenericMethodDefinition ? info.GetGenericArguments().Length : 0){
         }
 

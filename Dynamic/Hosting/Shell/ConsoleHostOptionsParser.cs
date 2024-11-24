@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 
-using Microsoft.Scripting.Utils;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Hosting.Shell {
+namespace Riverside.Scripting.Hosting.Shell {
 
     public class ConsoleHostOptionsParser {
         public ConsoleHostOptions Options { get; }

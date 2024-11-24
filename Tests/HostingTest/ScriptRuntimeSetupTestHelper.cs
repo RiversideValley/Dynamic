@@ -1,5 +1,5 @@
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
 using System;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace HostingTest {
     public partial class ScriptRuntimeSetupTest : HAPITestBase {
-        
+
         private TestContext testContextInstance;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace HostingTest {
         }
 
         #region Additional test attributes
-        // 
+        //
         //You can use the following additional attributes as you write your tests:
         //
         //Use ClassInitialize to run code before running the first test in the class
@@ -54,17 +54,17 @@ namespace HostingTest {
         #endregion
 
         internal string GetTempConfigFile(LangSetup[] langs) {
-            string xmlPrefix = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +  
+            string xmlPrefix = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
 "<configuration>" +
   "<configSections>"+
-    "<section name=\"microsoft.scripting\" type=\"Microsoft.Scripting.Hosting.Configuration.Section, Microsoft.Scripting, Version=1.1.0.30, Culture=neutral, PublicKeyToken=31bf3856ad364e35\" requirePermission=\"false\" />"+
+    "<section name=\"Riverside.Scripting\" type=\"Riverside.Scripting.Hosting.Configuration.Section, Riverside.Scripting, Version=1.1.0.30, Culture=neutral, PublicKeyToken=31bf3856ad364e35\" requirePermission=\"false\" />"+
   "</configSections>"+
 
-  "<microsoft.scripting>"+
+  "<Riverside.Scripting>"+
     "<languages>";
 
             string xmlSuffix ="</languages>"+
-  "</microsoft.scripting>"+
+  "</Riverside.Scripting>"+
 "</configuration>";
 
             StringBuilder ret = new StringBuilder();

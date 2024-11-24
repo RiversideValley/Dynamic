@@ -8,10 +8,10 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static class TypeUtils {
         public static bool IsNested(this Type t) {
             return t.DeclaringType != null;
@@ -115,9 +115,9 @@ namespace Microsoft.Scripting.Utils {
         internal static bool CanAssign(Type to, Expression from) {
             if (CanAssign(to, from.Type)) return true;
 
-            if (to.IsValueType && 
-                to.IsGenericType && 
-                to.GetGenericTypeDefinition() == typeof(Nullable<>) && 
+            if (to.IsValueType &&
+                to.IsGenericType &&
+                to.GetGenericTypeDefinition() == typeof(Nullable<>) &&
                 ConstantCheck.Check(from, null)) {
                 return true;
             }
@@ -140,7 +140,7 @@ namespace Microsoft.Scripting.Utils {
                     CanAssign(to.GetElementType(), from.GetElementType())) {
                     return true;
                 }
-            } 
+            }
 
             return false;
         }
@@ -165,8 +165,8 @@ namespace Microsoft.Scripting.Utils {
             //          |     |     |
             //          v     v     v
             // 1: I1 -> I2 -> I4 -> I8
-            //          |     |     
-            //          v     v     
+            //          |     |
+            //          v     v
             // 2:       R4 -> R8
 
             switch (code) {

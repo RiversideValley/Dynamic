@@ -13,11 +13,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     /// <summary>
     /// ScriptCode is an instance of compiled code that is bound to a specific LanguageContext
     /// but not a specific ScriptScope. The code can be re-executed multiple times in different
@@ -28,7 +28,7 @@ namespace Microsoft.Scripting {
         protected SavableScriptCode(SourceUnit sourceUnit)
             : base(sourceUnit) {
         }
-       
+
         class CodeInfo {
             public readonly MethodBuilder Builder;
             public readonly ScriptCode Code;
@@ -144,26 +144,26 @@ namespace Microsoft.Scripting {
         }
 
         /// <summary>
-        /// This takes an assembly name including extension and saves the provided ScriptCode objects into the assembly.  
-        /// 
-        /// The provided script codes can constitute code from multiple languages.  The assemblyName can be either a fully qualified 
-        /// or a relative path.  The DLR will simply save the assembly to the desired location.  The assembly is created by the DLR and 
-        /// if a file already exists than an exception is raised.  
-        /// 
-        /// The DLR determines the internal format of the ScriptCode and the DLR can feel free to rev this as appropriate.  
+        /// This takes an assembly name including extension and saves the provided ScriptCode objects into the assembly.
+        ///
+        /// The provided script codes can constitute code from multiple languages.  The assemblyName can be either a fully qualified
+        /// or a relative path.  The DLR will simply save the assembly to the desired location.  The assembly is created by the DLR and
+        /// if a file already exists than an exception is raised.
+        ///
+        /// The DLR determines the internal format of the ScriptCode and the DLR can feel free to rev this as appropriate.
         /// </summary>
         public static void SaveToAssembly(string assemblyName, params SavableScriptCode[] codes) {
             SaveToAssembly(assemblyName, null, codes);
         }
 
         /// <summary>
-        /// This will take an assembly object which the user has loaded and return a new set of ScriptCode’s which have 
-        /// been loaded into the provided ScriptDomainManager.  
-        /// 
-        /// If the language associated with the ScriptCode’s has not already been loaded the DLR will load the 
-        /// LanguageContext into the ScriptDomainManager based upon the saved LanguageContext type.  
-        /// 
-        /// If the LanguageContext or the version of the DLR the language was compiled against is unavailable a 
+        /// This will take an assembly object which the user has loaded and return a new set of ScriptCodeï¿½s which have
+        /// been loaded into the provided ScriptDomainManager.
+        ///
+        /// If the language associated with the ScriptCodeï¿½s has not already been loaded the DLR will load the
+        /// LanguageContext into the ScriptDomainManager based upon the saved LanguageContext type.
+        ///
+        /// If the LanguageContext or the version of the DLR the language was compiled against is unavailable a
         /// TypeLoadException will be raised unless policy has been applied by the administrator to redirect bindings.
         /// </summary>
         public static ScriptCode[] LoadFromAssembly(ScriptDomainManager runtime, Assembly assembly) {

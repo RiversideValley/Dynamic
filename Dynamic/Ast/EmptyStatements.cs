@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System;
 using System.Dynamic;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     public static partial class Utils {
         private static readonly DefaultExpression VoidInstance = Expression.Empty();
 

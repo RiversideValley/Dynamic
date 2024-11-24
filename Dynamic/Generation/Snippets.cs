@@ -9,10 +9,10 @@ using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     // TODO: This should be a static class
     // TODO: simplify initialization logic & state
     public sealed class Snippets {
@@ -194,7 +194,7 @@ namespace Microsoft.Scripting.Generation {
         public Type DefineDelegate(string name, Type returnType, params Type[] argTypes) {
             TypeBuilder tb = DefineDelegateType(name);
             tb.DefineConstructor(
-                MethodAttributes.RTSpecialName | MethodAttributes.HideBySig | MethodAttributes.Public, 
+                MethodAttributes.RTSpecialName | MethodAttributes.HideBySig | MethodAttributes.Public,
                 CallingConventions.Standard, _DelegateCtorSignature).SetImplementationFlags(MethodImplAttributes.Runtime | MethodImplAttributes.Managed);
             tb.DefineMethod("Invoke", MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.NewSlot | MethodAttributes.Virtual, returnType, argTypes).SetImplementationFlags(MethodImplAttributes.Runtime | MethodImplAttributes.Managed);
             return tb.CreateTypeInfo();
@@ -220,7 +220,7 @@ namespace Microsoft.Scripting.Generation {
                 TypeBuilder tb = assembly.DefinePublicType(methodName, typeof(object), false);
                 MethodBuilder mb = tb.DefineMethod(methodName, CompilerHelpers.PublicStatic, returnType, parameterTypes);
                 return new DynamicILGenType(tb, mb, mb.GetILGenerator());
-            } 
+            }
 #endif
             DynamicMethod dm = ReflectionUtils.RawCreateDynamicMethod(methodName, returnType, parameterTypes);
             return new DynamicILGenMethod(dm, dm.GetILGenerator());

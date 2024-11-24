@@ -4,9 +4,9 @@
 
 using System.Linq.Expressions;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
 
     public sealed class IfStatementTest {
         internal IfStatementTest(Expression test, Expression body) {

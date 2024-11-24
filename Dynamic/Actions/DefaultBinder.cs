@@ -9,16 +9,16 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
 
     /// <summary>
     /// Provides binding semantics for a language.  This include conversions as well as support
-    /// for producing rules for actions.  These optimized rules are used for calling methods, 
+    /// for producing rules for actions.  These optimized rules are used for calling methods,
     /// performing operators, and getting members using the ActionBinder's conversion semantics.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling")]
@@ -43,7 +43,7 @@ namespace Microsoft.Scripting.Actions {
 
         /// <summary>
         /// Called when the user is accessing a protected or private member on a get.
-        /// 
+        ///
         /// The default implementation allows access to the fields or properties using reflection.
         /// </summary>
         public virtual ErrorInfo MakeNonPublicMemberGetError(OverloadResolverFactory resolverFactory, MemberTracker member, Type type, DynamicMetaObject instance) {
@@ -177,10 +177,10 @@ namespace Microsoft.Scripting.Actions {
 
             return null;
         }
-        
+
         private static MethodInfo GetSpecialNameMethod(Type type, string name) {
             MethodInfo res = null;
-            
+
             foreach (MethodInfo candidate in type.GetInheritedMethods(name).WithBindingFlags(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)) {
                 if (candidate.IsSpecialName) {
                     if (object.ReferenceEquals(res, null)) {
@@ -193,7 +193,7 @@ namespace Microsoft.Scripting.Actions {
 
             return res;
         }
-        
+
         private static Exception AmbiguousMatch(Type type, string name) {
             throw new AmbiguousMatchException(
                 $"Found multiple SpecialName methods for {name} on type {type}"

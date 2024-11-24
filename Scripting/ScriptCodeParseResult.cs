@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the Apache 2.0 License.
 // See the LICENSE file in the project root for more information.
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
     public enum ScriptCodeParseResult {
         /// <summary>
         /// Source code is a syntactically correct.
@@ -13,7 +13,7 @@ namespace Microsoft.Scripting {
         /// Source code represents an empty statement/expression.
         /// </summary>
         Empty,
-            
+
         /// <summary>
         /// Source code is already invalid and no suffix can make it syntactically correct.
         /// </summary>

@@ -14,18 +14,18 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Hosting {
+namespace Riverside.Scripting.Hosting {
 
     /// <summary>
-    /// ObjectOperations provide a large catalogue of object operations such as member access, conversions, 
+    /// ObjectOperations provide a large catalogue of object operations such as member access, conversions,
     /// indexing, and things like addition.  There are several introspection and tool support services available
-    /// for more advanced hosts.  
-    /// 
-    /// You get ObjectOperation instances from ScriptEngine, and they are bound to their engines for the semantics 
-    /// of the operations.  There is a default instance of ObjectOperations you can share across all uses of the 
+    /// for more advanced hosts.
+    ///
+    /// You get ObjectOperation instances from ScriptEngine, and they are bound to their engines for the semantics
+    /// of the operations.  There is a default instance of ObjectOperations you can share across all uses of the
     /// engine.  However, very advanced hosts can create new instances.
     /// </summary>
     public sealed class ObjectOperations : MarshalByRefObject {
@@ -38,7 +38,7 @@ namespace Microsoft.Scripting.Hosting {
             _ops = ops;
             Engine = engine;
         }
-        
+
         public ScriptEngine Engine { get; }
 
 #pragma warning disable 618
@@ -46,8 +46,8 @@ namespace Microsoft.Scripting.Hosting {
         #region Local Operations
 
         /// <summary>
-        /// Returns true if the object can be called, false if it cannot.  
-        /// 
+        /// Returns true if the object can be called, false if it cannot.
+        ///
         /// Even if an object is callable Call may still fail if an incorrect number of arguments or type of arguments are provided.
         /// </summary>
         public bool IsCallable(object obj) {
@@ -56,8 +56,8 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Invokes the provided object with the given parameters and returns the result.
-        /// 
-        /// The prefered way of calling objects is to convert the object to a strongly typed delegate 
+        ///
+        /// The prefered way of calling objects is to convert the object to a strongly typed delegate
         /// using the ConvertTo methods and then invoking that delegate.
         /// </summary>
         public dynamic Invoke(object obj, params object[] parameters) {
@@ -94,7 +94,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and 
+        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and
         /// stores the value in the value out param.
         /// </summary>
         public bool TryGetMember(object obj, string name, out object value) {
@@ -109,7 +109,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Removes the member name from the object obj.  
+        /// Removes the member name from the object obj.
         /// </summary>
         public void RemoveMember(object obj, string name) {
             _ops.RemoveMember(obj, name);
@@ -146,7 +146,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and 
+        /// Gets the member name from the object obj.  Returns true if the member is successfully retrieved and
         /// stores the value in the value out param.
         /// </summary>
         public bool TryGetMember(object obj, string name, bool ignoreCase, out object value) {
@@ -161,7 +161,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Removes the member name from the object obj.  
+        /// Removes the member name from the object obj.
         /// </summary>
         public void RemoveMember(object obj, string name, bool ignoreCase) {
             _ops.RemoveMember(obj, name, ignoreCase);
@@ -183,7 +183,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Converts the object obj to the type T.  The conversion will be explicit or implicit depending on 
+        /// Converts the object obj to the type T.  The conversion will be explicit or implicit depending on
         /// what the langauge prefers.
         /// </summary>
         public T ConvertTo<T>(object obj) {
@@ -191,7 +191,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Converts the object obj to the type type. The conversion will be explicit or implicit depending on 
+        /// Converts the object obj to the type type. The conversion will be explicit or implicit depending on
         /// what the langauge prefers.
         /// </summary>
         public object ConvertTo(object obj, Type type) {
@@ -202,7 +202,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the object obj to the type T.  Returns true if the value can be converted, false if it cannot.
-        /// 
+        ///
         /// The conversion will be explicit or implicit depending on what the langauge prefers.
         /// </summary>
         public bool TryConvertTo<T>(object obj, out T result) {
@@ -211,7 +211,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the object obj to the type type.  Returns true if the value can be converted, false if it cannot.
-        /// 
+        ///
         /// The conversion will be explicit or implicit depending on what the langauge prefers.
         /// </summary>
         public bool TryConvertTo(object obj, Type type, out object result) {
@@ -236,7 +236,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the object obj to the type T including explicit conversions which may lose information.
-        /// 
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryExplicitConvertTo<T>(object obj, out T result) {
@@ -244,8 +244,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Converts the object obj to the type type including explicit conversions which may lose information.  
-        /// 
+        /// Converts the object obj to the type type including explicit conversions which may lose information.
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryExplicitConvertTo(object obj, Type type, out object result) {
@@ -271,7 +271,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the object obj to the type T including implicit conversions.
-        /// 
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryImplicitConvertTo<T>(object obj, out T result) {
@@ -279,8 +279,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Converts the object obj to the type type including implicit conversions.  
-        /// 
+        /// Converts the object obj to the type type including implicit conversions.
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryImplicitConvertTo(object obj, Type type, out object result) {
@@ -380,7 +380,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Performs a bitwise-and of the two operands.  Throws an exception if the operation 
+        /// Performs a bitwise-and of the two operands.  Throws an exception if the operation
         /// cannot be performed.
         /// </summary>
         public dynamic BitwiseAnd(object self, object other) {
@@ -388,7 +388,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Performs a bitwise-or of the two operands.  Throws an exception if the operation 
+        /// Performs a bitwise-or of the two operands.  Throws an exception if the operation
         /// cannot be performed.
         /// </summary>
         public dynamic BitwiseOr(object self, object other) {
@@ -396,7 +396,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Performs a exclusive-or of the two operands.  Throws an exception if the operation 
+        /// Performs a exclusive-or of the two operands.  Throws an exception if the operation
         /// cannot be performed.
         /// </summary>
         public dynamic ExclusiveOr(object self, object other) {
@@ -507,7 +507,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Invokes the specified remote object with the specified remote parameters.
-        /// 
+        ///
         /// Though delegates are preferable for calls they may not always be usable for remote objects.
         /// </summary>
         public ObjectHandle Invoke([NotNull]ObjectHandle obj, params ObjectHandle[] parameters) {
@@ -584,7 +584,7 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Tests to see if the member name is defined on the remote object.  
+        /// Tests to see if the member name is defined on the remote object.
         /// </summary>
         public bool ContainsMember([NotNull]ObjectHandle obj, string name) {
             return ContainsMember(GetLocalObject(obj), name);
@@ -599,7 +599,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the remote object into the specified type returning a handle to
-        /// the new remote object. The conversion will be explicit or implicit depending on 
+        /// the new remote object. The conversion will be explicit or implicit depending on
         /// what the langauge prefers.
         /// </summary>
         public ObjectHandle ConvertTo<T>([NotNull]ObjectHandle obj) {
@@ -608,7 +608,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the remote object into the specified type returning a handle to
-        /// the new remote object. The conversion will be explicit or implicit depending on 
+        /// the new remote object. The conversion will be explicit or implicit depending on
         /// what the langauge prefers.
         /// </summary>
         public ObjectHandle ConvertTo([NotNull]ObjectHandle obj, Type type) {
@@ -618,7 +618,7 @@ namespace Microsoft.Scripting.Hosting {
         /// <summary>
         /// Converts the remote object into the specified type returning a handle to
         /// the new remote object. Returns true if the value can be converted,
-        /// false if it cannot. The conversion will be explicit or implicit depending on 
+        /// false if it cannot. The conversion will be explicit or implicit depending on
         /// what the langauge prefers.
         /// </summary>
         public bool TryConvertTo<T>([NotNull]ObjectHandle obj, out ObjectHandle result) {
@@ -633,7 +633,7 @@ namespace Microsoft.Scripting.Hosting {
         /// <summary>
         /// Converts the remote object into the specified type returning a handle to
         /// the new remote object. Returns true if the value can be converted,
-        /// false if it cannot. The conversion will be explicit or implicit depending on 
+        /// false if it cannot. The conversion will be explicit or implicit depending on
         /// what the langauge prefers.
         /// </summary>
         public bool TryConvertTo([NotNull]ObjectHandle obj, Type type, out ObjectHandle result) {
@@ -663,7 +663,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the object obj to the type T including explicit conversions which may lose information.
-        /// 
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryExplicitConvertTo<T>([NotNull]ObjectHandle obj, out ObjectHandle result) {
@@ -673,8 +673,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Converts the object obj to the type type including explicit conversions which may lose information.  
-        /// 
+        /// Converts the object obj to the type type including explicit conversions which may lose information.
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryExplicitConvertTo([NotNull]ObjectHandle obj, Type type, out ObjectHandle result) {
@@ -701,7 +701,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Converts the object obj to the type T including implicit conversions.
-        /// 
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryImplicitConvertTo<T>([NotNull]ObjectHandle obj, out ObjectHandle result) {
@@ -711,8 +711,8 @@ namespace Microsoft.Scripting.Hosting {
         }
 
         /// <summary>
-        /// Converts the object obj to the type type including implicit conversions.  
-        /// 
+        /// Converts the object obj to the type type including implicit conversions.
+        ///
         /// Returns true if the value can be converted, false if it cannot.
         /// </summary>
         public bool TryImplicitConvertTo([NotNull]ObjectHandle obj, Type type, out ObjectHandle result) {
@@ -780,7 +780,7 @@ namespace Microsoft.Scripting.Hosting {
 
         /// <summary>
         /// Performs modulus on the 1st remote object by the 2nd.  Throws an exception if the operation cannot be performed.
-        /// </summary>        
+        /// </summary>
         public ObjectHandle Modulo([NotNull]ObjectHandle self, [NotNull]ObjectHandle other) {
             return new ObjectHandle((object)Modulo(GetLocalObject(self), GetLocalObject(other)));
         }

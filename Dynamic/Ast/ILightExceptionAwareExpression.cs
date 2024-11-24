@@ -6,10 +6,10 @@ using System.Linq.Expressions;
 
 using System;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
     /// <summary>
-    /// Implemented by expressions which can provide a version which is aware of light exceptions.  
-    /// 
+    /// Implemented by expressions which can provide a version which is aware of light exceptions.
+    ///
     /// Normally these expressions will simply reduce to a version which throws a real exception.
     /// When the expression is used inside of a region of code which supports light exceptions
     /// the light exception re-writer will call ReduceForLightExceptions.  The expression can

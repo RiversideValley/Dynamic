@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.Scripting;
+using Riverside.Scripting;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
 using Path = System.IO.Path;
 
@@ -88,8 +88,8 @@ namespace SymplSample.Hosting {
 
     } //SymplLangContext
 
-    
-    
+
+
     // This class represents Sympl compiled code for the language implementation
     // support the DLR Hosting APIs require.  The DLR Hosting APIs call on
     // this class to run code in a new ScriptScope (represented as Scope at the
@@ -103,7 +103,7 @@ namespace SymplSample.Hosting {
         private Func<Sympl, IDynamicMetaObjectProvider, object> _compiledLambda;
 
         public SymplScriptCode(
-             Sympl sympl, 
+             Sympl sympl,
              Expression<Func<Sympl, IDynamicMetaObjectProvider, object>> lambda,
              SourceUnit sourceUnit)
              : base(sourceUnit) {

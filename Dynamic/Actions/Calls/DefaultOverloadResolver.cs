@@ -9,12 +9,12 @@ using System.Diagnostics;
 using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
-using Microsoft.Scripting.Actions.Calls;
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Actions.Calls;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     using Ast = Expression;
 
     internal sealed class DefaultOverloadResolverFactory : OverloadResolverFactory {
@@ -133,7 +133,7 @@ namespace Microsoft.Scripting.Actions {
                 objects.TrimExcess();
                 argNames = names;
                 namedArgs = objects;
-            } else { 
+            } else {
                 argNames = ArrayUtils.EmptyStrings;
                 namedArgs = DynamicMetaObject.EmptyMetaObjects;
             }
@@ -249,7 +249,7 @@ namespace Microsoft.Scripting.Actions {
 
         private ErrorInfo MakeInvalidSplatteeError(BindingTarget target) {
             return ErrorInfo.FromException(
-                Ast.Call(typeof(BinderOps).GetMethod(nameof(BinderOps.InvalidSplatteeError)), 
+                Ast.Call(typeof(BinderOps).GetMethod(nameof(BinderOps.InvalidSplatteeError)),
                     AstUtils.Constant(target.Name),
                     AstUtils.Constant(Binder.GetTypeName(_invalidSplattee.GetLimitType()))
                 )

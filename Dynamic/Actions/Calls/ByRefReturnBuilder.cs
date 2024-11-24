@@ -5,9 +5,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     using Ast = Expression;
 
     internal sealed class ByRefReturnBuilder : ReturnBuilder {

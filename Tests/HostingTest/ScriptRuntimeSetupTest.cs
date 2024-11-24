@@ -5,9 +5,9 @@ using System.IO;
 using System.Runtime.Remoting;
 using System.Text;
 using IronPython.Runtime;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
+using Riverside.Scripting.Runtime;
 using NUnit.Framework;
 using System.Diagnostics;
 
@@ -114,7 +114,7 @@ namespace HostingTest {
         [ExpectedException(typeof(ArgumentException))]
         public void ReadConfiguration_Multi_SameNameDifferentType() {
             LangSetup py1 = LangSetup.Python;
-            LangSetup py2 = new LangSetup( py1.Names, py1.Extensions, py1.DisplayName, 
+            LangSetup py2 = new LangSetup( py1.Names, py1.Extensions, py1.DisplayName,
                                 LangSetup.Ruby.TypeName, LangSetup.Ruby.AssemblyString);
 
             string configFile = GetTempConfigFile(new[] { py1, py2 });
@@ -160,7 +160,7 @@ namespace HostingTest {
         [ExpectedException(typeof(ArgumentException))]
         public void ReadConfiguration_MissingAssembly() {
             LangSetup lang = new LangSetup(new[]{"SomeName"}, new[]{".sn"}, "Somename",
-                    "SomeLang.Runtime.LangContext", 
+                    "SomeLang.Runtime.LangContext",
                     "SomeLang, Version=8.0.0.5050, Culture=neutral, PublicKeyToken=31345fgsd4344e35");
 
             string configFile = GetTempConfigFile(new[] { lang});
@@ -180,7 +180,7 @@ namespace HostingTest {
 
             string configFile = GetTempConfigFile(new[] { py2});
             var srs = ScriptRuntimeSetup.ReadConfiguration(configFile);
-            
+
             var sr = new ScriptRuntime(srs);
             var eng = sr.GetEngine("py");
             Assert.Fail("some exception should have been thrown");

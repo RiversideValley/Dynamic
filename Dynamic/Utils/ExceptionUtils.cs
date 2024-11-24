@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     public static class ExceptionUtils {
         public static ArgumentOutOfRangeException MakeArgumentOutOfRangeException(string paramName, object actualValue, string message) {
             return new ArgumentOutOfRangeException(paramName, actualValue, message);
@@ -40,7 +40,7 @@ namespace Microsoft.Scripting.Utils {
 
             lock (_exceptionData) {
                 var data = _exceptionData.GetOrCreateValue(e);
-            
+
                 int index = data.FindIndex(entry => entry.Key == key);
                 if (index >= 0) {
                     data[index] = new KeyValuePair<object, object>(key, value);

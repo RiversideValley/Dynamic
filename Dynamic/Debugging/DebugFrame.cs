@@ -9,10 +9,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Debugging.CompilerServices;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Debugging.CompilerServices;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Debugging {
+namespace Riverside.Scripting.Debugging {
     [DebuggerDisplay("FunctionInfo = {_funcInfo.Name}, CurrentSequencePointIndex = {CurrentSequencePointIndex}")]
     public sealed class DebugFrame {
         private FunctionInfo _funcInfo;
@@ -202,7 +202,7 @@ namespace Microsoft.Scripting.Debugging {
         internal int CurrentLocationCookie {
             get {
                 Debug.Assert(_generator != null || _liftedLocals is IDebugRuntimeVariables);
-                return (_generator == null ? ((IDebugRuntimeVariables)_liftedLocals).DebugMarker : 
+                return (_generator == null ? ((IDebugRuntimeVariables)_liftedLocals).DebugMarker :
                     (_generator.YieldMarkerLocation != Int32.MaxValue ? _generator.YieldMarkerLocation : _lastKnownGeneratorYieldMarker));
             }
         }

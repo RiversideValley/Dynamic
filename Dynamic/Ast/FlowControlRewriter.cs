@@ -8,31 +8,31 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Ast {
+namespace Riverside.Scripting.Ast {
 
     /// <summary>
     /// The purpose of this rewriter is simple: ETs do not allow jumps (break, continue, return, goto)
     /// that would go through a finally/fault. So we replace them with code that instead stores a flag,
     /// and then jumps to the end of the finally/fault. At the end of the try-finally, we emit a switch
     /// that then jumps to the correct label.
-    /// 
+    ///
     /// A few things that make this more complicated:
-    /// 
+    ///
     ///   1. If a finally contains a jump out, then jumps in the try/catch need to be replaced as well.
     ///      It's to support cases like this:
     ///          # returns 234
     ///          def foo():
     ///              try: return 123
-    ///              finally: return 234 
-    ///      
+    ///              finally: return 234
+    ///
     ///      We need to replace the "return 123" because after it jumps, we'll go to the finally, which
     ///      might decide to jump again, but once the IL finally exits, it ignores the finally jump and
     ///      keeps going with the original jump. The moral of the story is: if any jumps in finally are
     ///      rewritten, try/catch jumps must be also.
-    ///      
+    ///
     ///  2. To generate better code, we only have one state variable, so if we have to jump out of
     ///     multiple finallys we just keep jumping. It looks sort of like this:
     ///       foo:
@@ -41,7 +41,7 @@ namespace Microsoft.Scripting.Ast {
     ///             ...
     ///             if (...) {
     ///                 // was: goto foo;
-    ///                 $flow = 1; goto endInnerFinally; 
+    ///                 $flow = 1; goto endInnerFinally;
     ///             }
     ///             ...
     ///             endInnerFinally:
@@ -56,7 +56,7 @@ namespace Microsoft.Scripting.Ast {
     ///         case 1: $flow = 0; goto foo;
     ///       }
     ///       ...
-    /// 
+    ///
     /// </summary>
     internal sealed class FlowControlRewriter : ExpressionVisitor {
 
@@ -202,7 +202,7 @@ namespace Microsoft.Scripting.Ast {
             //          throw saved;
             //      }
             //  }
-            //  
+            //
             //  If we have a fault handler we turn this into the better:
             //  try {
             //      // try block body and all catch handling
@@ -321,8 +321,8 @@ namespace Microsoft.Scripting.Ast {
                     VisitLabelTarget(label.Target);
 
                     // TODO: Support this.
-                    // The check for BlockExpression is a hack to support the exact kind of 
-                    // cross-block jump that the light exception rewriter produces.  Really we 
+                    // The check for BlockExpression is a hack to support the exact kind of
+                    // cross-block jump that the light exception rewriter produces.  Really we
                     // should be aware of cross-block jumps and not produce a jump out of the finally
                     // and then back in, currently this fails:
                     //

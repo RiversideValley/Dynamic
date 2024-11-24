@@ -5,9 +5,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
-    /// Represents a language context.  Typically there is at most 1 context 
+    /// Represents a language context.  Typically there is at most 1 context
     /// associated with each language, but some languages may use more than one context
     /// to identify code that should be treated differently.  Contexts are used during
     /// member and operator lookup.

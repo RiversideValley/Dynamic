@@ -5,9 +5,9 @@
 using System;
 using System.Diagnostics;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Implements explicit casts supported by the runtime.
     /// </summary>
@@ -29,7 +29,7 @@ namespace Microsoft.Scripting.Runtime {
                     }
 
                     throw new InvalidCastException($"Cannot cast null to a value type {to.Name}");
-                    
+
                 }
 
                 // Explicit cast to reference type is simply null
@@ -38,13 +38,13 @@ namespace Microsoft.Scripting.Runtime {
 
             if (to.IsValueType) {
                 return ExplicitCastToValueType(o, to);
-            } 
-            
+            }
+
             Type type = o.GetType();
             if (to.IsAssignableFrom(type)) {
                 return o;
             }
- 
+
             throw new InvalidCastException($"Cannot cast {type.Name} to {to.Name}");
         }
 

@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 
 using System.Collections.Generic;
 using System.Dynamic;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.ComInterop {
+namespace Riverside.Scripting.ComInterop {
 
     internal class TypeLibMetaObject : DynamicMetaObject {
         private readonly ComTypeLibDesc _lib;

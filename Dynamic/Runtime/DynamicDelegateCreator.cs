@@ -6,17 +6,17 @@ using System;
 using System.Dynamic;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Provides support for converting objects to delegates using the DLR binders
     /// available by the provided language context.
-    /// 
+    ///
     /// Primarily this supports converting objects implementing IDynamicMetaObjectProvider
-    /// to the appropriate delegate type.  
-    /// 
-    /// If the provided object is already a delegate of the appropriate type then the 
+    /// to the appropriate delegate type.
+    ///
+    /// If the provided object is already a delegate of the appropriate type then the
     /// delegate will simply be returned.
     /// </summary>
     public class DynamicDelegateCreator {
@@ -34,7 +34,7 @@ namespace Microsoft.Scripting.Runtime {
         /// The stub should be executed within a context of this object's language.
         /// </summary>
         /// <returns>The converted delegate.</returns>
-        /// <exception cref="T:Microsoft.Scripting.ArgumentTypeException">The object is either a subclass of Delegate but not the requested type or does not implement IDynamicMetaObjectProvider.</exception>
+        /// <exception cref="T:Riverside.Scripting.ArgumentTypeException">The object is either a subclass of Delegate but not the requested type or does not implement IDynamicMetaObjectProvider.</exception>
         public Delegate GetDelegate(object callableObject, Type delegateType) {
             ContractUtils.RequiresNotNull(delegateType, nameof(delegateType));
 
@@ -64,18 +64,18 @@ namespace Microsoft.Scripting.Runtime {
         }
 
 #if FEATURE_LCG
-        // Table of dynamically generated delegates which are shared based upon method signature. 
+        // Table of dynamically generated delegates which are shared based upon method signature.
         //
         // We generate a dynamic method stub and object[] closure template for each signature.
         // The stub does only depend on the signature, it doesn't depend on the dynamic object.
         // So we can reuse these stubs among multiple dynamic object for which a delegate was created with the same signature.
-        // 
+        //
         private Publisher<DelegateSignatureInfo, DelegateInfo> _dynamicDelegateCache = new Publisher<DelegateSignatureInfo, DelegateInfo>();
 
         public Delegate GetOrCreateDelegateForDynamicObject(object dynamicObject, Type delegateType, MethodInfo invoke) {
             var signatureInfo = new DelegateSignatureInfo(invoke);
             DelegateInfo delegateInfo = _dynamicDelegateCache.GetOrCreateValue(
-                signatureInfo, 
+                signatureInfo,
                 () => new DelegateInfo(_languageContext, signatureInfo.ReturnType, signatureInfo.ParameterTypes)
             );
 

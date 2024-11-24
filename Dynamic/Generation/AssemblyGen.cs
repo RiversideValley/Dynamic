@@ -15,10 +15,10 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Linq;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Generation {
+namespace Riverside.Scripting.Generation {
     public sealed class AssemblyGen {
         private readonly AssemblyBuilder _myAssembly;
         private readonly ModuleBuilder _myModule;
@@ -66,7 +66,7 @@ namespace Microsoft.Scripting.Generation {
             }
 
             // mark the assembly transparent so that it works in partial trust:
-            var attributes = new List<CustomAttributeBuilder> { 
+            var attributes = new List<CustomAttributeBuilder> {
                 new CustomAttributeBuilder(typeof(SecurityTransparentAttribute).GetConstructor(ReflectionUtils.EmptyTypes), EmptyArray<object>.Instance),
 #if FEATURE_SECURITY_RULES
                 new CustomAttributeBuilder(typeof(SecurityRulesAttribute).GetConstructor(new[] { typeof(SecurityRuleSet) }), new object[] { SecurityRuleSet.Level1 }),
@@ -79,7 +79,7 @@ namespace Microsoft.Scripting.Generation {
                         continue;
                     }
 
-                    ConstructorInfo ctor = null; 
+                    ConstructorInfo ctor = null;
                     switch(attr.Key) {
                         case "assemblyFileVersion":
                             ctor = typeof(AssemblyFileVersionAttribute).GetConstructor(new[] { typeof(string) });
@@ -98,7 +98,7 @@ namespace Microsoft.Scripting.Generation {
                     if(ctor != null) {
                         attributes.Add(new CustomAttributeBuilder(ctor, new object[] { a }));
                     }
-                }                
+                }
             }
 
             if (outDir != null) {
@@ -313,7 +313,7 @@ namespace Microsoft.Scripting.Generation {
                 sb.Append(index);
             }
 
-            // There is a bug in Reflection.Emit that leads to 
+            // There is a bug in Reflection.Emit that leads to
             // Unhandled Exception: System.Runtime.InteropServices.COMException (0x80131130): Record not found on lookup.
             // if there is any of the characters []*&+,\ in the type name and a method defined on the type is called.
             sb.Replace('+', '_').Replace('[', '_').Replace(']', '_').Replace('*', '_').Replace('&', '_').Replace(',', '_').Replace('\\', '_');

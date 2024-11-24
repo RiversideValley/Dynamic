@@ -5,9 +5,9 @@
 using System;
 using System.IO;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     [Serializable]
     internal sealed class SourceStringContentProvider : TextContentProvider {

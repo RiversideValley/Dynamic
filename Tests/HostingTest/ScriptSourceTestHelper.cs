@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Scripting;
-using Microsoft.Scripting.Hosting;
+using Riverside.Scripting;
+using Riverside.Scripting.Hosting;
 using NUnit.Framework;
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
 
 namespace HostingTest {
@@ -25,7 +25,7 @@ namespace HostingTest {
         }
 
         #region Additional test attributes
-        // 
+        //
         //You can use the following additional attributes as you write your tests:
         //
         //Use ClassInitialize to run code before running the first test in the class
@@ -73,7 +73,7 @@ namespace HostingTest {
         internal ScriptSource CreateStringBasedScriptSource(string code) {
             return _testEng.CreateScriptSourceFromString(code);
         }
-        
+
         internal ScriptSource CreateScriptSource(string code) {
             return CreateStringBasedScriptSource(code);
         }
@@ -91,7 +91,7 @@ namespace HostingTest {
         /// <param name="sourceCodeKind">The value with which the enum should be verified against</param>
         internal void ValidateKind(string InputCode, SourceCodeKind input, SourceCodeKind ExpectedValue) {
             ScriptSource ss = CreateScriptSource(InputCode, input);
-            
+
             Assert.AreEqual(ss.Kind, ExpectedValue);
         }
 
@@ -181,7 +181,7 @@ namespace HostingTest {
         private void ValidateExecute( string expression, int expResult) {
             ScriptSource source = _testEng.CreateScriptSourceFromString(expression,
                                                                      SourceCodeKind.Expression);
-            
+
             // Execute source using scope and capture result
             object testResult = source.Execute(_testEng.CreateScope());
             // test result against expected result
@@ -203,7 +203,7 @@ namespace HostingTest {
         private void ValidateExecute(ScriptScope scope, string expression, int expResult) {
             ScriptSource source = _testEng.CreateScriptSourceFromString(expression,
                                                                      SourceCodeKind.Expression);
-            
+
             // Execute source using scope and capture result
             object testResult = source.Execute(scope);
 
@@ -231,10 +231,10 @@ namespace HostingTest {
             Assert.AreEqual(expectedResult, exitCode);
         }
 
-     
+
 
         #endregion
 
     }
-     
+
 }

@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Runtime.Remoting;
 using System.Threading;
 
-namespace Microsoft.Scripting.Hosting.Shell.Remote {
+namespace Riverside.Scripting.Hosting.Shell.Remote {
     /// <summary>
     /// Customize the CommandLine for remote scenarios
     /// </summary>

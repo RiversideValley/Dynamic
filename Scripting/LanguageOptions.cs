@@ -5,12 +5,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using System.IO;
 using System.Threading;
 using System.Globalization;
 
-namespace Microsoft.Scripting {
+namespace Riverside.Scripting {
 
     [Serializable]
     public class LanguageOptions {
@@ -28,8 +28,8 @@ namespace Microsoft.Scripting {
         /// </summary>
         public bool NoAdaptiveCompilation {
             get { return _noAdaptiveCompilation; }
-        } 
-        
+        }
+
         /// <summary>
         /// The number of iterations before the interpreter starts compiling.s
         /// </summary>
@@ -71,7 +71,7 @@ namespace Microsoft.Scripting {
             get { return _searchPaths; }
         }
 
-        public LanguageOptions() 
+        public LanguageOptions()
             : this(null) {
         }
 
@@ -94,7 +94,7 @@ namespace Microsoft.Scripting {
             }
             return defaultValue;
         }
-        
+
         /// <summary>
         /// Reads an option whose value is expected to be a collection of non-null strings.
         /// Reaturns a read-only copy of the option's value.

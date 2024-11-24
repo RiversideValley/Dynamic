@@ -8,11 +8,11 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Ast;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Ast;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Interpreter {
-    using AstUtils = Microsoft.Scripting.Ast.Utils;
+namespace Riverside.Scripting.Interpreter {
+    using AstUtils = Riverside.Scripting.Ast.Utils;
     using LoopFunc = Func<object[], StrongBox<object>[], InterpretedFrame, int>;
 
     internal sealed class LoopCompiler : ExpressionVisitor {
@@ -37,10 +37,10 @@ namespace Microsoft.Scripting.Interpreter {
         private readonly ParameterExpression _frameVar;
         private readonly LabelTarget _returnLabel;
         // locals and closure variables defined outside the loop
-        private readonly Dictionary<ParameterExpression, LocalVariable> _outerVariables, _closureVariables; 
+        private readonly Dictionary<ParameterExpression, LocalVariable> _outerVariables, _closureVariables;
         private readonly LoopExpression _loop;
         private ReadOnlyCollectionBuilder<ParameterExpression> _temps;
-        // tracks variables that flow in and flow out for initialization and 
+        // tracks variables that flow in and flow out for initialization and
         private readonly Dictionary<ParameterExpression, LoopVariable> _loopVariables;
         // variables which are defined and used within the loop
         private HashSet<ParameterExpression> _loopLocals;
@@ -124,8 +124,8 @@ namespace Microsoft.Scripting.Interpreter {
         protected override Expression VisitGoto(GotoExpression node) {
             var target = node.Target;
             var value = Visit(node.Value);
-            
-            // TODO: Is it possible for an inner reducible node of the loop to rely on nodes produced by reducing outer reducible nodes? 
+
+            // TODO: Is it possible for an inner reducible node of the loop to rely on nodes produced by reducing outer reducible nodes?
 
             // Unknown label => must be within the loop:
             if (!_labelMapping.TryGetValue(target, out BranchLabel label)) {
@@ -137,7 +137,7 @@ namespace Microsoft.Scripting.Interpreter {
                 return node.Update(target, value);
             }
 
-            return Expression.Return(_returnLabel, 
+            return Expression.Return(_returnLabel,
                 (value != null) ?
                     Expression.Call(_frameVar, InterpretedFrame.GotoMethod, Expression.Constant(label.LabelIndex), AstUtils.Box(value)) :
                     Expression.Call(_frameVar, InterpretedFrame.VoidGotoMethod, Expression.Constant(label.LabelIndex)),
@@ -150,14 +150,14 @@ namespace Microsoft.Scripting.Interpreter {
         #region Local Variables
 
         // Gather all outer variables accessed in the loop.
-        // Determines which ones are read from and written to. 
-        // We will consider a variable as "read" if it is read anywhere in the loop even though 
+        // Determines which ones are read from and written to.
+        // We will consider a variable as "read" if it is read anywhere in the loop even though
         // the first operation might actually always be "write". We could do better if we had CFG.
 
         protected override Expression VisitBlock(BlockExpression node) {
             var variables = node.Variables;
             var prevLocals = EnterVariableScope(variables);
-            
+
             var res = base.VisitBlock(node);
 
             ExitVariableScope(prevLocals);
@@ -169,7 +169,7 @@ namespace Microsoft.Scripting.Interpreter {
                 _loopLocals = new HashSet<ParameterExpression>(variables);
                 return null;
             }
-           
+
             var prevLocals = new HashSet<ParameterExpression>(_loopLocals);
             _loopLocals.UnionWith(variables);
             return prevLocals;
@@ -245,7 +245,7 @@ namespace Microsoft.Scripting.Interpreter {
             return base.VisitUnary(node);
         }
 
-        // TODO: if we supported ref/out parameter we would need to override 
+        // TODO: if we supported ref/out parameter we would need to override
         // MethodCallExpression, VisitDynamic and VisitNew
 
         protected override Expression VisitParameter(ParameterExpression node) {
@@ -265,7 +265,7 @@ namespace Microsoft.Scripting.Interpreter {
                 // existing outer variable that we are already tracking
                 box = existing.BoxStorage;
                 _loopVariables[node] = new LoopVariable(existing.Access | access, box);
-            } else if (_outerVariables.TryGetValue(node, out LocalVariable loc) || 
+            } else if (_outerVariables.TryGetValue(node, out LocalVariable loc) ||
                 (_closureVariables != null && _closureVariables.TryGetValue(node, out loc))) {
 
                 // not tracking this variable yet, but defined in outer scope and seen for the 1st time
@@ -286,7 +286,7 @@ namespace Microsoft.Scripting.Interpreter {
 
                 // box.Value = (object)rhs
                 return LightCompiler.Unbox(box);
-            } 
+            }
 
             // (T)box.Value
             return Expression.Convert(LightCompiler.Unbox(box), node.Type);

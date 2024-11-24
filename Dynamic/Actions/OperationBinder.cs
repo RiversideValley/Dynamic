@@ -5,9 +5,9 @@
 using System;
 using System.Dynamic;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     [Obsolete("Use ExtensionBinaryOperationBinder or ExtensionUnaryOperationBinder")]
     public abstract class OperationBinder : DynamicMetaObjectBinder {
 

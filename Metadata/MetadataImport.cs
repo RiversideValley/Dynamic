@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 
-namespace Microsoft.Scripting.Metadata {
+namespace Riverside.Scripting.Metadata {
     internal sealed class MetadataImport {
         private readonly MemoryBlock _image;
         private const int TableCount = (int)MetadataRecordType.GenericParamConstraint + 1;
@@ -189,7 +189,7 @@ namespace Microsoft.Scripting.Metadata {
 
             _cor20Header.MetaDataDirectory.RelativeVirtualAddress = memReader.ReadUInt32();
             _cor20Header.MetaDataDirectory.Size = memReader.ReadUInt32();
-            
+
             // COR20Header.COR20Flags = (COR20Flags)memReader.ReadUInt32();
             // COR20Header.EntryPointTokenOrRVA = memReader.ReadUInt32();
             memReader.SeekRelative(2 * sizeof(uint));
@@ -215,7 +215,7 @@ namespace Microsoft.Scripting.Metadata {
             // MajorVersion = memReader.ReadUInt16();
             // MinorVersion = memReader.ReadUInt16();
             memReader.SeekRelative(2 * sizeof(ushort));
-            
+
             uint reserved = memReader.ReadUInt32();
             if (reserved != 0) {
                 throw new BadImageFormatException();
@@ -403,7 +403,7 @@ namespace Microsoft.Scripting.Metadata {
             get { return ParamPtrTable.NumberOfRows > 0; }
         }
 
-        internal bool UseEventPtrTable { 
+        internal bool UseEventPtrTable {
             get { return EventPtrTable.NumberOfRows > 0; }
         }
 
@@ -422,7 +422,7 @@ namespace Microsoft.Scripting.Metadata {
             _metadataTableHeader.MajorVersion = memReader.ReadByte();
             _metadataTableHeader.MinorVersion = memReader.ReadByte();
             _metadataTableHeader.HeapSizeFlags = (HeapSizeFlag)memReader.ReadByte();
-            
+
             // Rid
             memReader.SeekRelative(sizeof(byte));
 
@@ -533,7 +533,7 @@ namespace Microsoft.Scripting.Metadata {
             int stringHeapRefSize = (_metadataTableHeader.HeapSizeFlags & HeapSizeFlag.StringHeapLarge) == HeapSizeFlag.StringHeapLarge ? 4 : 2;
             int guidHeapRefSize = (_metadataTableHeader.HeapSizeFlags & HeapSizeFlag.GUIDHeapLarge) == HeapSizeFlag.GUIDHeapLarge ? 4 : 2;
             int blobHeapRefSize = (_metadataTableHeader.HeapSizeFlags & HeapSizeFlag.BlobHeapLarge) == HeapSizeFlag.BlobHeapLarge ? 4 : 2;
-            
+
             //  Populate the Table blocks
             int totalRequiredSize = 0;
             int currentTableSize = 0;
@@ -1132,7 +1132,7 @@ namespace Microsoft.Scripting.Metadata {
             output.WriteLine("UserStringStream:        +{0:X8}", _userStringStream != null ? (_userStringStream.Pointer - _image.Pointer) : 0);
             output.WriteLine("MetadataTableStream:     +{0:X8}", _metadataTableStream.Pointer - _image.Pointer);
             //output.WriteLine("ResourceMemoryReader:    +{0:X8}", _resourceMemoryBlock != null ? (_resourceMemoryBlock.Pointer - _image.Pointer) : 0);
-            
+
             output.WriteLine();
             output.WriteLine("Misc:");
             output.WriteLine("  MetadataStreamKind     {0}", _metadataStreamKind);

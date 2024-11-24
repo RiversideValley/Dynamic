@@ -8,17 +8,17 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Text;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     /// <summary>
     /// Richly represents the signature of a callsite.
     /// </summary>
     public struct CallSignature : IEquatable<CallSignature> {
         // TODO: invariant _infos != null ==> _argumentCount == _infos.Length
-        
+
         /// <summary>
         /// Array of additional meta information about the arguments, such as named arguments.
         /// Null for a simple signature that's just an expression list. eg: foo(a*b,c,d)
@@ -31,14 +31,14 @@ namespace Microsoft.Scripting.Actions {
         private readonly int _argumentCount;
 
         /// <summary>
-        /// All arguments are unnamed and matched by position. 
+        /// All arguments are unnamed and matched by position.
         /// </summary>
         public bool IsSimple => _infos == null;
 
         public int ArgumentCount {
             get {
                 Debug.Assert(_infos == null || _infos.Length == _argumentCount);
-                return _argumentCount; 
+                return _argumentCount;
             }
         }
 
@@ -48,7 +48,7 @@ namespace Microsoft.Scripting.Actions {
             _infos = signature.GetArgumentInfos();
             _argumentCount = signature._argumentCount;
         }
-        
+
         public CallSignature(int argumentCount) {
             ContractUtils.Requires(argumentCount >= 0, nameof(argumentCount));
             _argumentCount = argumentCount;
@@ -135,7 +135,7 @@ namespace Microsoft.Scripting.Actions {
             if (_infos == null) {
                 return "Simple";
             }
-            
+
             StringBuilder sb = new StringBuilder("(");
             for (int i = 0; i < _infos.Length; i++) {
                 if (i > 0) {
@@ -174,7 +174,7 @@ namespace Microsoft.Scripting.Actions {
                 if (info.IsSimple) {
                     return new CallSignature(_argumentCount + 1);
                 }
-                
+
                 return new CallSignature(ArrayUtils.InsertAt(GetArgumentInfos(), index, info));
             }
 
@@ -239,7 +239,7 @@ namespace Microsoft.Scripting.Actions {
             }
             return false;
         }
-        
+
         public ArgumentType GetArgumentKind(int index) {
             // TODO: Contract.Requires(index >= 0 && index < _argumentCount, "index");
             return _infos?[index].Kind ?? ArgumentType.Simple;
@@ -298,7 +298,7 @@ namespace Microsoft.Scripting.Actions {
                 args[i] = _infos[i].CreateExpression();
             }
             return Expression.New(
-                typeof(CallSignature).GetConstructor(new Type[] { typeof(Argument[]) }), 
+                typeof(CallSignature).GetConstructor(new Type[] { typeof(Argument[]) }),
                 Expression.NewArrayInit(typeof(Argument), args)
             );
         }

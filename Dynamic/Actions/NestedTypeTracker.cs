@@ -4,9 +4,9 @@
 
 using System;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions {
+namespace Riverside.Scripting.Actions {
     public class NestedTypeTracker : TypeTracker {
         private readonly Type _type;
 

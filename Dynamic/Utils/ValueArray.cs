@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
 
     /// <summary>
     /// Represents an array that has value equality.

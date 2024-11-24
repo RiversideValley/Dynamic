@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Microsoft.Scripting.Runtime {
+namespace Riverside.Scripting.Runtime {
     /// <summary>
     /// Indicates that a DynamicMetaObject might be convertible to a CLR type.
     /// </summary>

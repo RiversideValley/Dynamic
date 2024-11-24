@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
     [Flags]
     public enum ParameterBindingFlags {
         None = 0,
@@ -25,7 +25,7 @@ namespace Microsoft.Scripting.Actions.Calls {
     /// of a method with byref parameters will be represented using a ParameterWrapper of the underlying
     /// element type, since the logical view of the byref-reduced signature is that the argument will be
     /// passed by value (and the updated value is included in the return value).
-    /// 
+    ///
     /// Contrast this with ArgBuilder which represents the real physical argument passed to the method.
     /// </summary>
     public sealed class ParameterWrapper {
@@ -42,8 +42,8 @@ namespace Microsoft.Scripting.Actions.Calls {
         }
 
         [Obsolete("Use ParameterBindingAttributes overload")]
-        public ParameterWrapper(ParameterInfo info, Type type, string name, bool prohibitNull, bool isParams, bool isParamsDict, bool isHidden) 
-            : this(info, type, name, 
+        public ParameterWrapper(ParameterInfo info, Type type, string name, bool prohibitNull, bool isParams, bool isParamsDict, bool isHidden)
+            : this(info, type, name,
             (prohibitNull ? ParameterBindingFlags.ProhibitNull : 0) |
             (isParams ? ParameterBindingFlags.IsParamArray : 0) |
             (isParamsDict ? ParameterBindingFlags.IsParamDictionary : 0) |
@@ -52,7 +52,7 @@ namespace Microsoft.Scripting.Actions.Calls {
 
         public ParameterWrapper(ParameterInfo info, Type type, string name, ParameterBindingFlags flags) {
             ContractUtils.RequiresNotNull(type, nameof(type));
-            
+
             Type = type;
             ParameterInfo = info;
             _flags = flags;
@@ -108,8 +108,8 @@ namespace Microsoft.Scripting.Actions.Calls {
         /// </summary>
         internal ParameterWrapper Expand() {
             Debug.Assert(IsParamsArray);
-            return new ParameterWrapper(ParameterInfo, Type.GetElementType(), null, 
-                (ProhibitNullItems ? ParameterBindingFlags.ProhibitNull : 0) | 
+            return new ParameterWrapper(ParameterInfo, Type.GetElementType(), null,
+                (ProhibitNullItems ? ParameterBindingFlags.ProhibitNull : 0) |
                 (IsHidden ? ParameterBindingFlags.IsHidden : 0)
             );
         }

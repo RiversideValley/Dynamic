@@ -6,17 +6,17 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Generation;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Generation;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     /// <summary>
     /// ArgBuilder which provides a default parameter value for a method call.
     /// </summary>
     internal sealed class DefaultArgBuilder : ArgBuilder {
-        public DefaultArgBuilder(ParameterInfo info) 
+        public DefaultArgBuilder(ParameterInfo info)
             : base(info) {
             Assert.NotNull(info);
         }

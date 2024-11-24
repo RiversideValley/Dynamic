@@ -5,11 +5,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Scripting.Utils;
+using Riverside.Scripting.Utils;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
-namespace Microsoft.Dynamic.Test {
+namespace Riverside.Dynamic.Test {
     [TestFixture]
     public class TestReflectionServices {
         [Test]

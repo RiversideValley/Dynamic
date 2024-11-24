@@ -10,11 +10,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClrAssembly", "Tests\ClrAss
 		{EB66B766-6354-4208-A3D4-AACBDCB5C3B3} = {EB66B766-6354-4208-A3D4-AACBDCB5C3B3}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Dynamic", "Dynamic\Microsoft.Dynamic.csproj", "{EB66B766-6354-4208-A3D4-AACBDCB5C3B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Dynamic", "Dynamic\Riverside.Dynamic.csproj", "{EB66B766-6354-4208-A3D4-AACBDCB5C3B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Scripting", "Scripting\Microsoft.Scripting.csproj", "{02FF0909-F5AD-48CF-A86A-345E721B7E40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Scripting", "Scripting\Riverside.Scripting.csproj", "{02FF0909-F5AD-48CF-A86A-345E721B7E40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Scripting.Metadata", "Metadata\Microsoft.Scripting.Metadata.csproj", "{ACDD9B9E-8FE6-439C-9521-1CCBA47F6143}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Scripting.Metadata", "Metadata\Riverside.Scripting.Metadata.csproj", "{ACDD9B9E-8FE6-439C-9521-1CCBA47F6143}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metadata", "Tests\Metadata\Metadata.csproj", "{848BBEB0-63E6-4736-B60C-23A9D733593D}"
 EndProject
@@ -49,9 +49,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{88E65B67
 		Package\nuget\DynamicLanguageRuntime.nuspec = Package\nuget\DynamicLanguageRuntime.nuspec
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Dynamic.Test", "Tests\Microsoft.Dynamic.Test\Microsoft.Dynamic.Test.csproj", "{CBDDAD40-D44E-458A-AA53-9A6DB62EC4A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Dynamic.Test", "Tests\Riverside.Dynamic.Test\Riverside.Dynamic.Test.csproj", "{CBDDAD40-D44E-458A-AA53-9A6DB62EC4A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Scripting.Test", "Tests\Microsoft.Scripting.Test\Microsoft.Scripting.Test.csproj", "{56B4AA3A-42BC-4CA6-A022-703A777332AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riverside.Scripting.Test", "Tests\Riverside.Scripting.Test\Riverside.Scripting.Test.csproj", "{56B4AA3A-42BC-4CA6-A022-703A777332AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

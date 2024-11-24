@@ -9,11 +9,11 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Microsoft.Scripting.Runtime;
-using Microsoft.Scripting.Utils;
-using AstUtils = Microsoft.Scripting.Ast.Utils;
+using Riverside.Scripting.Runtime;
+using Riverside.Scripting.Utils;
+using AstUtils = Riverside.Scripting.Ast.Utils;
 
-namespace Microsoft.Scripting.Actions.Calls {
+namespace Riverside.Scripting.Actions.Calls {
 
     /// <summary>
     /// Builds the parameter for a params dictionary argument - this collects all the extra name/value
@@ -24,7 +24,7 @@ namespace Microsoft.Scripting.Actions.Calls {
         private readonly int[] _nameIndexes;
         private readonly int _argIndex;
 
-        public ParamsDictArgBuilder(ParameterInfo info, int argIndex, string[] names, int[] nameIndexes) 
+        public ParamsDictArgBuilder(ParameterInfo info, int argIndex, string[] names, int[] nameIndexes)
             : base(info) {
             Assert.NotNull(info, names, nameIndexes);
 

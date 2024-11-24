@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-using Microsoft.Scripting.Runtime;
+using Riverside.Scripting.Runtime;
 
-namespace Microsoft.Scripting.Interpreter {
+namespace Riverside.Scripting.Interpreter {
     internal interface IBoxableInstruction {
         Instruction BoxIfIndexMatches(int index);
     }
@@ -22,8 +22,8 @@ namespace Microsoft.Scripting.Interpreter {
         }
 
         public override string ToDebugString(int instructionIndex, object cookie, Func<int, int> labelIndexer, IList<object> objects) {
-            return cookie == null ? 
-                InstructionName + "(" + _index + ")" : 
+            return cookie == null ?
+                InstructionName + "(" + _index + ")" :
                 InstructionName + "(" + cookie + ": " + _index + ")";
         }
     }
@@ -42,7 +42,7 @@ namespace Microsoft.Scripting.Interpreter {
             //frame.Push(frame.Data[_index]);
             return +1;
         }
-        
+
         public Instruction BoxIfIndexMatches(int index) {
             return (index == _index) ? InstructionList.LoadLocalBoxed(index) : null;
         }

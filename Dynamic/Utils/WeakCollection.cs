@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
     /// Simple class for tracking a list of items and enumerating over them.
     /// The items are stored in weak references; if the objects are collected,

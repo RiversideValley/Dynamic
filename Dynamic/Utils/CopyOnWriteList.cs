@@ -5,10 +5,10 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Microsoft.Scripting.Utils {
+namespace Riverside.Scripting.Utils {
     /// <summary>
-    /// List optimized for few writes and multiple reads. It provides thread-safe read and write access. 
-    /// Iteration is not thread-safe by default, but GetCopyForRead allows for iteration 
+    /// List optimized for few writes and multiple reads. It provides thread-safe read and write access.
+    /// Iteration is not thread-safe by default, but GetCopyForRead allows for iteration
     /// without taking a lock.
     /// </summary>
     public class CopyOnWriteList<T> : IList<T> {
@@ -24,7 +24,7 @@ namespace Microsoft.Scripting.Utils {
         /// <summary>
         /// Gets a copy of the contents of the list. The copy will not change even if the original
         /// CopyOnWriteList object is modified. This method should be used to iterate the list in
-        /// a thread-safe way if no lock is taken. Iterating on the original list is not guaranteed 
+        /// a thread-safe way if no lock is taken. Iterating on the original list is not guaranteed
         /// to be thread-safe.
         /// </summary>
         /// <returns>The returned copy should not be modified by the caller.</returns>
