@@ -75,11 +75,6 @@ jobs:
     needs: build-windows
     steps:
     - uses: actions/checkout@v4
-    - name: Download packages
-      uses: actions/download-artifact@v2
-      with:
-        name: packages-windows
-        path: Package/Release/Packages
     - name: Test (net462)
       run: ./make.ps1 -frameworks net462 test-all
       shell: pwsh
@@ -96,11 +91,6 @@ jobs:
     needs: build-ubuntu
     steps:
     - uses: actions/checkout@v4
-    - name: Download packages
-      uses: actions/download-artifact@v2
-      with:
-        name: packages-ubuntu
-        path: Package/Release/Packages
     - name: Test (net462)
       run: ./make.ps1 -frameworks net462 test-all
       shell: pwsh
@@ -117,11 +107,6 @@ jobs:
     needs: build-macos
     steps:
     - uses: actions/checkout@v4
-    - name: Download packages
-      uses: actions/download-artifact@v2
-      with:
-        name: packages-macos
-        path: Package/Release/Packages
     - name: Test (net462)
       run: ./make.ps1 -frameworks net462 test-all
       shell: pwsh
