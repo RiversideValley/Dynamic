@@ -62,3 +62,5 @@ For more information see the [.NET Foundation Code of Conduct](https://dotnetfou
 Copyright (c) 2006-2024 .NET Foundation. All Rights Reserved.
 
 Licensed under the `Apache-2.0` license as stated in the [LICENSE](https://github.com/RiversideValley/Dynamic/blob/ec74320579aca1d02013d2294253263e848f448b/LICENSE.md).
+
+> The `Apache-2.0` license requires that a changelog is created to state significant changes to the codebase. This can be found at [`.github/CHANGELOG.md`](https://github.com/RiversideValley/Dynamic/blob/HEAD/.github/CHANGELOG.md) which provides a simple summary of the changes in a table.
